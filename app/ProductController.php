@@ -151,7 +151,7 @@ class ProductController
 
       curl_close($curl);
 
-      return json_decode($response);
+      return json_decode($response)->data;
     } else {
       return ['error' => 'Error al mover el archivo subido.'];
     }
@@ -178,7 +178,7 @@ class ProductController
     $response = curl_exec($curl);
 
     curl_close($curl);
-    return $response;
+    return json_decode($response)->data;
   }
 
   function deleteProduct($product)
@@ -201,7 +201,7 @@ class ProductController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return $response;
+    return json_decode($response)->data;
   }
     function getProductDetails($id)
   {
@@ -267,7 +267,7 @@ class ProductController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
+    return json_decode($response)->data;
   }
 
   function updatePresentation($presentation)
@@ -291,7 +291,8 @@ class ProductController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
+    return json_decode($response)->data;
+
   }
 
   function deletePresentation($presentation_id)
@@ -313,7 +314,7 @@ class ProductController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
+    return json_decode($response)->data;
   }
 
   function getOrders($id)
@@ -335,7 +336,7 @@ class ProductController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
+    return json_decode($response)->data;
   }
   
   function dummy()

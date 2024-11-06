@@ -70,8 +70,8 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function deleteUser($id)
   {
@@ -92,8 +92,8 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function updateUser($user)
   {
@@ -116,8 +116,8 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function getAllUsers()
   {
@@ -139,7 +139,7 @@ class UserController
     $response = curl_exec($curl);
     curl_close($curl);
     return json_decode($response)->data;
-  }
+}
 
   function getUserDetails($id)
   {

@@ -91,8 +91,8 @@ class ClientController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function deleteClient($id)
   {
@@ -113,8 +113,8 @@ class ClientController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function updateClient($client)
   {
@@ -137,8 +137,8 @@ class ClientController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function getAllClients()
   {
@@ -204,8 +204,8 @@ class ClientController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function deleteAddress($address_id)
   {
@@ -226,8 +226,8 @@ class ClientController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response);
-  }
+    return json_decode($response)->data;
+}
 
   function updateAddress($address)
 {
@@ -250,7 +250,7 @@ class ClientController
 
   $response = curl_exec($curl);
   curl_close($curl);
-  return json_decode($response);
+  return json_decode($response)->data;
 }
 
 }
