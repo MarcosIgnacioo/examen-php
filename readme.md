@@ -25,4 +25,4 @@
 ## Francisco Alejandro Alcantar Aviles 
 ## Ramess Arias Cruz
 ## Marcos Ignacio Camacho Alejandro
-## Martin Eduardo 'El pollo'
+## Martin Eduardo Lopez Garcia 'El pollo'
