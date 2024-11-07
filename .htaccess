@@ -12,6 +12,8 @@ RewriteRule ^products/?$ views/products/index.php
 RewriteRule ^products/create/?$ views/products/create.php
 RewriteRule ^products/edit/([^/]+)/?$ views/products/edit.php
 RewriteRule ^products/([^/]+)/?$ views/products/details.php
+RewriteRule ^user/all/?$ views/user/lisDUser.php
+ 
 
 #controladores
 RewriteRule ^api-auth?$ app/AuthController.php
