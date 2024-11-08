@@ -6,13 +6,16 @@ RewriteEngine on
 </IfModule>
 
 #páginas
-RewriteRule ^login?$ views/user/login.php
+#RewriteRule ^login?$ views/user/login.php
 RewriteRule ^home/?$ views/home.php
 RewriteRule ^products/?$ views/products/index.php
 RewriteRule ^products/create/?$ views/products/create.php
 RewriteRule ^products/edit/([^/]+)/?$ views/products/edit.php
 RewriteRule ^products/([^/]+)/?$ views/products/details.php
-RewriteRule ^user/all/?$ views/user/lisDUser.php
+RewriteRule ^user/?$ views/user/lisDUser.php
+RewriteRule ^user/?$ views/user/altaUser.php
+RewriteRule ^user/?$ views/user/editUser.php
+RewriteRule ^user/?$ views/user/detailsUser.php
  
 
 #controladores

@@ -3,6 +3,8 @@ if (!isset($_SESSION)) {
   session_start();
 }
 
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
 if (!defined('BASE_PATH')) {
   if (strpos($user_agent, "Win") !== FALSE) {
     define('BASE_PATH', 'http://localhost/examen-php/');
