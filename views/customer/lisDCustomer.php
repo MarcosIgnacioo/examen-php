@@ -67,7 +67,7 @@ include_once "../../app/config.php";
                     <div class="card">
                         <div class="card-header ">
                             <div class="card-body">
-                                <h3>Lista de usuario</h3>
+                                <h3>Lista del Cliente </h3>
                                 <div class="row justify-content-between ali mb-3 g-3">
                                     <div class="col-sm-auto">
                                         <form class="form-search">
@@ -75,8 +75,8 @@ include_once "../../app/config.php";
                                             <input type="search" class="form-control" placeholder="Search...">
                                             <button class="btn btn-light-secondary btn-search">Search</button>
                                         </form>
-                                        <a href='altaUser.php' class='btn btn-sm btn-primary'>Agregar</a>
-                                        <a href='views\customer\lisDCustomer.php' class='btn btn-sm btn-primary'>Clientes</a>
+                                        <a href='altaCustomer.php' class='btn btn-sm btn-primary'>Agregar</a>
+                                        <a href='views\user\lisDUser.php' class='btn btn-sm btn-primary'>Usuarios</a>
 
                                     </div>
                                     <div class="col-sm-auto">
@@ -136,7 +136,7 @@ include_once "../../app/config.php";
                                                 <td>4</td>
                                                 <td>
                                                     <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
+                                                    <a href='detailCustomer.php' class='btn btn-sm col-sm-8'>Ver mas</a>
 
                                                 </td>
                                             </tr>
