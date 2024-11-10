@@ -248,7 +248,6 @@ include_once "../../app/config.php";
                                         <div class="btn btn-primary">Acualizar Perfil</div>
                                     </div>
                                 </div>
-                                
                                 <div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
                                     <div class="card alert alert-warning p-0">
                                         <div class="card-body">
