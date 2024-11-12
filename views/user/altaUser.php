@@ -51,7 +51,7 @@ include_once "../../app/config.php";
                         </div>
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h2 class="mb-0">Sample Page</h2>
+                                <h2 class="mb-0">Agregar</h2>
                             </div>
                         </div>
                     </div>

@@ -64,6 +64,11 @@ include_once "../../app/config.php";
             <div class="row">
                 <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
+                    <div class="row justify-content-between ali mb-3 g-3">
+
+                        <a href='altaUser.php' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
+                        <a href='customer/lisDCustomer.php' class='btn btn-sm btn-primary col-sm-auto'>Clientes</a>
+                    </div>
                     <div class="card">
                         <div class="card-header ">
                             <div class="card-body">
@@ -75,8 +80,6 @@ include_once "../../app/config.php";
                                             <input type="search" class="form-control" placeholder="Search...">
                                             <button class="btn btn-light-secondary btn-search">Search</button>
                                         </form>
-                                        <a href='altaUser.php' class='btn btn-sm btn-primary'>Agregar</a>
-                                        <a href='views\customer\lisDCustomer.php' class='btn btn-sm btn-primary'>Clientes</a>
 
                                     </div>
                                     <div class="col-sm-auto">
@@ -128,17 +131,17 @@ include_once "../../app/config.php";
                                                     </div>
 
                                                 </td>
+                                                <td>
+                                                    <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
+                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
+    
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
                                                 <td>2</td>
                                                 <td>3</td>
                                                 <td>4</td>
-                                                <td>
-                                                    <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
-
-                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -154,9 +157,7 @@ include_once "../../app/config.php";
                                     </table>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal fade " id="animateModal" tabindex="-1" aria-hidden="true" style="display: none;">
-
-                                </div>
+                               
                                 <div class="modal fade modal-animate" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">

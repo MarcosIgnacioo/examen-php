@@ -80,6 +80,17 @@ include_once "../../app/config.php";
             </div>
           </div>
           <div class="row">
+            <!-- Alta de cliente
+            Modificaciones de cliente
+
+            Vista de detalle del cliente: 
+
+                Información del cliente
+                Nivel, lista de ordenes
+                Widgets totales de compras
+                Direcciones registradas
+                     Crud de direcciones
+            -->
             <a href="lisDCustomer.php" class="btn-primary">Regresar</a>
             <div class="col-lg-5 col-xxl-3">
               <div class="card overflow-hidden">
@@ -91,8 +102,14 @@ include_once "../../app/config.php";
                     </div>
                     <h5 class="mb-0">PolloPajas</h5>
                     <p class="text-muted text-sm">IG <a href="https://www.instagram.com/pollopajas/" class="link-primary"> @pollopajas </a> 😍🥵🥵</p>
-
-
+                    <ul class="list-inline mx-auto my-4">
+                      <li class="list-inline-item">
+                      <a  class="avtar  text-white bg-amazon">
+                            <i class="bi bi-star-fill"></i>
+                          </a>
+                          <p>Nivel</p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
@@ -109,7 +126,7 @@ include_once "../../app/config.php";
                     <span class="f-w-500"><i class="ph-duotone ph-key m-r-10"></i>Cambiar Contraseña</span>
                   </a>
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-email-tab" data-bs-toggle="pill" href="#user-set-email" role="tab" aria-controls="user-set-email" aria-selected="false" tabindex="-1">
-                    <span class="f-w-500"><i class="ph-duotone ph-envelope-open m-r-10"></i>Configuracion de Correo</span>
+                    <span class="f-w-500"><i class="ph-duotone ph-envelope-open m-r-10"></i>Direcciones</span>
                   </a>
                 </div>
               </div>
@@ -117,6 +134,8 @@ include_once "../../app/config.php";
             </div>
             <div class="col-lg-7 col-xxl-9">
               <div class="tab-content" id="user-set-tabContent">
+
+
                 <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
 
                   <div class="card">
@@ -217,7 +236,7 @@ include_once "../../app/config.php";
 
                   <div class="card">
                     <div class="card-header">
-                      <h5>Direccion</h5>
+                      <h5>Direccion Principal</h5>
                     </div>
                     <div class="card-body">
                       <div class="row">

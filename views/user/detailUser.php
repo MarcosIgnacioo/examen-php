@@ -51,7 +51,8 @@ include_once "../../app/config.php";
                         </div>
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h2 class="mb-0">Info De Usuarios</h2>
+                                <h2 class="mb-0">Info Del Usuario</h2>
+                                
                             </div>
                         </div>
                     </div>
