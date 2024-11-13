@@ -141,7 +141,7 @@ include_once "../../app/config.php";
                                                 <td>2</td>
                                                 <td>3</td>
                                                 <td>4</td>
-                                                
+
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -157,7 +157,7 @@ include_once "../../app/config.php";
                                     </table>
                                 </div>
                                 <!-- Modal -->
-                                
+
                                 <div class="modal fade modal-animate" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">

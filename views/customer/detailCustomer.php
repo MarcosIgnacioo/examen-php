@@ -82,6 +82,8 @@ include_once "../../app/config.php";
             <div class="row justify-content-between ali mb-3 g-3">
 
               <a href='lisDCustomer.php' class='btn-primary col-sm-auto'>Regresar</a>
+              <a href="" class='btn-primary col-sm-auto' data-bs-toggle="modal" data-bs-target="#direccionModal">Ordenes</a>
+           
             </div>
             <div class="col-lg-5 col-xxl-3">
               <div class="card overflow-hidden">
@@ -111,7 +113,7 @@ include_once "../../app/config.php";
                     <span class="f-w-500"><i class="ph-duotone ph-clipboard-text m-r-10"></i>Infomacion Personal</span>
                   </a>
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-account-tab" data-bs-toggle="pill" href="#user-set-account" role="tab" aria-controls="user-set-account" aria-selected="false" tabindex="-1">
-                    <span class="f-w-500"><i class="ph-duotone ph-notebook m-r-10"></i>Infomacion de Cuenta</span>
+                    <span class="f-w-500"><i class="ph-duotone ph-notebook m-r-10"></i>Ordenes</span>
                   </a>
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-key m-r-10"></i>Cambiar Contraseña</span>
@@ -356,88 +358,176 @@ include_once "../../app/config.php";
                   </div>
                 </div>
                 <div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
+                  <div class="text-end btn-page">
+                    <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#direccionModal">Añadir Direccion</a>
+                  </div>
                   <div class="card">
                     <div class="card-header">
-                      <h5>Direccion</h5>
+                      <h5>Direcciones</h5>
                     </div>
                     <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Codigo Postal</label>
-                            <input type="text" class="form-control" value="23085">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h5>Direccion 1</h5>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Codigo Postal</p>
+                              <p class="mb-0">23085</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Ciudad</p>
+                              <p class="mb-0">La Paz</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Calle 1</p>
+                              <p class="mb-0">Mar caspio</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">No. de Casa</p>
+                              <p class="mb-0">279</p>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">Cuidad</label>
-                            <input type="text" class="form-control" value="La Paz">
+                        </li>
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h5>Direccion 2</h5>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Codigo Postal</p>
+                              <p class="mb-0">23085</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Ciudad</p>
+                              <p class="mb-0">La Paz</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Calle 1</p>
+                              <p class="mb-0">Mar caspio</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">No. de Casa</p>
+                              <p class="mb-0">279</p>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">Calle 1</label>
-                            <input type="text" class="form-control" value="Mar Caspio">
-
+                        </li>
+                        <li class="list-group-item px-0 pt-0">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h5>Direccion 3</h5>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Codigo Postal</p>
+                              <p class="mb-0">23085</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Ciudad</p>
+                              <p class="mb-0">La Paz</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">Calle 1</p>
+                              <p class="mb-0">Mar caspio</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p class="mb-1 text-muted">No. de Casa</p>
+                              <p class="mb-0">279</p>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">NO. de Casa</label>
-                            <input type="text" class="form-control" value="279">
-
-                          </div>
-                        </div>
-                      </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="text-end btn-page">
-                    <div class="btn btn-outline-secondary">Cancelar</div>
-                    <div class="btn btn-primary">Acualizar Perfil</div>
-                  </div>
+
 
                 </div>
               </div>
             </div>
           </div>
+          <!-- [ sample-page ] end -->
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Modal ] end -->
-      <div class="modal fade modal-animate" id="nivelModal" tabindex="-1" aria-labelledby="nivelModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="card mb-4" style="width: 30rem;">
-            <div class="card-header bg-info text-white text-center">
-              <h5 class="mb-0">Nivel de Usuario</h5>
+        <!-- [ Modals ]  -->
+        <div class="modal fade modal-animate" id="nivelModal" tabindex="-1" aria-labelledby="nivelModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="card mb-4" style="width: 30rem;">
+              <div class="card-header bg-info text-white text-center">
+                <h5 class="mb-0">Nivel de Usuario</h5>
+              </div>
+              <div class="card-body text-center">
+                <h6 class="card-title">Nivel: <strong>Plata</strong></h6>
+                <p class="card-text">Beneficios: Envío gratis en pedidos superiores a $50.</p>
+              </div>
             </div>
-            <div class="card-body text-center">
-              <h6 class="card-title">Nivel: <strong>Plata</strong></h6>
-              <p class="card-text">Beneficios: Envío gratis en pedidos superiores a $50.</p>
-            </div>
-          </div>
 
+          </div>
         </div>
+
+        <div class="modal fade modal-animate" id="direccionModal" tabindex="-1" aria-labelledby="direccionModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5>Agregar Direccion</h5>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label">Codigo Postal</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="mb-0">
+                      <label class="form-label">Cuidad</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="mb-0">
+                      <label class="form-label">Calle 1</label>
+                      <input type="text" class="form-control">
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="mb-0">
+                      <label class="form-label">NO. de Casa</label>
+                      <input type="text" class="form-control">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end btn-page">
+                <div class="btn btn-danger">Cancelar</div>
+                <div class="btn btn-primary">Agregar</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 
-  <?php
+    <?php
 
-  include "../layouts/footer.php";
+    include "../layouts/footer.php";
 
-  ?>
-  <?php
+    ?>
+    <?php
 
-  include "../layouts/scripts.php";
+    include "../layouts/scripts.php";
 
-  ?>
+    ?>
 
-  <?php
+    <?php
 
-  include "../layouts/modals.php";
+    include "../layouts/modals.php";
 
-  ?>
+    ?>
 
 </body>
 <!-- [Body] end -->
