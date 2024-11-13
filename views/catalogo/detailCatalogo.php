@@ -30,7 +30,7 @@ include_once "../../app/config.php";
             </div>
             <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Catalog Management</h2>
+                <h2 class="mb-0">Gestión de catálogos</h2>
               </div>
             </div>
           </div>
@@ -44,32 +44,32 @@ include_once "../../app/config.php";
         <div class="col-sm-12">
           <div class="card">
             <div class="card-header">
-              <h5>Category CRUD</h5>
+              <h5>Categoría CRUD</h5>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Add New Category</h5>
+              <h5 class="card-title">Agregar nueva categoría</h5>
               <div class="mb-3">
-                <label for="category-name" class="form-label">Category Name</label>
-                <input type="text" class="form-control" id="category-name" placeholder="Category Name">
+                <label for="category-name" class="form-label">Nombre de la categoría</label>
+                <input type="text" class="form-control" id="category-name" placeholder="Nombre">
               </div>
-              <button class="btn btn-success">Save Category</button>
+              <button class="btn btn-success">Guardar Categoría</button>
 
-              <h5 class="mt-4">List of Categories</h5>
+              <h5 class="mt-4">Lista de categorías</h5>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Category ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
+                    <th>Categoria ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>Electronics</td>
+                    <td>Electronica</td>
                     <td>
-                      <button class="btn btn-warning btn-sm">Edit</button>
-                      <button class="btn btn-danger btn-sm">Delete</button>
+                      <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
+                      <button class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>
@@ -82,23 +82,23 @@ include_once "../../app/config.php";
         <div class="col-sm-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Brand CRUD</h5>
+              <h5>Marca CRUD</h5>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Add New Brand</h5>
+              <h5 class="card-title">Agregar nueva marca</h5>
               <div class="mb-3">
-                <label for="brand-name" class="form-label">Brand Name</label>
-                <input type="text" class="form-control" id="brand-name" placeholder="Brand Name">
+                <label for="brand-name" class="form-label">Nombre de marca</label>
+                <input type="text" class="form-control" id="brand-name" placeholder="Nombre">
               </div>
-              <button class="btn btn-success">Save Brand</button>
+              <button class="btn btn-success">Guardar</button>
 
-              <h5 class="mt-4">List of Brands</h5>
+              <h5 class="mt-4">Lista de marcas</h5>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Brand ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
+                    <th>Marca ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -106,8 +106,8 @@ include_once "../../app/config.php";
                     <td>1</td>
                     <td>Apple</td>
                     <td>
-                      <button class="btn btn-warning btn-sm">Edit</button>
-                      <button class="btn btn-danger btn-sm">Delete</button>
+                      <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editMarcaModal">Editar</button>
+                      <button class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>
@@ -123,20 +123,20 @@ include_once "../../app/config.php";
               <h5>Tag CRUD</h5>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Add New Tag</h5>
+              <h5 class="card-title">Agregar nueva etiqueta</h5>
               <div class="mb-3">
-                <label for="tag-name" class="form-label">Tag Name</label>
-                <input type="text" class="form-control" id="tag-name" placeholder="Tag Name">
+                <label for="tag-name" class="form-label">Nombre de la etiqueta</label>
+                <input type="text" class="form-control" id="tag-name" placeholder="Nombre">
               </div>
-              <button class="btn btn-success">Save Tag</button>
+              <button class="btn btn-success">Guardar</button>
 
-              <h5 class="mt-4">List of Tags</h5>
+              <h5 class="mt-4">Lista de Etiquetas</h5>
               <table class="table table-striped">
                 <thead>
                   <tr>
                     <th>Tag ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,8 +144,8 @@ include_once "../../app/config.php";
                     <td>1</td>
                     <td>New Arrival</td>
                     <td>
-                      <button class="btn btn-warning btn-sm">Edit</button>
-                      <button class="btn btn-danger btn-sm">Delete</button>
+                      <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTagModal">Editar</button>
+                      <button class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>
@@ -154,7 +154,73 @@ include_once "../../app/config.php";
           </div>
         </div>
       </div>
-      <!-- [ Main Content ] end -->
+      <!-- Modal para Editar Categoría -->
+      <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">Editar Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="edit-category-name" class="form-label">Nombre de la categoría</label>
+                  <input type="text" class="form-control" id="edit-category-name" placeholder="Nombre de la categoría">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" >Guardar cambios</button>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        <!-- Modal para Editar Marca -->
+        <div class="modal fade" id="editMarcaModal" tabindex="-1" aria-labelledby="editMarcaModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editMarcaModalLabel">Editar Marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="edit-marca-name" class="form-label">Nombre de la Marca</label>
+                  <input type="text" class="form-control" id="edit-marca-name" placeholder="Marca">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" >Guardar cambios</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal para Editar Tag -->
+        <div class="modal fade" id="editTagModal" tabindex="-1" aria-labelledby="editTagModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editTagModalLabel">Editar Etiqueta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="edit-tag-name" class="form-label">Nombre de la Etiqueta</label>
+                  <input type="text" class="form-control" id="edit-tag-name" placeholder="Etiqueta">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" >Guardar cambios</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
     </div>
   </div>
   <!-- [ Main Content ] end -->
