@@ -66,7 +66,9 @@ include_once "../../app/config.php";
                             <button class="btn btn-success">Gardar Cupon</button>
 
                             <h5 class="mt-4">Lista de Cupones</h5>
-                            <table class="table table-striped">
+                            <div class="table-responsive">
+
+                            <table class="table table-striped table-hover mb-0">
                                 <thead>
                                     <tr>
                                         <th>Codigo del Cupon</th>
@@ -89,6 +91,7 @@ include_once "../../app/config.php";
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
