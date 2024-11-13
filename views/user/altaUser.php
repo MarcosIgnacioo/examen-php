@@ -87,6 +87,7 @@ include_once "../../app/config.php";
                                     <label for="confirmpassword">Confirmar contraseña</label>
                                     <input type="password" class="form-control" id="confirmpassword" name="password">
                                 </div>
+                                
                                 <div>
                                     <a href='lisDUser.php' class="btn btn-danger">Cancelar</a>
 

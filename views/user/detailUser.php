@@ -52,7 +52,7 @@ include_once "../../app/config.php";
                         <div class="col-md-12">
                             <div class="page-header-title">
                                 <h2 class="mb-0">Info Del Usuario</h2>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,10 @@ include_once "../../app/config.php";
                         </div>
                     </div>
                     <div class="row">
-                        <a href="lisDUser.php" class="btn-primary">Regresar</a>
+                        <div class="row justify-content-between ali mb-3 g-3">
+
+                            <a href='lisDUser.php' class='btn-primary col-sm-auto'>Regresar</a>
+                        </div>
                         <div class="col-lg-5 col-xxl-3">
                             <div class="card overflow-hidden">
                                 <div class="card-body position-relative">
@@ -204,20 +207,20 @@ include_once "../../app/config.php";
                                                         <input type="text" class="form-control" value="Mexico">
                                                     </div>
                                                 </div>
-                                              
-                                                
-                                               
+
+
+
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>Direccion</h5>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                            <div class="col-sm-6">
+                                                <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Codigo Postal</label>
                                                         <input type="text" class="form-control" value="23085">
@@ -226,19 +229,21 @@ include_once "../../app/config.php";
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
                                                         <label class="form-label">Cuidad</label>
-                                                        <text class="form-control">La Paz</text>
+                                                        <input type="text" class="form-control" value="La Paz">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
                                                         <label class="form-label">Calle 1</label>
-                                                        <text class="form-control">Mar Caspio</text>
+                                                        <input type="text" class="form-control" value="Mar Caspio">
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
                                                         <label class="form-label">NO. de Casa</label>
-                                                        <text class="form-control">279</text>
+                                                        <input type="text" class="form-control" value="279">
+
                                                     </div>
                                                 </div>
                                             </div>
