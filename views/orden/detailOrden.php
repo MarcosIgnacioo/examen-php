@@ -4,17 +4,19 @@ include_once "../../app/config.php";
 <!doctype html>
 <html lang="en">
 <!-- [Head] start -->
+
 <head>
   <?php include "../layouts/head.php"; ?>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
+
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
 
   <?php include "../layouts/sidebar.php"; ?>
   <?php include "../layouts/nav.php"; ?>
 
-  <!-- [ Main Content ] start -->
+  <!-- [ Main Content michelle vieth ] start -->
   <div class="pc-container">
     <div class="pc-content">
       <!-- [ breadcrumb ] start -->
@@ -25,12 +27,12 @@ include_once "../../app/config.php";
               <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
                 <li class="breadcrumb-item"><a href="javascript: void(0)">Orders</a></li>
-                <li class="breadcrumb-item" aria-current="page">Order Management</li>
+                <li class="breadcrumb-item" aria-current="page">Gestión de pedidos</li>
               </ul>
             </div>
             <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Order Management</h2>
+                <h2 class="mb-0">Gestión de pedidos</h2>
               </div>
             </div>
           </div>
@@ -46,91 +48,139 @@ include_once "../../app/config.php";
               <h5>Order CRUD</h5>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Add New Order</h5>
+              <h5 class="card-title">Agregar Nuevo Pedido</h5>
               <div class="mb-3">
-                <label for="order-id" class="form-label">Order ID</label>
+                <label for="order-id" class="form-label">ID de pedido:</label>
                 <input type="text" class="form-control" id="order-id" placeholder="Order ID">
               </div>
               <div class="mb-3">
-                <label for="client-name" class="form-label">Client Name</label>
-                <input type="text" class="form-control" id="client-name" placeholder="Client Name">
+                <label for="client-name" class="form-label">Nombre del cliente</label>
+                <input type="text" class="form-control" id="client-name" placeholder="Nombre del cliente">
               </div>
-              <button class="btn btn-success">Save Order</button>
+              <div class="mb-3">
+                <label for="client-name" class="form-label">Total</label>
+                <input type="text" class="form-control" id="client-name" placeholder="total">
+              </div>
+              <button class="btn btn-success">Guardar Pedido</button>
 
               <h5 class="mt-4">Order List</h5>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Date</th>
-                    <th>Client</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>#1001</td>
-                    <td>2024-11-10</td>
-                    <td>Juan Pérez</td>
-                    <td>$150.00</td>
-                    <td>
-                      <button class="btn btn-warning btn-sm">Edit</button>
-                      <button class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fecha</th>
+                      <th>Cliente</th>
+                      <th>Total</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#1001</td>
+                      <td>2024-11-10</td>
+                      <td>Juan Pérez</td>
+                      <td>$150.00</td>
+                      <td>
+                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editOrdenModal">Editar</button>
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#detailOrdenModal">Ver Mas</button>
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-        
-        <div class="col-sm-12 mt-4">
-          <div class="card">
-            <div class="card-header">
-              <h5>Order Details</h5>
+
+
+      </div>
+      <!-- [ Modal ]  -->
+      <div class="modal fade" id="editOrdenModal" tabindex="-1" aria-labelledby="editOrdenModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editOrdenModalLabel">Editar</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Order Information</h5>
-              <p><strong>Order ID:</strong> #1001</p>
-              <p><strong>Date:</strong> 2024-11-10</p>
-              <p><strong>Total:</strong> $150.00</p>
-
-              <h5 class="mt-4">Purchased Products</h5>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Product A</td>
-                    <td>2</td>
-                    <td>$30.00</td>
-                    <td>$60.00</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <h5 class="mt-4">Client Information</h5>
-              <p><strong>Name:</strong> Juan Pérez</p>
-              <p><strong>Email:</strong> juan.perez@example.com</p>
-
-              <h5 class="mt-4">Shipping Address</h5>
-              <p>123 Fake Street, Example City</p>
-
-              <h5 class="mt-4">Coupon Applied</h5>
-              <p><strong>Coupon Code:</strong> CUPON50</p>
-              <p><strong>Discount Applied:</strong> $50.00</p>
+            <div class="modal-body">
+              <h5 class="card-title">Editar Pedido</h5>
+              <div class="mb-3">
+                <label for="order-id" class="form-label">ID de pedido:</label>
+                <input type="text" class="form-control" id="order-id" placeholder="Order ID">
+              </div>
+              <div class="mb-3">
+                <label for="client-name" class="form-label">Nombre del cliente</label>
+                <input type="text" class="form-control" id="client-name" placeholder="Nombre del cliente">
+              </div>
+              <div class="mb-3">
+                <label for="client-name" class="form-label">Total</label>
+                <input type="text" class="form-control" id="client-name" placeholder="total">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Guardar</button>
             </div>
           </div>
         </div>
       </div>
-      <!-- [ Main Content ] end -->
+
+      <div class="modal fade" id="detailOrdenModal" tabindex="-1" aria-labelledby="detailOrdenModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5>Detalles del pedido</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+              <h5 class="modal-title">Información del pedido</h5>
+              <p><strong>ID de pedido: </strong> #1001</p>
+              <p><strong>Fecha:</strong> 2024-11-10</p>
+              <p><strong>Total:</strong> $150.00</p>
+
+              <h5 class="mt-4">Purchased Products</h5>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio unitario</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Producto A</td>
+                      <td>2</td>
+                      <td>$30.00</td>
+                      <td>$60.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+              <h5 class="mt-4">Información del cliente</h5>
+              <p><strong>Nombre:</strong> Juan Pérez</p>
+              <p><strong>Email:</strong> juan.perez@example.com</p>
+
+              <h5 class="mt-4">Dirección de envío</h5>
+              <p>123 Fake Street, Example City</p>
+
+              <h5 class="mt-4">Cupón aplicado</h5>
+              <p><strong>Código de cupón:</strong> CUPON50</p>
+              <p><strong>Descuento aplicado: </strong> $50.00</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
   <!-- [ Main Content ] end -->
@@ -141,4 +191,5 @@ include_once "../../app/config.php";
 
 </body>
 <!-- [Body] end -->
+
 </html>
