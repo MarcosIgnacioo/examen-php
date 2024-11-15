@@ -67,7 +67,6 @@ include_once "../../app/config.php";
                     <div class="row justify-content-between ali mb-3 g-3">
 
                         <a href='altaCustomer.php' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
-                        <a href='views\customer\lisDCustomer.php' class='btn btn-sm btn-primary col-sm-auto'>Usuarios</a>
                     </div>
                     <div class="card">
                         <div class="card-header ">
@@ -81,9 +80,7 @@ include_once "../../app/config.php";
                                             <button class="btn btn-light-secondary btn-search">Search</button>
 
                                     </div>
-                                    <div class="col-sm-auto">
-                                        <input type="date" class="form-control">
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="card-body">
