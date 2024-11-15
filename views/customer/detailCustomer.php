@@ -324,9 +324,11 @@ include_once "../../app/config.php";
                 <d class="tab-pane fade" id="user-set-orden" role="tabpanel" aria-labelledby="user-set-orden-tab">
                   <div class="card">
                     <div class="card-header">
-                      <a href='' class='btn-primary d-flex justify-content-end' data-bs-toggle="modal" data-bs-target="#ordenModal">Total de Ordenes</a>
-                      <h5>Lista de Órdenes</h5>
-
+                      <div class="row justify-content-between ali mb-3 g-3">
+                        <h4 class="col-sm-auto">Lista de Órdenes</h4>
+                        <a href='' class=' btn-primary col-sm-auto ' data-bs-toggle="modal" data-bs-target="#ordenModal">Total de Ordenes</a>
+                      </div>
+                      
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
