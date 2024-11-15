@@ -8,7 +8,7 @@
 
        
     <script>
-      layout_change('light');
+      layout_change('dark');
     </script>
        
     <script>

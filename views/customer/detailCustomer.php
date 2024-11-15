@@ -82,8 +82,8 @@ include_once "../../app/config.php";
             <div class="row justify-content-between ali mb-3 g-3">
 
               <a href='lisDCustomer.php' class='btn-primary col-sm-auto'>Regresar</a>
-              <a href="" class='btn-primary col-sm-auto' data-bs-toggle="modal" data-bs-target="#direccionModal">Ordenes</a>
-           
+
+
             </div>
             <div class="col-lg-5 col-xxl-3">
               <div class="card overflow-hidden">
@@ -106,13 +106,14 @@ include_once "../../app/config.php";
                   </div>
                 </div>
                 <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
+
                   <a class="nav-link list-group-item list-group-item-action active" id="user-set-profile-tab" data-bs-toggle="pill" href="#user-set-profile" role="tab" aria-controls="user-set-profile" aria-selected="true">
                     <span class="f-w-500"><i class="ph-duotone ph-user-circle m-r-10"></i>Descripción general</span>
                   </a>
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-information-tab" data-bs-toggle="pill" href="#user-set-information" role="tab" aria-controls="user-set-information" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-clipboard-text m-r-10"></i>Infomacion Personal</span>
                   </a>
-                  <a class="nav-link list-group-item list-group-item-action" id="user-set-account-tab" data-bs-toggle="pill" href="#user-set-account" role="tab" aria-controls="user-set-account" aria-selected="false" tabindex="-1">
+                  <a class="nav-link list-group-item list-group-item-action" id="user-set-orden-tab" data-bs-toggle="pill" href="#user-set-orden" role="tab" aria-controls="user-set-orden" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-notebook m-r-10"></i>Ordenes</span>
                   </a>
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
@@ -122,13 +123,67 @@ include_once "../../app/config.php";
                     <span class="f-w-500"><i class="ph-duotone ph-envelope-open m-r-10"></i>Direcciones</span>
                   </a>
                 </div>
-
               </div>
-
             </div>
             <div class="col-lg-7 col-xxl-9">
               <div class="tab-content" id="user-set-tabContent">
+                <div class="tab-pane fade" id="user-set-ordenbutton" role="tabpanel" aria-labelledby="user-set-ordenbutton-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card bg-primary text-white">
+                        <div class="card-body">
+                          <h5 class="card-title">Órdenes Totales</h5>
+                          <h2>120</h2>
+                          <button class="btn btn-light btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#ordenesTotalesModal">
+                            Ver Detalle
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card bg-success text-white">
+                        <div class="card-body">
+                          <h5 class="card-title">Compras Completadas</h5>
+                          <h2>95</h2>
+                          <button class="btn btn-light btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#comprasCompletadasModal">
+                            Ver Detalle
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card bg-warning text-dark">
+                        <div class="card-body">
+                          <h5 class="card-title">Órdenes Pendientes</h5>
+                          <h2>15</h2>
+                          <button class="btn btn-dark btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#ordenesPendientesModal">
+                            Ver Detalle
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card bg-danger text-white">
+                        <div class="card-body">
+                          <h5 class="card-title">Órdenes Canceladas</h5>
+                          <h2>10</h2>
+                          <button class="btn btn-light btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#ordenesCanceladasModal">
+                            Ver Detalle
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
 
                 <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
 
@@ -266,37 +321,47 @@ include_once "../../app/config.php";
                     <div class="btn btn-primary">Acualizar Perfil</div>
                   </div>
                 </div>
-                <d class="tab-pane fade" id="user-set-account" role="tabpanel" aria-labelledby="user-set-account-tab">
-                  <div class="container mt-5">
+                <d class="tab-pane fade" id="user-set-orden" role="tabpanel" aria-labelledby="user-set-orden-tab">
+                  <div class="card">
+                    <div class="card-header">
+                      <a href='' class='btn-primary d-flex justify-content-end' data-bs-toggle="modal" data-bs-target="#ordenModal">Total de Ordenes</a>
+                      <h5>Lista de Órdenes</h5>
 
-                    <!-- Tarjeta de Lista de Órdenes -->
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-header bg-dark text-white text-center">
-                        <h5 class="mb-0">Lista de Órdenes</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+
+                        <table class="table table-striped table-hover mb-0">
+                          <thead>
+                            <tr>
+                              <th>ID Orden</th>
+                              <th>Fecha</th>
+                              <th>Estado</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>#1001</td>
+                              <td>2024-11-12</td>
+                              <td><span class="badge bg-success">Completada</span></td>
+                              <td>$240.00</td>
+                            </tr>
+                            <tr>
+                              <td>#1002</td>
+                              <td>2024-11-10</td>
+                              <td><span class="badge bg-warning">Pendiente</span></td>
+                              <td>$120.00</td>
+                            </tr>
+                            <tr>
+                              <td>#1003</td>
+                              <td>2024-11-08</td>
+                              <td><span class="badge bg-danger">Cancelada</span></td>
+                              <td>$0.00</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                          <div class="d-flex justify-content-between">
-                            <span>Orden #12345</span>
-                            <span class="text-muted">Pendiente</span>
-                          </div>
-                          <small class="text-muted">Fecha: 2024-11-01</small>
-                        </li>
-                        <li class="list-group-item">
-                          <div class="d-flex justify-content-between">
-                            <span>Orden #12344</span>
-                            <span class="text-success">Completada</span>
-                          </div>
-                          <small class="text-muted">Fecha: 2024-10-28</small>
-                        </li>
-                        <li class="list-group-item">
-                          <div class="d-flex justify-content-between">
-                            <span>Orden #12343</span>
-                            <span class="text-danger">Cancelada</span>
-                          </div>
-                          <small class="text-muted">Fecha: 2024-10-15</small>
-                        </li>
-                      </ul>
                     </div>
                   </div>
                 </d>
@@ -508,26 +573,184 @@ include_once "../../app/config.php";
           </div>
         </div>
 
+        <div class="modal fade modal-animate" id="ordenModal" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content ">
+
+              <div class="modal-header">
+                <h5>Ordenes</h5>
+              </div>
+              <div class="modal-body">
+                <div class="bg-success text-white">
+                  <h5 class="modal-title">Compras Completadas</h5>
+                  <h4>95</h4>
+                  <button class="btn btn-light btn-sm " data-bs-toggle="modal" data-bs-target="#comprasCompletadasModal">
+                    Ver Detalle
+                  </button>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="bg-warning text-dark">
+                  <h5 class="modal-title">Órdenes Pendientes</h5>
+                  <h4>15</h4>
+                  <button class="btn btn-dark btn-sm " data-bs-toggle="modal" data-bs-target="#ordenesPendientesModal">
+                    Ver Detalle
+                  </button>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="bg-danger text-white">
+                  <h5 class="modal-title">Órdenes Canceladas</h5>
+                  <h4>10</h4>
+                  <button class="btn btn-light btn-sm " data-bs-toggle="modal" data-bs-target="#ordenesCanceladasModal">
+                    Ver Detalle
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal fade" id="comprasCompletadasModal" tabindex="-1" aria-labelledby="comprasCompletadasModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="comprasCompletadasModalLabel">Compras Completadas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>$8,999.99</td>
+                        <td>2024-11-01</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>$9,000.00</td>
+                        <td>2024-11-02</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ordenModal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="ordenesPendientesModal" tabindex="-1" aria-labelledby="ordenesPendientesModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ordenesPendientesModalLabel">Órdenes Pendientes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>$7,999.99</td>
+                        <td>2024-11-04</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>$10,000.00</td>
+                        <td>2024-11-05</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ordenModal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="ordenesCanceladasModal" tabindex="-1" aria-labelledby="ordenesCanceladasModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ordenesCanceladasModalLabel">Órdenes Canceladas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table  table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>$12,000.00</td>
+                        <td>2024-11-06</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>$15,000.00</td>
+                        <td>2024-11-07</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ordenModal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-    <!-- [ Main Content ] end -->
+  </div>
+  <!-- [ Main Content ] end -->
 
-    <?php
+  <?php
 
-    include "../layouts/footer.php";
+  include "../layouts/footer.php";
 
-    ?>
-    <?php
+  ?>
+  <?php
 
-    include "../layouts/scripts.php";
+  include "../layouts/scripts.php";
 
-    ?>
+  ?>
 
-    <?php
+  <?php
 
-    include "../layouts/modals.php";
+  include "../layouts/modals.php";
 
-    ?>
+  ?>
 
 </body>
 <!-- [Body] end -->
