@@ -26,4 +26,13 @@ RewriteRule ^cupones/?$ views/cupones/detailCupon.php
 RewriteRule ^catalogo/?$ views/catalogo/detailCatalogo.php
 #controladores
 RewriteRule ^api-auth?$ app/AuthController.php
+RewriteRule ^api-brand?$ app/BrandController.php
+RewriteRule ^api-catalog?$ app/CatalogController.php
+RewriteRule ^api-category?$ app/CategoryController.php
+RewriteRule ^api-client?$ app/clientController.php
+RewriteRule ^api-config?$ app/config.php
+RewriteRule ^api-coupon?$ app/couponController.php
+RewriteRule ^api-order?$ app/orderController.php
 RewriteRule ^api-products?$ app/ProductController.php
+RewriteRule ^api-test?$ app/test.php
+RewriteRule ^api-user?$ app/userController.php

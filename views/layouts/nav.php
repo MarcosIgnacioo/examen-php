@@ -85,10 +85,10 @@
                    </li>
           </li>
             <li class="list-group-item">
-              <a href="#" class="dropdown-item">
+              <a href="index.php" class="dropdown-item">
                  <span class="d-flex align-items-center">
                   <i class="ph-duotone ph-power"></i>
-                     <span>Logout</span>
+                     <span >Logout</span>
                   </span>
                </a>
             </li>
