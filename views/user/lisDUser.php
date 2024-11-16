@@ -35,8 +35,8 @@ include_once "../../app/config.php";
 
 
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
+        <!-- [ Main Content ] start -->
+        <div class="pc-container">
         <div class="pc-content">
             <!-- [ breadcrumb ] start -->
             <div class="page-header">
@@ -59,17 +59,15 @@ include_once "../../app/config.php";
             </div>
             <!-- [ breadcrumb ] end -->
 
-
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
                     <div class="row justify-content-between ali mb-3 g-3">
-
                         <a href='altaUser.php' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
                     </div>
                     <div class="card">
-                        <div class="card-header ">
+                        <div class="card-header">
                             <div class="card-body">
                                 <h3>Lista de usuario</h3>
                                 <div class="row justify-content-between ali mb-3 g-3">
@@ -79,9 +77,7 @@ include_once "../../app/config.php";
                                             <input type="search" class="form-control" placeholder="Search...">
                                             <button class="btn btn-light-secondary btn-search">Search</button>
                                         </form>
-
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-body">
@@ -89,7 +85,6 @@ include_once "../../app/config.php";
                                     <table class="table table-striped table-hover mb-0">
                                         <thead>
                                             <tr>
-
                                                 <th>ID</th>
                                                 <th>Nombre</th>
                                                 <th>Email</th>
@@ -97,73 +92,11 @@ include_once "../../app/config.php";
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="align-items-center">
-                                                        <p>01</p>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="align-items-center">
-                                                        <div class="col">
-                                                            <h5 class="mb-1">Martin Eduardo</h5>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="align-items-center">
-                                                        <h5 class="mb-1">mlopez_21@alu.uabcs.mx</h5>
-
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <div class="align-items-center">
-                                                        <div class="col">
-                                                            <h5 class="mb-1"> 01/04/2003</h5>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>
-                                                    <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>
-                                                    <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                                                    <a href='detailUser.php' class='btn btn-sm col-sm-8'>Ver mas</a>
-
-                                                </td>
-                                            </tr>
-
-
+                                        <tbody id="userTableBody">
                                         </tbody>
-
                                     </table>
                                 </div>
                                 <!-- Modal -->
-
                                 <div class="modal fade modal-animate" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -183,19 +116,15 @@ include_once "../../app/config.php";
                                 </div>
                                 <!-- Modal -->
                             </div>
-
                         </div>
                     </div>
                     <!-- [ sample-page ] end -->
-
-
                 </div>
             </div>
             <!-- [ Main Content ] end -->
         </div>
     </div>
     <!-- [ Main Content ] end -->
-
     <?php
 
     include "../layouts/footer.php";
@@ -212,7 +141,43 @@ include_once "../../app/config.php";
     include "../layouts/modals.php";
 
     ?>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                fetchUserList();
+            });
 
+            function fetchUserList() {
+                fetch('app/userController.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'action=list_users&global_token=<?= $_SESSION["global_token"]; ?>'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let userTableBody = document.getElementById("userTableBody");
+                    userTableBody.innerHTML = "";
+
+                    data.forEach(user => {
+                        let row = document.createElement("tr");
+
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.nombre}</td>
+                            <td>${user.email}</td>
+                            <td>${user.fecha_creacion}</td>
+                            <td>
+                                <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
+                               <a href='user/details/${user.id}' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            </td>
+                        `;
+                        userTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error("Error fetching user list:", error));
+            }
+    </script>
 </body>
 <!-- [Body] end -->
 

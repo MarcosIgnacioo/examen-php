@@ -32,9 +32,6 @@ include_once "../../app/config.php";
 
     ?>
 
-
-
-
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
@@ -62,41 +59,24 @@ include_once "../../app/config.php";
 
 
             <!-- [ Main Content ] start -->
-            <div class="row">
-                <!-- [ sample-page ] start -->
-                <div class="col-sm-12">
-                    <div class="card bg-primary">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 me-3">
-                                    <h3 class="text-white">Email de Verificacion</h3>
-                                    <p class="text-white text-opacity-75 text-opa mb-0">Tu correo electrónico no está confirmado. Por favor revisa tu bandeja de entrada.
-                                        <a href="#" class="link-light"><u>Reenviar confirmación</u></a>
-                                    </p>
-                                </div>
-                                <div class="flex-shrink-0">
-                                    <img src="../assets/images/application/img-accout-alert.png" alt="img" class="img-fluid wid-80">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
                     <div class="row">
                         <div class="row justify-content-between ali mb-3 g-3">
-
-                            <a href='lisDUser.php' class='btn-primary col-sm-auto'>Regresar</a>
+                            <a href='user/' class='btn-primary col-sm-auto'>Regresar</a>
                         </div>
                         <div class="col-lg-5 col-xxl-3">
                             <div class="card overflow-hidden">
                                 <div class="card-body position-relative">
                                     <div class="text-center mt-3">
                                         <div class="chat-avtar d-inline-flex mx-auto">
-                                            <img class="rounded-circle img-fluid wid-150 img-thumbnail" src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="User image">
+                                            <!--aqui va imagen del usuario-->
+                                            <img class="rounded-circle img-fluid wid-150 img-thumbnail" src="" alt="User image">
                                             <i class="chat-badge bg-success me-2 mb-2"></i>
                                         </div>
-                                        <h5 class="mb-0">PolloPajas</h5>
-                                        <p class="text-muted text-sm">IG <a href="https://www.instagram.com/pollopajas/" class="link-primary"> @pollopajas </a> 😍🥵🥵</p>
-
-
+                                        <h5 class="mb-0" id="userName"></h5>
+                                        <!--aqui va nombre del usuario-->
+                                        <p class="text-muted text-sm">IG <a href="" class="link-primary">  </a></p>
                                     </div>
                                 </div>
                                 <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
@@ -109,15 +89,13 @@ include_once "../../app/config.php";
                                     <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
                                         <span class="f-w-500"><i class="ph-duotone ph-key m-r-10"></i>Cambiar Contraseña</span>
                                     </a>
-
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="col-lg-7 col-xxl-9">
                             <div class="tab-content" id="user-set-tabContent">
                                 <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
-
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>Descripcion General</h5>
@@ -128,11 +106,11 @@ include_once "../../app/config.php";
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <p class="mb-1 text-muted">Nombre(s)</p>
-                                                            <p class="mb-0">Martin Eduardo</p>
+                                                            <p class="mb-0" id="firstName"></p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p class="mb-1 text-muted">Apellidos</p>
-                                                            <p class="mb-0">Lopez Garcia</p>
+                                                            <p class="mb-0" id="lastName"></p>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -140,11 +118,11 @@ include_once "../../app/config.php";
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <p class="mb-1 text-muted">Telefono</p>
-                                                            <p class="mb-0">+52 613 129 6340</p>
+                                                            <p class="mb-0" id="phone"></p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p class="mb-1 text-muted">Pais</p>
-                                                            <p class="mb-0">Mexico</p>
+                                                            <p class="mb-0" id="country"></p>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -152,23 +130,22 @@ include_once "../../app/config.php";
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <p class="mb-1 text-muted">Correo</p>
-                                                            <p class="mb-0">mlopez_21@alu.uabcs.mx</p>
+                                                            <p class="mb-0" id="email"></p>
                                                         </div>
-
                                                     </div>
                                                 </li>
                                                 <li class="list-group-item px-0 pb-0">
                                                     <div class="col-md-6">
                                                         <p class="mb-1 text-muted">Codigo Postal</p>
-                                                        <p class="mb-0">23085</p>
+                                                        <p class="mb-0" id="postalCode"></p>
                                                     </div>
                                                     <p class="mb-1 text-muted">Direccion</p>
-                                                    <p class="mb-0">Mar caspio #279</p>
+                                                    <p class="mb-0" id="address"></p>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-
+                                <!--informacion personal, editar usuario-->
                                 </div>
                                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
                                     <div class="card">
@@ -180,36 +157,33 @@ include_once "../../app/config.php";
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Nombre(s)</label>
-                                                        <input type="text" class="form-control" value="Martin Eduardo">
+                                                        <input type="text" class="form-control" id="editFirstName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Apellidos</label>
-                                                        <input type="text" class="form-control" value="Lopez Garcia">
+                                                        <input type="text" class="form-control" id="editLastName">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Correo <span class="text-danger">*</span></label>
-                                                        <input type="email" class="form-control" value="mlopez_21@alu.uabcs.mx">
+                                                        <input type="email" class="form-control" id="editEmail">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Telefono</label>
-                                                        <input type="text" class="form-control" value="+52 613 129 6340">
+                                                        <input type="text" class="form-control" id="editPhone">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Pais</label>
-                                                        <input type="text" class="form-control" value="Mexico">
+                                                        <input type="text" class="form-control" id="editCountry">
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -223,37 +197,39 @@ include_once "../../app/config.php";
                                                 <div class="col-sm-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Codigo Postal</label>
-                                                        <input type="text" class="form-control" value="23085">
+                                                        <input type="text" class="form-control" id="editPostalCode">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
-                                                        <label class="form-label">Cuidad</label>
-                                                        <input type="text" class="form-control" value="La Paz">
+                                                        <label class="form-label">Ciudad</label>
+                                                        <input type="text" class="form-control" id="editCity">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
                                                         <label class="form-label">Calle 1</label>
-                                                        <input type="text" class="form-control" value="Mar Caspio">
-
+                                                        <input type="text" class="form-control" id="editStreet">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="mb-0">
                                                         <label class="form-label">NO. de Casa</label>
-                                                        <input type="text" class="form-control" value="279">
-
+                                                        <input type="text" class="form-control" id="editHouseNumber">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="text-end btn-page">
                                         <div class="btn btn-outline-secondary">Cancelar</div>
-                                        <div class="btn btn-primary">Acualizar Perfil</div>
+                                        <div class="btn btn-primary">Actualizar Perfil</div>
                                     </div>
                                 </div>
+
+                                
+                                <!--cambiar contrase;a-->
                                 <div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
                                     <div class="card alert alert-warning p-0">
                                         <div class="card-body">
@@ -321,7 +297,7 @@ include_once "../../app/config.php";
             <!-- [ Main Content ] end -->
         </div>
     </div>
-    <!-- [ Main Content ] end -->
+
 
     <?php
 
@@ -339,7 +315,67 @@ include_once "../../app/config.php";
     include "../layouts/modals.php";
 
     ?>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const pathParts = window.location.pathname.split('/');
+        const userId = pathParts[pathParts.length - 1];
+        
+        fetchUserDetails(userId);
+    });
 
+    function fetchUserDetails(userId) {
+        fetch('../../app/userController.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=user_details&id=${userId}&global_token=<?= $_SESSION["global_token"]; ?>`
+        })
+        .then(response => response.json())
+        .then(user => {
+            // para imagen
+            if (user.avatar) {
+                document.querySelector('.wid-150').src = user.avatar;
+            }
+            
+            // userdetails
+            document.getElementById('userName').textContent = `${user.name} ${user.lastname || ''}`;
+            document.getElementById('firstName').textContent = user.name || 'No disponible';
+            document.getElementById('lastName').textContent = user.lastname || 'No disponible';
+            document.getElementById('phone').textContent = user.phone_number || 'No disponible';
+            document.getElementById('country').textContent = user.address?.country || 'No disponible';
+            document.getElementById('email').textContent = user.email || 'No disponible';
+            document.getElementById('postalCode').textContent = user.address?.postal_code || 'No disponible';
+            document.getElementById('address').textContent = formatAddress(user.address) || 'No disponible';
+
+            // seccion de editar
+            document.getElementById('editFirstName').value = user.name || '';
+            document.getElementById('editLastName').value = user.lastname || '';
+            document.getElementById('editEmail').value = user.email || '';
+            document.getElementById('editPhone').value = user.phone || '';
+            document.getElementById('editCountry').value = user.country || '';
+            document.getElementById('editPostalCode').value = user.postalCode || '';
+            document.getElementById('editCity').value = user.city || '';
+            document.getElementById('editStreet').value = user.street || '';
+            document.getElementById('editHouseNumber').value = user.houseNumber || '';
+        })
+        .catch(error => {
+            console.error("Error fetching user details:", error);
+            alert("Error al cargar los detalles del usuario");
+        });
+    }
+
+    function formatAddress(address) {
+        if (!address) return 'No disponible';
+        
+        const parts = [];
+        if (address.street_and_use_number) parts.push(address.street_and_use_number);
+        if (address.city) parts.push(address.city);
+        if (address.state) parts.push(address.state);
+        
+        return parts.length > 0 ? parts.join(', ') : 'No disponible';
+    }
+    </script>
 </body>
 <!-- [Body] end -->
 
