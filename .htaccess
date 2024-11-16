@@ -24,6 +24,7 @@ RewriteRule ^customer/?$ views/customer/lisDCustomer.php
 RewriteRule ^orden/?$ views/orden/detailOrden.php
 RewriteRule ^cupones/?$ views/cupones/detailCupon.php
 RewriteRule ^catalogo/?$ views/catalogo/detailCatalogo.php
+
 #controladores
 RewriteRule ^api-auth?$ app/AuthController.php
 RewriteRule ^api-brand?$ app/BrandController.php

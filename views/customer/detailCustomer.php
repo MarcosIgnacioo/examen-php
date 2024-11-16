@@ -1,6 +1,16 @@
 <?php
 include_once "../../app/config.php";
 
+include_once("../../app/clientController.php");
+
+$link = $_SERVER['REQUEST_URI'];
+$link_array = explode('/', $link);
+$id = end($link_array);
+
+$clientController = new ClientController();
+$client = $clientController->getClientDetails($id);
+$orders = $client->orders;
+$address = $client->orders[0]->address;
 ?>
 <!doctype html>
 <html lang="en">
@@ -93,16 +103,9 @@ include_once "../../app/config.php";
                       <img class="rounded-circle img-fluid wid-150 img-thumbnail" src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="User image">
                       <i class="chat-badge bg-success me-2 mb-2"></i>
                     </div>
-                    <h5 class="mb-0">PolloPajas</h5>
-                    <p class="text-muted text-sm">IG <a href="https://www.instagram.com/pollopajas/" class="link-primary"> @pollopajas </a> 😍🥵🥵</p>
-                    <ul class="list-inline mx-auto my-4">
-                      <li class="list-inline-item">
-                        <a class="avtar  text-white bg-amazon">
-                          <i class="bi bi-star-fill"></i>
-                        </a>
-                      </li>
-                    </ul>
-                    <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#nivelModal">Nivel</a>
+                    <h5 class="mb-0"><?= $client->name ?></h5>
+                    <p class="text-muted text-sm"><a mailto="<?= $client->email ?>" type="email" class="link-primary"> <?= $client->email ?></a></p>
+                    <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#nivelModal">Nivel <?= $client->level->name ?></a>
                   </div>
                 </div>
                 <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
@@ -181,12 +184,8 @@ include_once "../../app/config.php";
                       </div>
                     </div>
                   </div>
-
-
                 </div>
-
                 <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
-
                   <div class="card">
                     <div class="card-header">
                       <h5>Descripcion General</h5>
@@ -197,11 +196,11 @@ include_once "../../app/config.php";
                           <div class="row">
                             <div class="col-md-6">
                               <p class="mb-1 text-muted">Nombre(s)</p>
-                              <p class="mb-0">Martin Eduardo</p>
+                              <p class="mb-0"><?= $client->name ?></p>
                             </div>
                             <div class="col-md-6">
-                              <p class="mb-1 text-muted">Apellidos</p>
-                              <p class="mb-0">Lopez Garcia</p>
+                              <p class="mb-1 text-muted">Email</p>
+                              <p class="mb-0"><?= $client->email ?></p>
                             </div>
                           </div>
                         </li>
@@ -209,126 +208,95 @@ include_once "../../app/config.php";
                           <div class="row">
                             <div class="col-md-6">
                               <p class="mb-1 text-muted">Telefono</p>
-                              <p class="mb-0">+52 613 129 6340</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Pais</p>
-                              <p class="mb-0">Mexico</p>
+                              <p class="mb-0"><?= $client->phone_number ?></p>
                             </div>
                           </div>
-                        </li>
-                        <li class="list-group-item px-0">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Correo</p>
-                              <p class="mb-0">mlopez_21@alu.uabcs.mx</p>
-                            </div>
-
-                          </div>
-                        </li>
-                        <li class="list-group-item px-0 pb-0">
-                          <div class="col-md-6">
-                            <p class="mb-1 text-muted">Codigo Postal</p>
-                            <p class="mb-0">23085</p>
-                          </div>
-                          <p class="mb-1 text-muted">Direccion</p>
-                          <p class="mb-0">Mar caspio #279</p>
                         </li>
                       </ul>
                     </div>
                   </div>
-
                 </div>
                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
-                  <div class="card">
-                    <div class="card-header">
-                      <h5>Informacion Personal</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Nombre(s)</label>
-                            <input type="text" class="form-control" value="Martin Eduardo">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" value="Lopez Garcia">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Correo <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" value="mlopez_21@alu.uabcs.mx">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Telefono</label>
-                            <input type="text" class="form-control" value="+52 613 129 6340">
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Pais</label>
-                            <input type="text" class="form-control" value="Mexico">
-                          </div>
-                        </div>
-
-
-
+                  <form method="POST" action="api-clients">
+                    <input type="text" hidden name="action" value="update_client">
+                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                    <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5>Informacion Personal</h5>
                       </div>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <div class="card-header">
-                      <h5>Direccion Principal</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="mb-3">
-                            <label class="form-label">Codigo Postal</label>
-                            <input type="text" class="form-control" value="23085">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label">Nombre(s)</label>
+                              <input name="name" type="text" class="form-control" value="<?= $client->name ?>">
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">Cuidad</label>
-                            <text class="form-control">La Paz</text>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label">Correo <span class="text-danger">*</span></label>
+                              <input name="email" type="email" class="form-control" value="<?= $client->email ?>">
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">Calle 1</label>
-                            <text class="form-control">Mar Caspio</text>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label">Telefono</label>
+                              <input name="phone_number" type="text" class="form-control" value="<?= $client->phone_number ?>">
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="mb-0">
-                            <label class="form-label">NO. de Casa</label>
-                            <text class="form-control">279</text>
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label">Estado</label>
+                              <input name="" type="text" class="form-control" value="<?= $address->province ?>">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="text-end btn-page">
-                    <div class="btn btn-outline-secondary">Cancelar</div>
-                    <div class="btn btn-primary">Acualizar Perfil</div>
-                  </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <h5>Direccion Principal</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="mb-3">
+                              <label class="form-label">Codigo Postal</label>
+                              <input type="text" class="form-control" value="<?= $address->postal_code ?>">
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="mb-0">
+                              <label class="form-label">Cuidad</label>
+                              <input class="form-control" value="<?= $address->city ?>"></input>
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="mb-0">
+                              <label class="form-label">Calle</label>
+                              <input class="form-control" value="<?= $address->street_and_use_number ?>"></input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-end btn-page">
+                      <div class="btn btn-outline-secondary">Cancelar</div>
+                      <button type="submit" class="btn btn-primary">Acualizar Perfil</button>
+                    </div>
+
+                  </form>
                 </div>
-                <d class="tab-pane fade" id="user-set-orden" role="tabpanel" aria-labelledby="user-set-orden-tab">
+
+                <div class="tab-pane fade" id="user-set-orden" role="tabpanel" aria-labelledby="user-set-orden-tab">
                   <div class="card">
                     <div class="card-header">
                       <div class="row justify-content-between ali mb-3 g-3">
-                        <h4 class="col-sm-auto">Lista de Órdenes</h4>
+                        <h4 class="col-sm-auto">Lista de órdenes</h4>
                         <a href='' class=' btn-primary col-sm-auto ' data-bs-toggle="modal" data-bs-target="#ordenModal">Total de Ordenes</a>
                       </div>
-                      
+
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -337,94 +305,78 @@ include_once "../../app/config.php";
                           <thead>
                             <tr>
                               <th>ID Orden</th>
-                              <th>Fecha</th>
                               <th>Estado</th>
                               <th>Total</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>#1001</td>
-                              <td>2024-11-12</td>
-                              <td><span class="badge bg-success">Completada</span></td>
-                              <td>$240.00</td>
-                            </tr>
-                            <tr>
-                              <td>#1002</td>
-                              <td>2024-11-10</td>
-                              <td><span class="badge bg-warning">Pendiente</span></td>
-                              <td>$120.00</td>
-                            </tr>
-                            <tr>
-                              <td>#1003</td>
-                              <td>2024-11-08</td>
-                              <td><span class="badge bg-danger">Cancelada</span></td>
-                              <td>$0.00</td>
-                            </tr>
+                            <?php if (isset($orders) && sizeof($orders)) ?>
+                            <?php foreach ($orders as $order) : ?>
+                              <tr>
+                                <td><?= $order->id ?></td>
+                                <?php
+                                switch ($order->order_status->slug) {
+                                  case 'cancelled':
+                                    echo '<td><span class="badge bg-danger">Cancelada</span></td>';
+                                    break;
+                                  case 'waiting_for_payment':
+                                    echo '<td><span class="badge bg-warning text-white fw-bold">Pendiente de pago</span></td>';
+                                    break;
+                                  case 'pending_to_send':
+                                    echo '<td><span class="badge bg-warning text-white fw-bold">Pendiente</span></td>';
+                                    break;
+                                  case 'sent':
+                                    echo '<td><span class="badge bg-success">Completada</span></td>';
+                                    break;
+                                  case 'abandoned':
+                                    echo '<td><span class="badge bg-info">Abandonada</span></td>';
+                                    break;
+                                  default:
+                                    echo '<td><span class="badge bg-secondary"></span></td>';
+                                    break;
+                                } ?>
+
+                                <td><?= $order->total ?></td>
+                              </tr>
+                            <?php endforeach ?>
+                            <?endif?>
                           </tbody>
                         </table>
                       </div>
                     </div>
                   </div>
-                </d>
+                </div>
                 <div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
-                  <div class="card alert alert-warning p-0">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 me-3">
-                          <h4 class="alert-heading">Alert!</h4>
-                          <p class="mb-2">Your Password will expire in every 3 months. So change it periodically.</p>
-                          <a href="#" class="alert-link"><u>Do not share your password</u></a>
-                        </div>
-                        <div class="flex-shrink-0">
-                          <img src="../assets/images/application/img-accout-password-alert.png" alt="img" class="img-fluid wid-80">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="card">
                     <div class="card-header">
                       <h5>Cambiar Contraseña</h5>
                     </div>
-                    <div class="card-body">
+<form method="POST" action="api-clients">
+                    <input type="text" hidden name="action" value="update_client">
+                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                    <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+<div class="card-body">
                       <ul class="list-group list-group-flush">
-                        <li class="list-group-item pt-0 px-0">
-                          <div class="row mb-0">
-                            <label class="col-form-label col-md-4 col-sm-12 text-md-end">Contraseña Actual <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-md-8 col-sm-12">
-                              <input type="password" class="form-control">
-                              <div class="form-text"> Olidaste tu Contraseña? <a href="#" class="link-primary">Click here</a> </div>
-                            </div>
-                          </div>
-                        </li>
                         <li class="list-group-item px-0">
                           <div class="row mb-0">
                             <label class="col-form-label col-md-4 col-sm-12 text-md-end">Nueva Contraseña <span class="text-danger">*</span></label>
                             <div class="col-md-8 col-sm-12">
-                              <input type="password" class="form-control">
+                              <input name="password" type="password" class="form-control">
+
+                      <button type="submit"  class="ms-auto btn btn-primary">Cambiar Contraseña</button>
                             </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item pb-0 px-0">
-                          <div class="row mb-0">
-                            <label class="col-form-label col-md-4 col-sm-12 text-md-end">Confirmar Contraseña <span class="text-danger">*</span></label>
-                            <div class="col-md-8 col-sm-12">
-                              <input type="password" class="form-control">
-                            </div>
+
                           </div>
                         </li>
                       </ul>
                     </div>
+                  </form>
                   </div>
-                  <div class="card">
-                    <div class="card-body text-end">
-                      <div class="btn btn-outline-secondary me-2">Cancelar</div>
-                      <div class="btn btn-primary">Cambiar Contraseña</div>
-                    </div>
-                  </div>
+                  
                 </div>
-                <div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
+
+<!--- no tenemos aun controlador d direcciones
+<div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
                   <div class="text-end btn-page">
                     <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#direccionModal">Añadir Direccion</a>
                   </div>
@@ -509,6 +461,8 @@ include_once "../../app/config.php";
 
 
                 </div>
+--->
+                
               </div>
             </div>
           </div>
