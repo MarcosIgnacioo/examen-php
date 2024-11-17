@@ -27,7 +27,7 @@ switch ($_POST["action"]) {
   case 'update_client':
     $clientController = new ClientController();
     $res = $clientController->updateClient($_POST);
-    header('Location: ./clients');
+    header('Location: ./' . $_POST["id"]);
     exit();
     break;
 
@@ -166,7 +166,7 @@ class ClientController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $id . '/details',
+      CURLOPT_URL => $this->apiBase . '/' . $id ,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
