@@ -70,7 +70,7 @@ $clients = $clientController->getAllClients();
         <div class="col-sm-12">
           <div class="row justify-content-between ali mb-3 g-3">
 
-            <a href='altaCustomer.php' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
+            <a href='customer/create' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
           </div>
           <div class="card">
             <div class="card-header ">
