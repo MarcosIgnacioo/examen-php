@@ -10,7 +10,26 @@ $id = end($link_array);
 $clientController = new ClientController();
 $client = $clientController->getClientDetails($id);
 $orders = $client->orders;
-$address = $client->orders[0]->address;
+$addresses = $client->addresses;
+$addressFields = [
+  "id" => "id",
+  "first_name" => "Nombre",
+  "last_name" => "Apellido",
+  "street_and_use_number" => "Calle y número",
+  "apartment" => "Apartamento",
+  "postal_code" => "Código Postal",
+  "city" => "Ciudad",
+  "province" => "Provincia",
+  "phone_number" => "Número de teléfono",
+  "is_billing_address" => "¿Es dirección de facturación?",
+  "client_id" => "ID del cliente"
+];
+
+// TODO: Poner que se puedan subir imagenes a la hora de crear un cliente aunque esto sea dependiente del servidor de xamp asi q buscar la manera en la que sea generico pa todos
+// Poner los niveles a la hora de editar y crear un cliente
+// y vaciar los valores de los campos
+// quitar el direccion principal del informacion personal
+// y creo que eso seria lo unico que le faltaria a este modulo
 ?>
 <!doctype html>
 <html lang="en">
@@ -217,7 +236,7 @@ $address = $client->orders[0]->address;
                   </div>
                 </div>
                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
-                  <form method="POST" action="api-clients">
+                  <form method="POST" action="api-client">
                     <input type="text" hidden name="action" value="update_client">
                     <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                     <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -245,7 +264,7 @@ $address = $client->orders[0]->address;
                               <input name="phone_number" type="text" class="form-control" value="<?= $client->phone_number ?>">
                             </div>
                           </div>
-                          <div class="col-sm-6">
+<div class="col-sm-6">
                             <div class="mb-3">
                               <label class="form-label">Estado</label>
                               <input name="" type="text" class="form-control" value="<?= $address->province ?>">
@@ -351,34 +370,34 @@ $address = $client->orders[0]->address;
                     <div class="card-header">
                       <h5>Cambiar Contraseña</h5>
                     </div>
-<form method="POST" action="api-clients">
-                    <input type="text" hidden name="action" value="update_client">
-                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
-                    <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
-<div class="card-body">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item px-0">
-                          <div class="row mb-0">
-                            <label class="col-form-label col-md-4 col-sm-12 text-md-end">Nueva Contraseña <span class="text-danger">*</span></label>
-                            <div class="col-md-8 col-sm-12">
-                              <input name="password" type="password" class="form-control">
+                    <form method="POST" action="api-client">
+                      <input type="text" hidden name="action" value="update_client">
+                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                      <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                      <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item px-0">
+                            <div class="row mb-0">
+                              <label class="col-form-label col-md-4 col-sm-12 text-md-end">Nueva Contraseña <span class="text-danger">*</span></label>
+                              <div class="col-md-8 col-sm-12">
+                                <input name="password" type="password" class="form-control">
 
-                      <button type="submit"  class="ms-auto btn btn-primary">Cambiar Contraseña</button>
+                                <button type="submit" class="ms-auto btn btn-primary">Cambiar Contraseña</button>
+                              </div>
+
                             </div>
-
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </form>
+                          </li>
+                        </ul>
+                      </div>
+                    </form>
                   </div>
-                  
+
                 </div>
 
-<!--- no tenemos aun controlador d direcciones
-<div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
+                <!--- no tenemos aun controlador d direcciones --->
+                <div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
                   <div class="text-end btn-page">
-                    <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#direccionModal">Añadir Direccion</a>
+                    <button href="" class='btn btn-primary' data-bs-toggle="modal" data-bs-target="#direccionModal">Añadir Direccion</button>
                   </div>
                   <div class="card">
                     <div class="card-header">
@@ -386,83 +405,114 @@ $address = $client->orders[0]->address;
                     </div>
                     <div class="card-body">
                       <ul class="list-group list-group-flush">
-                        <li class="list-group-item px-0 pt-0">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <h5>Direccion 1</h5>
+                        <?php if (isset($addresses) && sizeof($addresses)) ?>
+                        <?php foreach ($addresses as $address) : ?>
+                          <li class="list-group-item px-0 pt-0">
+                            <div class="row">
+                              <div class="col-md-6 mt-3">
+                                <p class="mb-1 text-muted">Estado</p>
+                                <p class="mb-0"><?= $address->province ?></p>
+                              </div>
+                              <div class="col-md-6 mt-3">
+                                <p class="mb-1 text-muted">Código Postal</p>
+                                <p class="mb-0"><?= $address->postal_code ?></p>
+                              </div>
+                              <div class="col-md-6">
+                                <p class="mb-1 text-muted">Ciudad</p>
+                                <p class="mb-0"><?= $address->city ?></p>
+                              </div>
+                              <div class="col-md-6">
+                                <p class="mb-1 text-muted">Calle 1</p>
+                                <p class="mb-0"><?= $address->street_and_use_number ?></p>
+                              </div>
+                              <div class="col-md-6">
+                                <p class="mb-1 text-muted">No. de Casa</p>
+                                <p class="mb-0">279</p>
+                              </div>
+                              <div class="col-md-6 mt-3">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit<?= $address->id ?>">
+                                  Editar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?= $address->id ?>">
+                                  Borrar
+                                </button>
+                                <div class="modal fade" id="delete<?= $address->id ?>" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="editLabel">¿Está seguro que desea borrar esta dirección?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form method="POST" action="api-literlamente no existe">
+                                          <input type="text" hidden name="action" value="delete_address">
+                                          <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                          <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                                          <input hidden name="address_id" type="text" class="form-control" value="<?= $address->id ?>">
+                                          <div class="d-flex justify-content-around">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                          </div>
+                                      </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="modal fade" id="edit<?= $address->id ?>" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="editLabel">Editar</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form method="POST" action="api-client">
+                                          <div class="card">
+                                            <div class="card-body">
+                                              <!---MANDATORY SHIT--->
+                                              <input type="text" hidden name="action" value="update_address">
+                                              <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                              <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                                              <!---MANDATORY SHIT REMEMBER TO CHANGE THE ACTION NAME AND THE ID AND THE NAME OF THE ID FIELD JUST IN CASE EVERY TIME YOU COPYPASTE--->
+                                              <div class="row">
+                                                <div class="col-sm-12">
+                                                  <?php foreach ($address as $key => $value) : ?>
+                                                    <div class="mb-6">
+                                                      <label <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> class="form-label"><?= $addressFields[$key] ?></label>
+                                                      <?php if (str_contains($key, "is_")) : ?>
+                                                        <select class="form-control" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
+                                                          <option <?= $isSelected = ($value == "1") ? "selected" : "" ?> value="1">Si</option>
+                                                          <option <?= $isSelected = ($value == "0") ? "selected" : "" ?> value="0">No</option>
+                                                        </select>
+                                                      <?php else : ?>
+                                                        <input <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="<?= $value ?>">
+                                                      <?php endif; ?>
+                                                    </div>
+                                                  <?php endforeach; ?>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                      </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Codigo Postal</p>
-                              <p class="mb-0">23085</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Ciudad</p>
-                              <p class="mb-0">La Paz</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Calle 1</p>
-                              <p class="mb-0">Mar caspio</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">No. de Casa</p>
-                              <p class="mb-0">279</p>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item px-0 pt-0">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <h5>Direccion 2</h5>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Codigo Postal</p>
-                              <p class="mb-0">23085</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Ciudad</p>
-                              <p class="mb-0">La Paz</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Calle 1</p>
-                              <p class="mb-0">Mar caspio</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">No. de Casa</p>
-                              <p class="mb-0">279</p>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item px-0 pt-0">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <h5>Direccion 3</h5>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Codigo Postal</p>
-                              <p class="mb-0">23085</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Ciudad</p>
-                              <p class="mb-0">La Paz</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">Calle 1</p>
-                              <p class="mb-0">Mar caspio</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p class="mb-1 text-muted">No. de Casa</p>
-                              <p class="mb-0">279</p>
-                            </div>
-                          </div>
-                        </li>
+                          </li>
+                        <?php endforeach ?>
+                        <?endif?>
                       </ul>
                     </div>
                   </div>
-
-
                 </div>
---->
-                
               </div>
             </div>
           </div>
@@ -487,43 +537,41 @@ $address = $client->orders[0]->address;
         <div class="modal fade modal-animate" id="direccionModal" tabindex="-1" aria-labelledby="direccionModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5>Agregar Direccion</h5>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="mb-3">
-                      <label class="form-label">Codigo Postal</label>
-                      <input type="text" class="form-control">
+              <form method="POST" action="api-client">
+                <input type="text" hidden name="action" value="add_address">
+                <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                <div class="modal-header">
+                  <h5>Agregar Direccion</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <?php foreach ($addressFields as $key => $value) : ?>
+                        <div class="mb-6">
+                          <label <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> class="form-label"><?= $value ?></label>
+                          <?php if (str_contains($key, "is_")) : ?>
+                            <select class="form-control" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
+                              <option value="1">Si</option>
+                              <option value="0">No</option>
+                            </select>
+                          <!--- cambiar esto a un == id quizas despues --->
+                          <?php elseif (!str_contains($key, "id")) : ?>
+                            <input name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="asdf">
+                          <?php endif; ?>
+                        </div>
+                      <?php endforeach; ?>
                     </div>
-                  </div>
-                  <div class="col-sm-12">
-                    <div class="mb-0">
-                      <label class="form-label">Cuidad</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-sm-12">
-                    <div class="mb-0">
-                      <label class="form-label">Calle 1</label>
-                      <input type="text" class="form-control">
-
-                    </div>
-                  </div>
-                  <div class="col-sm-12">
-                    <div class="mb-0">
-                      <label class="form-label">NO. de Casa</label>
-                      <input type="text" class="form-control">
-
+                    <div class="col-sm-6">
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="text-end btn-page">
-                <div class="btn btn-danger">Cancelar</div>
-                <div class="btn btn-primary">Agregar</div>
-              </div>
+                <div class="text-end btn-page">
+                  <div class="btn btn-danger">Cancelar</div>
+                  <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+              </form>
+
             </div>
 
           </div>
@@ -701,6 +749,45 @@ $address = $client->orders[0]->address;
   include "../layouts/scripts.php";
 
   ?>
+
+  <script>
+    function setInputFilter(textbox, inputFilter, errMsg) {
+      ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
+        textbox.addEventListener(event, function(e) {
+          if (inputFilter(this.value)) {
+            // Accepted value.
+            if (["keydown", "mousedown", "focusout"].indexOf(e.type) >= 0) {
+              this.classList.remove("input-error");
+              this.setCustomValidity("");
+            }
+
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+          } else if (this.hasOwnProperty("oldValue")) {
+            // Rejected value: restore the previous one.
+            this.classList.add("input-error");
+            this.setCustomValidity(errMsg);
+            this.reportValidity();
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+          } else {
+            // Rejected value: nothing to restore.
+            this.value = "";
+          }
+        });
+      });
+    }
+    const classes = ['.phone_number', '.postal_code']
+    const phone_inputs = classes.flatMap((className) => Array.from(document.querySelectorAll(className)));
+    console.log(phone_inputs);
+
+    phone_inputs.forEach((phone) => {
+      setInputFilter(phone, function(value) {
+        return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp.
+      }, "Solo digitos");
+    })
+  </script>
 
   <?php
 

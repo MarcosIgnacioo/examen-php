@@ -1,6 +1,16 @@
 <?php
 include_once "../../app/config.php";
 
+include_once("../../app/clientController.php");
+$clientFields = [
+  "name" => "Nombres",
+  "email" => "Correo",
+  "password" => "Contraseña",
+  "phone_number" => "Número telefónico",
+  "is_suscribed" => "¿Esta suscrito?",
+  "level_id" => "Nivel",
+]
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -75,27 +85,27 @@ include_once "../../app/config.php";
                 <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                 <div class="form-group">
                   <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" value="chaperon">
+                  <input type="text" class="form-control" id="nombre" name="name" value="">
                 </div>
                 <div class="form-group">
                   <label for="email">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="email" name="email" value="m@gmail.com">
+                  <input type="email" class="form-control" id="email" name="email" value="">
                 </div>
                 <div class="form-group">
                   <label for="password">Contraseña</label>
-                  <input type="password" class="form-control" id="password" name="password" value="popo123445A!">
+                  <input type="password" class="form-control" id="password" name="password" value="">
                 </div>
                 <div class="form-group">
                   <label for="phone_number">Número de teléfono</label>
-                  <input type="text" class="form-control" id="phone_number" name="phone_number" value="6121174105">
+                  <input type="text" class="form-control" id="phone_number" name="phone_number" value="">
                 </div>
-<div class="form-group">
+                <div class="form-group">
                   <label for="phone_number">¿Esta suscritó?</label>
-<select class="form-control" id="is_suscribed" name="is_suscribed">
+                  <select class="form-control" id="is_suscribed" name="is_suscribed">
                     <option value="1">Si</option>
                     <option value="2">No</option>
                   </select>
-</div>
+                </div>
                 <span>LEVELS CRUD FALTA</span>
                 <!---
 <div class="form-group">

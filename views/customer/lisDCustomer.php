@@ -76,7 +76,8 @@ $clients = $clientController->getAllClients();
             <div class="card-header ">
               <div class="card-body">
                 <h3>Lista del Cliente </h3>
-                <div class="row justify-content-between ali mb-3 g-3">
+<!---
+<div class="row justify-content-between ali mb-3 g-3">
                   <div class="col-sm-auto">
                     <form class="form-search">
                       <i class="ph-duotone ph-magnifying-glass icon-search"></i>
@@ -86,6 +87,8 @@ $clients = $clientController->getAllClients();
                   </div>
 
                 </div>
+-->
+                
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -130,8 +133,30 @@ $clients = $clientController->getAllClients();
                             </div>
                           </td>
                           <td>
-                            <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                            <a href='customer/details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal<?= $client->id ?>" onclick="elimiar">Eliminar</a>
+                            <a href='details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            <div class="modal fade modal-animate" id="deleteModal<?= $client->id ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form method="POST" action="../api-client">
+                                    <input type="text" hidden name="action" value="delete_client">
+                                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                    <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
+                                    <div class="modal-body">
+                                      ¿Estás seguro de que deseas eliminar este usuario?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                      <button type="submit" href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -142,23 +167,7 @@ $clients = $clientController->getAllClients();
                 </div>
                 <!-- Modal -->
 
-                <div class="modal fade modal-animate" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este usuario?
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <a href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
                 <!-- Modal -->
               </div>
 
