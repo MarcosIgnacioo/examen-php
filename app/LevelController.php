@@ -142,7 +142,7 @@ class LevelController
   function getLevelDetails($level_id) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $level_id . '/details',
+      CURLOPT_URL => $this->apiBase . '/' . $level_id ,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
