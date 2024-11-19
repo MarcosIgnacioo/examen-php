@@ -324,7 +324,7 @@ include_once "../../app/config.php";
     });
 
     function fetchUserDetails(userId) {
-        fetch('../../app/userController.php', {
+        fetch('../../api-user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

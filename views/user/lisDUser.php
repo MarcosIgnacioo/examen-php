@@ -64,7 +64,7 @@ include_once "../../app/config.php";
                 <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
                     <div class="row justify-content-between ali mb-3 g-3">
-                        <a href='altaUser.php' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
+                        <a href='./user/create/' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
                     </div>
                     <div class="card">
                         <div class="card-header">
@@ -88,7 +88,7 @@ include_once "../../app/config.php";
                                                 <th>ID</th>
                                                 <th>Nombre</th>
                                                 <th>Email</th>
-                                                <th>Fecha de Creación</th>
+                                                <th>Numero telefonico</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -147,7 +147,7 @@ include_once "../../app/config.php";
             });
 
             function fetchUserList() {
-                fetch('app/userController.php', {
+                fetch('./api-user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -164,9 +164,9 @@ include_once "../../app/config.php";
 
                         row.innerHTML = `
                             <td>${user.id}</td>
-                            <td>${user.nombre}</td>
+                            <td>${user.name}</td>
                             <td>${user.email}</td>
-                            <td>${user.fecha_creacion}</td>
+                            <td>${user.phone_number}</td>
                             <td>
                                 <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
                                <a href='user/details/${user.id}' class='btn btn-sm col-sm-8'>Ver mas</a>
