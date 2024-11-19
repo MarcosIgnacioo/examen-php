@@ -10,48 +10,45 @@ if (
 }
 
 switch ($_POST["action"]) {
-  case 'create_user':
-    $userController = new UserController();
-    $res = $userController->createUser($_POST);
-    header('Location: ./users');
+  case 'create_level':
+    $levelController = new LevelController();
+    $res = $levelController->createLevel($_POST);
+    header('Location: ./levels');
     exit();
     break;
 
-  case 'delete_user':
-    $userController = new UserController();
-    $res = $userController->deleteUser($_POST["id"]);
-    header('Location: ./users');
+  case 'update_level':
+    $levelController = new LevelController();
+    $res = $levelController->updateLevel($_POST);
+    header('Location: ./levels');
     exit();
     break;
 
-  case 'update_user':
-    $userController = new UserController();
-    $res = $userController->updateUser($_POST);
-    header('Location: ./users');
-    exit();
+  case 'delete_level':
+    $levelController = new LevelController();
+    $res = $levelController->deleteLevel($_POST["level_id"]);
+    echo json_encode($res);
     break;
 
-  case 'list_users':
-    $userController = new UserController();
-    echo json_encode($userController->getAllUsers());
+  case 'list_levels':
+    $levelController = new LevelController();
+    echo json_encode($levelController->getAllLevels());
     break;
 
-  case 'user_details':
-    $userController = new UserController();
-    echo json_encode($userController->getUserDetails($_POST["id"]));
+  case 'level_details':
+    $levelController = new LevelController();
+    echo json_encode($levelController->getLevelDetails($_POST["level_id"]));
     break;
 
   default:
-    echo 'Invalid action';
     break;
 }
 
-class UserController
+class LevelController
 {
-  private $apiBase = 'https://crud.jonathansoto.mx/api/users';
+  private $apiBase = 'https://crud.jonathansoto.mx/api/levels';
 
-  function createUser($user)
-  {
+  function createLevel($level) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -62,7 +59,7 @@ class UserController
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => $user,
+      CURLOPT_POSTFIELDS => $level,
       CURLOPT_HTTPHEADER => array(
         'Authorization: Bearer ' . $_SESSION['api_token'],
       ),
@@ -70,14 +67,38 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response)->data;
-}
 
-  function deleteUser($id)
-  {
+    return json_decode($response)->data;
+  }
+
+  function updateLevel($level) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $id,
+      CURLOPT_URL => $this->apiBase . '/' . $level['level_id'],
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'PUT',
+      CURLOPT_POSTFIELDS => http_build_query($level),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/x-www-form-urlencoded',
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return json_decode($response)->data;
+  }
+
+  function deleteLevel($level_id) {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBase . '/' . $level_id,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -92,35 +113,11 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
+
     return json_decode($response)->data;
-}
+  }
 
-  function updateUser($user)
-  {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'PUT',
-      CURLOPT_POSTFIELDS => http_build_query($user),
-      CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/x-www-form-urlencoded',
-        'Authorization: Bearer ' . $_SESSION['api_token'],
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return json_decode($response)->data;
-}
-
-  function getAllUsers()
-  {
+  function getAllLevels() {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -138,14 +135,14 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
-    return json_decode($response)->data;
-}
 
-  function getUserDetails($id)
-  {
+    return json_decode($response)->data;
+  }
+
+  function getLevelDetails($level_id) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $id,
+      CURLOPT_URL => $this->apiBase . '/' . $level_id . '/details',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -160,6 +157,8 @@ class UserController
 
     $response = curl_exec($curl);
     curl_close($curl);
+
     return json_decode($response)->data;
   }
 }
+?>

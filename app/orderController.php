@@ -13,14 +13,14 @@ switch ($_POST["action"]) {
   case 'create_order':
     $orderController = new OrderController();
     $res = $orderController->createOrder($_POST);
-    header('Location: ./orders');
+    header('Location: ./orden');
     exit();
     break;
 
   case 'update_order':
     $orderController = new OrderController();
     $res = $orderController->updateOrder($_POST);
-    header('Location: ./orders');
+    header('Location: ./orden');
     exit();
     break;
 

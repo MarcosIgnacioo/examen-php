@@ -33,30 +33,6 @@ switch ($_POST["action"]) {
     echo json_encode($productController->getProductDetails($_POST["id"]));
     break;
 
-  case 'get_presentations':
-    $productController = new ProductController();
-    echo json_encode($productController->getPresentations($_POST["id"]));
-    break;
-
-  case 'add_presentation':
-    $productController = new ProductController();
-    $res = $productController->addPresentation($_POST);
-    header('Location: ./products');
-    exit();
-    break;
-
-  case 'update_presentation':
-    $productController = new ProductController();
-    $res = $productController->updatePresentation($_POST);
-    header('Location: ./products');
-    exit();
-    break;
-
-  case 'delete_presentation':
-    $productController = new ProductController();
-    $res = $productController->deletePresentation($_POST["presentation_id"]);
-    echo json_encode($res);
-    break;
 
   case 'get_orders':
     $productController = new ProductController();
@@ -225,98 +201,7 @@ class ProductController
     return json_decode($response)->data;
   }
 
-  function getPresentations($id)
-  {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $id . '/presentations',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer ' . $_SESSION['api_token'],
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return json_decode($response)->data;
-  }
-
-  function addPresentation($presentation)
-  {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/presentations',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => $presentation,
-      CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer ' . $_SESSION['api_token'],
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return json_decode($response)->data;
-  }
-
-  function updatePresentation($presentation)
-  {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/presentations/' . $presentation['presentation_id'],
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'PUT',
-      CURLOPT_POSTFIELDS => http_build_query($presentation),
-      CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/x-www-form-urlencoded',
-        'Authorization: Bearer ' . $_SESSION['api_token'],
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return json_decode($response)->data;
-
-  }
-
-  function deletePresentation($presentation_id)
-  {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/presentations/' . $presentation_id,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'DELETE',
-      CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer ' . $_SESSION['api_token'],
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return json_decode($response)->data;
-  }
-
+ 
   function getOrders($id)
   {
     $curl = curl_init();

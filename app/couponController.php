@@ -13,14 +13,14 @@ switch ($_POST["action"]) {
   case 'create_coupon':
     $couponController = new CouponController();
     $res = $couponController->createCoupon($_POST);
-    header('Location: ./coupons');
+    header('Location: ./cupones');
     exit();
     break;
 
   case 'update_coupon':
     $couponController = new CouponController();
     $res = $couponController->updateCoupon($_POST);
-    header('Location: ./coupons');
+    header('Location: ./cupones');
     exit();
     break;
 
