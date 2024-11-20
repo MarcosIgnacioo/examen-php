@@ -47,15 +47,8 @@ $clients = $clientController->getAllClients();
         <div class="page-block">
           <div class="row align-items-center">
             <div class="col-md-12">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
-              </ul>
-            </div>
-            <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Info De Clientes</h2>
+                <h2 class="mb-0">Lista de clientes</h2>
               </div>
             </div>
           </div>
@@ -68,27 +61,12 @@ $clients = $clientController->getAllClients();
       <div class="row">
         <!-- [ sample-page ] start -->
         <div class="col-sm-12">
-          <div class="row justify-content-between ali mb-3 g-3">
 
-            <a href='customer/create' class='btn btn-sm btn-primary col-sm-auto'>Agregar</a>
-          </div>
           <div class="card">
             <div class="card-header ">
               <div class="card-body">
-                <h3>Lista del Cliente </h3>
-<!---
-<div class="row justify-content-between ali mb-3 g-3">
-                  <div class="col-sm-auto">
-                    <form class="form-search">
-                      <i class="ph-duotone ph-magnifying-glass icon-search"></i>
-                      <input type="search" class="form-control" placeholder="Search...">
-                      <button class="btn btn-light-secondary btn-search">Search</button>
-
-                  </div>
-
-                </div>
--->
-                
+                <h3>Clientes </h3>
+                <a href='customer/create' class='btn btn-sm btn-primary fs-4 p-6 mt-2'>Agregar</a>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -134,7 +112,7 @@ $clients = $clientController->getAllClients();
                           </td>
                           <td>
                             <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal<?= $client->id ?>" onclick="elimiar">Eliminar</a>
-                            <a href='details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            <a href='<?= BASE_PATH ?>customer/details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
                             <div class="modal fade modal-animate" id="deleteModal<?= $client->id ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -142,7 +120,7 @@ $clients = $clientController->getAllClients();
                                     <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
-                                  <form method="POST" action="../api-client">
+                                  <form method="POST" action="<?= BASE_PATH ?>api-client">
                                     <input type="text" hidden name="action" value="delete_client">
                                     <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                                     <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -159,6 +137,7 @@ $clients = $clientController->getAllClients();
                             </div>
                           </td>
                         </tr>
+
                       <?php endforeach ?>
                       <?endif?>
                     </tbody>

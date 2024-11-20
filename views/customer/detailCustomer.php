@@ -3,6 +3,8 @@ include_once "../../app/config.php";
 
 include_once("../../app/clientController.php");
 
+include_once("../../app/LevelController.php");
+
 $link = $_SERVER['REQUEST_URI'];
 $link_array = explode('/', $link);
 $id = end($link_array);
@@ -24,6 +26,9 @@ $addressFields = [
   "is_billing_address" => "¿Es dirección de facturación?",
   "client_id" => "ID del cliente"
 ];
+
+$levelController = new LevelController();
+$levels = $levelController->getAllLevels();
 
 // TODO: Poner que se puedan subir imagenes a la hora de crear un cliente aunque esto sea dependiente del servidor de xamp asi q buscar la manera en la que sea generico pa todos
 // Poner los niveles a la hora de editar y crear un cliente
@@ -74,15 +79,8 @@ $addressFields = [
         <div class="page-block">
           <div class="row align-items-center">
             <div class="col-md-12">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
-              </ul>
-            </div>
-            <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Info Del Cliente</h2>
+                <h2 class="mb-0">Información Del Cliente</h2>
               </div>
             </div>
           </div>
@@ -110,7 +108,7 @@ $addressFields = [
 
             <div class="row justify-content-between ali mb-3 g-3">
 
-              <a href='lisDCustomer.php' class='btn-primary col-sm-auto'>Regresar</a>
+            <a href='<?=BASE_PATH?>customer' class='btn-primary col-sm-auto'>Regresar</a>
 
 
             </div>
@@ -118,10 +116,13 @@ $addressFields = [
               <div class="card overflow-hidden">
                 <div class="card-body position-relative">
                   <div class="text-center mt-3">
-                    <div class="chat-avtar d-inline-flex mx-auto">
+<!--
+<div class="chat-avtar d-inline-flex mx-auto">
                       <img class="rounded-circle img-fluid wid-150 img-thumbnail" src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="User image">
                       <i class="chat-badge bg-success me-2 mb-2"></i>
                     </div>
+-->
+                    
                     <h5 class="mb-0"><?= $client->name ?></h5>
                     <p class="text-muted text-sm"><a mailto="<?= $client->email ?>" type="email" class="link-primary"> <?= $client->email ?></a></p>
                     <a href="" class='btn-primary' data-bs-toggle="modal" data-bs-target="#nivelModal">Nivel <?= $client->level->name ?></a>
@@ -138,9 +139,13 @@ $addressFields = [
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-orden-tab" data-bs-toggle="pill" href="#user-set-orden" role="tab" aria-controls="user-set-orden" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-notebook m-r-10"></i>Ordenes</span>
                   </a>
-                  <a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
+
+<!--
+<a class="nav-link list-group-item list-group-item-action" id="user-set-passwort-tab" data-bs-toggle="pill" href="#user-set-passwort" role="tab" aria-controls="user-set-passwort" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-key m-r-10"></i>Cambiar Contraseña</span>
                   </a>
+-->
+                  
                   <a class="nav-link list-group-item list-group-item-action" id="user-set-email-tab" data-bs-toggle="pill" href="#user-set-email" role="tab" aria-controls="user-set-email" aria-selected="false" tabindex="-1">
                     <span class="f-w-500"><i class="ph-duotone ph-envelope-open m-r-10"></i>Direcciones</span>
                   </a>
@@ -236,7 +241,7 @@ $addressFields = [
                   </div>
                 </div>
                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
-                  <form method="POST" action="api-client">
+                  <form method="POST" action="<?= BASE_PATH ?>api-client">
                     <input type="text" hidden name="action" value="update_client">
                     <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                     <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -254,48 +259,34 @@ $addressFields = [
                           </div>
                           <div class="col-sm-6">
                             <div class="mb-3">
-                              <label class="form-label">Correo <span class="text-danger">*</span></label>
+                              <label class="form-label">Correo </label>
                               <input name="email" type="email" class="form-control" value="<?= $client->email ?>">
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="mb-3">
                               <label class="form-label">Telefono</label>
-                              <input name="phone_number" type="text" class="form-control" value="<?= $client->phone_number ?>">
+                              <input name="phone_number" max="10" type="text" class="form-control phone_number" value="<?= $client->phone_number ?>">
                             </div>
                           </div>
+<!--
 <div class="col-sm-6">
                             <div class="mb-3">
-                              <label class="form-label">Estado</label>
-                              <input name="" type="text" class="form-control" value="<?= $address->province ?>">
+                              <label class="form-label">Contraseña</label>
+                              <input name="password" type="text" class="form-control" value="">
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <h5>Direccion Principal</h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="row">
+-->
+                          
                           <div class="col-sm-6">
-                            <div class="mb-3">
-                              <label class="form-label">Codigo Postal</label>
-                              <input type="text" class="form-control" value="<?= $address->postal_code ?>">
-                            </div>
-                          </div>
-                          <div class="col-sm-12">
-                            <div class="mb-0">
-                              <label class="form-label">Cuidad</label>
-                              <input class="form-control" value="<?= $address->city ?>"></input>
-                            </div>
-                          </div>
-                          <div class="col-sm-12">
-                            <div class="mb-0">
-                              <label class="form-label">Calle</label>
-                              <input class="form-control" value="<?= $address->street_and_use_number ?>"></input>
-                            </div>
+                            <label for="level" class="form-label">Nivel</label>
+                            <select class="form-control" id="level_id" name="level_id">
+                              <?php if (isset($levels) && sizeof($levels)) ?>
+                              <?php foreach ($levels as $level) : ?>
+                                <option <?= $isSelected = ($level->id == $client->level->id) ? "selected" : "" ?> value="<?= $level->id ?>"><?= $level->name ?></option>
+                              <?php endforeach ?>
+                              <?endif?>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -365,12 +356,14 @@ $addressFields = [
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
+
+                <!--
+<div class="tab-pane fade" id="user-set-passwort" role="tabpanel" aria-labelledby="user-set-passwort-tab">
                   <div class="card">
                     <div class="card-header">
                       <h5>Cambiar Contraseña</h5>
                     </div>
-                    <form method="POST" action="api-client">
+                    <form method="POST" action="<?= BASE_PATH ?>api-client">
                       <input type="text" hidden name="action" value="update_client">
                       <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                       <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -381,7 +374,6 @@ $addressFields = [
                               <label class="col-form-label col-md-4 col-sm-12 text-md-end">Nueva Contraseña <span class="text-danger">*</span></label>
                               <div class="col-md-8 col-sm-12">
                                 <input name="password" type="password" class="form-control">
-
                                 <button type="submit" class="ms-auto btn btn-primary">Cambiar Contraseña</button>
                               </div>
 
@@ -393,8 +385,7 @@ $addressFields = [
                   </div>
 
                 </div>
-
-                <!--- no tenemos aun controlador d direcciones --->
+-->
                 <div class="tab-pane fade" id="user-set-email" role="tabpanel" aria-labelledby="user-set-email-tab">
                   <div class="text-end btn-page">
                     <button href="" class='btn btn-primary' data-bs-toggle="modal" data-bs-target="#direccionModal">Añadir Direccion</button>
@@ -426,8 +417,6 @@ $addressFields = [
                                 <p class="mb-0"><?= $address->street_and_use_number ?></p>
                               </div>
                               <div class="col-md-6">
-                                <p class="mb-1 text-muted">No. de Casa</p>
-                                <p class="mb-0">279</p>
                               </div>
                               <div class="col-md-6 mt-3">
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit<?= $address->id ?>">
@@ -444,7 +433,7 @@ $addressFields = [
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form method="POST" action="api-literlamente no existe">
+                                        <form method="POST" action="<?= BASE_PATH ?>api-address">
                                           <input type="text" hidden name="action" value="delete_address">
                                           <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                                           <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -466,7 +455,7 @@ $addressFields = [
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form method="POST" action="api-client">
+                                        <form method="POST" action="<?= BASE_PATH ?>api-address">
                                           <div class="card">
                                             <div class="card-body">
                                               <!---MANDATORY SHIT--->
@@ -537,8 +526,8 @@ $addressFields = [
         <div class="modal fade modal-animate" id="direccionModal" tabindex="-1" aria-labelledby="direccionModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="POST" action="api-client">
-                <input type="text" hidden name="action" value="add_address">
+              <form method="POST" action="<?= BASE_PATH ?>api-address">
+                <input type="text" hidden name="action" value="create_address">
                 <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                 <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
                 <div class="modal-header">
@@ -555,9 +544,9 @@ $addressFields = [
                               <option value="1">Si</option>
                               <option value="0">No</option>
                             </select>
-                          <!--- cambiar esto a un == id quizas despues --->
+                            <!--- cambiar esto a un == id quizas despues --->
                           <?php elseif (!str_contains($key, "id")) : ?>
-                            <input name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="asdf">
+                            <input name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="">
                           <?php endif; ?>
                         </div>
                       <?php endforeach; ?>
@@ -567,7 +556,7 @@ $addressFields = [
                   </div>
                 </div>
                 <div class="text-end btn-page">
-                  <div class="btn btn-danger">Cancelar</div>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary">Agregar</button>
                 </div>
               </form>
@@ -780,13 +769,13 @@ $addressFields = [
     }
     const classes = ['.phone_number', '.postal_code']
     const phone_inputs = classes.flatMap((className) => Array.from(document.querySelectorAll(className)));
-    console.log(phone_inputs);
 
     phone_inputs.forEach((phone) => {
       setInputFilter(phone, function(value) {
-        return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp.
-      }, "Solo digitos");
+        return /^\d{0,10}$/.test(value); // Allow digits and '.' only, using a RegExp.
+      }, "Solo digitos, 10 como máximo");
     })
+
   </script>
 
   <?php
