@@ -6,6 +6,7 @@ include_once("../../app/CatalogController.php");
 $brandController = new BrandController();
 $categoryController = new CategoryController();
 $catalogController = new CatalogController();
+
 $brands = $brandController->get();
 $tags = $catalogController->getTags();
 $categories = $categoryController->get();
@@ -92,7 +93,7 @@ $categories = $categoryController->get();
                           </select>
                         </div>
                         <div class="col mt-2">
-                          <button style="width=50px;" onclick='deleteCombobox(event)' type="button" class="col btn btn-danger h-100 fw-bolder">X</button>
+                          <button onclick='deleteCombobox(event)' type="button" class="col btn btn-danger h-100 fw-bolder">X</button>
                         </div>
                       </div>
                     </div>
