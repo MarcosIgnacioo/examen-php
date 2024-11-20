@@ -12,6 +12,8 @@ RewriteRule ^products/?$ views/products/index.php
 RewriteRule ^products/create/?$ views/products/create.php
 RewriteRule ^products/edit/([^/]+)/?$ views/products/edit.php
 RewriteRule ^products/([^/]+)/?$ views/products/details.php
+
+
 RewriteRule ^user/create/?$ views/user/altaUser.php
 RewriteRule ^user/details/([^/]+)/?$ views/user/detailUser.php
 RewriteRule ^user/?$ views/user/lisDUser.php
@@ -19,13 +21,14 @@ RewriteRule ^user/?$ views/user/lisDUser.php
 RewriteRule ^customer/create/?$ views/customer/altaCustomer.php
 RewriteRule ^customer/edit/([^/]+)/?$ views/customer/editCustomer.php
 RewriteRule ^customer/details/([^/]+)/?$ views/customer/detailCustomer.php
-RewriteRule ^customer/?$ views/customer/lisDCustomer.php
+RewriteRule ^customer/?$ views/customer/lisDCustomer.php 
  
 RewriteRule ^orden/?$ views/orden/detailOrden.php
 RewriteRule ^cupones/?$ views/cupones/detailCupon.php
 RewriteRule ^catalogo/?$ views/catalogo/detailCatalogo.php
 
 #controladores
+RewriteRule ^api-address?$ app/AddressController.php
 RewriteRule ^api-auth?$ app/AuthController.php
 RewriteRule ^api-brand?$ app/BrandController.php
 RewriteRule ^api-catalog?$ app/CatalogController.php
