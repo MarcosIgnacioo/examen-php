@@ -39,7 +39,7 @@ $product = $productController->getProductBySlug($slug);
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-            
+
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Edit product</h2>
@@ -87,7 +87,7 @@ $product = $productController->getProductBySlug($slug);
                   <select class="form-select" name="category_id" id="category_selector">
                     <?php if (isset($categories) && sizeof($categories)): ?>
                       <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                        <option <?= $isSelected = ($category->id == $product->category_id) ?> value="<?= $category->id ?>"><?= $category->name ?></option>
                       <?php endforeach ?>
                   </select>
                 <?php endif; ?>
@@ -108,20 +108,7 @@ $product = $productController->getProductBySlug($slug);
               </div>
             </div>
           </div>
-          <div class="col-xl-6">
-            <div class="card">
-              <div class="card-header">
-                <h5>Product image</h5>
-              </div>
-              <div class="card-body">
-                <div class="mb-0">
-                  <p><span class="text-danger">*</span> Recommended resolution is 640*640 with file size</p>
-                  <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click to Upload</label>
-                  <input type="file" name="cover" id="flupld" class="d-none" />
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div class="col-sm-12">
             <div class="card">
               <div class="card-body text-end btn-page">

@@ -33,7 +33,7 @@ $categories = $categoryController->get();
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-            
+
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Add New Product</h2>
@@ -46,7 +46,7 @@ $categories = $categoryController->get();
 
       <!-- [ Main Content ] start -->
       <div class="row">
-      <form method="POST" action="../api-products" enctype="multipart/form-data">
+        <form method="POST" action="<?= BASE_PATH ?>api-products" enctype="multipart/form-data">
           <!-- [ sample-page ] start -->
           <div class="col-xl-6">
             <div class="card">
