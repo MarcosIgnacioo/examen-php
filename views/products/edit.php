@@ -64,59 +64,61 @@ $product = $productController->getProductBySlug($slug);
                 <input type="text" hidden name="id" value=<?= $product->id ?>>
                 <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                 <div class="mb-3">
-                  <label class="form-label">Product Name</label>
-                  <input type="text" name="name" value="<?= $product->name ?>" class="form-control" placeholder="Enter Product Name" />
+                  <label class="form-label">Nombre del producto</label>
+                  <input type="text" name="name" value="<?= $product->name ?>" class="form-control" placeholder="Nombre del producto" />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Product Slug</label>
-                  <input type="text" name="slug" class="form-control" id="slug_input" value="<?= $product->slug ?>" placeholder="Enter Product Name" />
+                  <label class="form-label">Slug</label>
+                  <input type="text" name="slug" class="form-control" id="slug_input" value="<?= $product->slug ?>" placeholder="slug-del-producto" />
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Brand</label>
                   <select class="form-select" name="brand_id" id="brand_selector">
                     <?php if (isset($brands) && sizeof($brands)): ?>
                       <?php foreach ($brands as $brand) : ?>
-                        <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
+                        <option <?= $isSelected = ($product->brand->id == $brand->id) ? "selected" : "" ?> value="<?= $brand->id ?>"><?= $brand->name ?></option>
                       <?php endforeach ?>
                   </select>
                 <?php endif; ?>
                 </select>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Category</label>
+                <div class="mb-3" id="categories-container">
+                  <label class="form-label">Categoria</label>
                   <select class="form-select" name="category_id" id="category_selector">
                     <?php if (isset($categories) && sizeof($categories)): ?>
                       <?php foreach ($categories as $category) : ?>
-                        <option <?= $isSelected = ($category->id == $product->category_id) ?> value="<?= $category->id ?>"><?= $category->name ?></option>
+                        <option <?= $isSelected = ($category->id == $product->categories[0]->id) ? "selected" : "" ?> value="<?= $category->id ?>"><?= $category->name ?></option>
                       <?php endforeach ?>
                   </select>
                 <?php endif; ?>
                 </select>
                 </div>
                 <div class="mb-0">
-                  <label class="form-label">Product Description</label>
-                  <textarea class="form-control" name="description" placeholder="Enter Product Description">
+                  <label class="form-label">Descripción del producto</label>
+                  <textarea class="form-control" name="description" placeholder="descipcion">
 <?= $product->description ?>
 </textarea>
                 </div>
                 <div class="mb-0">
-                  <label class="form-label">Product Features</label>
-                  <textarea class="form-control" name="features" placeholder="Enter Product Features">
+                  <label class="form-label">Caracteristicas del productos</label>
+                  <textarea class="form-control" name="features" placeholder="es un pink pony club">
 <?= $product->features ?>
                 </textarea>
                 </div>
               </div>
+<div class="card-body btn-page">
+                <button type="submit" class="btn btn-primary mb-0">Save product</button>
+              </div>
             </div>
           </div>
-
-          <div class="col-sm-12">
+          
+          <!-- <div class="col-sm-12">
             <div class="card">
               <div class="card-body text-end btn-page">
                 <button type="submit" class="btn btn-primary mb-0">Save product</button>
               </div>
             </div>
-          </div>
-          <!-- [ sample-page ] end -->
+          </div> -->
 
         </form>
 

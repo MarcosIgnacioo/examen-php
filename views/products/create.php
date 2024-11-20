@@ -2,9 +2,12 @@
 include_once "../../app/config.php";
 include_once("../../app/BrandController.php");
 include_once("../../app/CategoryController.php");
+include_once("../../app/CatalogController.php");
 $brandController = new BrandController();
 $categoryController = new CategoryController();
+$catalogController = new CatalogController();
 $brands = $brandController->get();
+$tags = $catalogController->getTags();
 $categories = $categoryController->get();
 ?>
 <!doctype html>
@@ -76,23 +79,60 @@ $categories = $categoryController->get();
                 </select>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Category</label>
-                  <select class="form-select" name="category_id" id="category_selector">
-                    <?php if (isset($categories) && sizeof($categories)): ?>
-                      <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
-                      <?php endforeach ?>
-                  </select>
+                  <label class="form-label">Categorias</label>
+                  <div id="category_container mt-2">
+                    <div id="category_selector container" >
+                      <div class="row" id="category_selector">
+                        <div class="col d-flex">
+                          <select class="col form-select mt-2" name="categories[]" >
+                            <?php if (isset($categories) && sizeof($categories)): ?>
+                              <?php foreach ($categories as $category) : ?>
+                                <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                              <?php endforeach ?>
+                          </select>
+                        </div>
+                        <div class="col mt-2">
+                          <button style="width=50px;" onclick='deleteCombobox(event)' type="button" class="col btn btn-danger h-100 fw-bolder">X</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="more-categories">
+                    </div>
+                    <button onclick='addCategory()' type="button" class="btn btn-secondary mt-4">Agregar categoria</button>
+                  </div>
                 <?php endif; ?>
-                </select>
                 </div>
-                <div class="mb-0">
+                <div class="mb-3">
+                  <label class="form-label">Etiquetas</label>
+                  <div id="tag_container mt-2">
+                    <div id="tag_selector container" >
+                      <div class="row" id="tag_selector">
+                        <div class="col d-flex">
+                          <select class="col form-select mt-2" name="tags[]" >
+                            <?php if (isset($tags) && sizeof($tags)): ?>
+                              <?php foreach ($tags as $tag) : ?>
+                                <option value="<?= $tag->id ?>"><?= $tag->name ?></option>
+                              <?php endforeach ?>
+                          </select>
+                        </div>
+                        <div class="col mt-2">
+                          <button onclick='deleteCombobox(event)' type="button" class="col btn btn-danger h-100 fw-bolder">X</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="more-tags">
+                    </div>
+                    <button onclick='addTag()' type="button" class="btn btn-secondary mt-4">Agregar etiqueta</button>
+                  </div>
+                <?php endif; ?>
+                </div>
+                <div class="mb-0 mt-4">
                   <label class="form-label">Product Description</label>
                   <textarea class="form-control" name="description" placeholder="Enter Product Description">
 El camino de los reyes es el primer volumen de «El Archivo de las Tormentas», el resultado de más de una década de construcción y escritura de universos, convertido en una obra maestra de la fantasía contemporánea en diez volúmenes. Con ella, Brandon Sanderson se postula como el autor del género que más lectores está ganando en todo el mundo.
 </textarea>
                 </div>
-                <div class="mb-0">
+                <div class="mb-0 mt-4">
                   <label class="form-label">Product Features</label>
                   <textarea class="form-control" name="features" placeholder="Enter Product Features">ASIN B014R3ODUI
 Editorial NOVA (27 agosto 2015)
@@ -123,8 +163,9 @@ Número de páginas 1517 páginas</textarea>
           </div>
           <div class="col-sm-12">
             <div class="card">
-              <div class="card-body text-end btn-page">
-                <button type="submit" class="btn btn-primary mb-0">Save product</button>
+              <div class="card-body  btn-page flex d-flex">
+          <a href="<?=BASE_PATH?>products" type="submit" class="btn btn-secondary mb-0">Cancel</a>
+                <button type="submit" class="btn btn-primary mb-0 ms-auto">Save product</button>
               </div>
             </div>
           </div>
@@ -152,7 +193,28 @@ Número de páginas 1517 páginas</textarea>
   <script>
     const slug = document.getElementById('slug_input');
     const category = document.getElementById('category_selector');
+    const tag = document.getElementById('tag_selector');
+    const categoryContainer = document.getElementById('category_container');
+    const appendingCategories = document.getElementById('more-categories');
+    const appendingTags = document.getElementById('more-tags');
     const brand = document.getElementById('brand_selector');
+
+    function addCategory() {
+      const clone = category.cloneNode(true);
+      console.log(category);
+      appendingCategories.appendChild(clone);
+    }
+
+    function addTag() {
+      const clone = tag.cloneNode(true);
+      appendingTags.appendChild(clone);
+
+    }
+
+    function deleteCombobox(e) {
+      e.target.parentElement.parentElement.remove();
+    }
+
     slug.value += '-' + parseInt(Math.random() * 10000);
     category.selectedIndex = 21;
     brand.selectedIndex = 40;
