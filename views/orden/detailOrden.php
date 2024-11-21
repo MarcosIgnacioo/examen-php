@@ -127,8 +127,14 @@ $coupons = $couponController->getAllCoupons();
              <td>$" . number_format($order->total, 2) . "</td>
              <td>
                  <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editOrdenModal'>Editar</button>
-                 <button class='btn btn-danger btn-sm'>Eliminar</button>
-                 <button 
+    <button 
+        class='btn btn-danger btn-sm' 
+        data-bs-toggle='modal' 
+        data-bs-target='#deleteOrderModal'
+        data-order-id='{$order->id}'>
+        Eliminar
+    </button>
+                     <button 
                      class='btn btn-secondary btn-sm view-order-details' 
                      data-bs-toggle='modal' 
                      data-bs-target='#detailOrdenModal'
@@ -162,7 +168,24 @@ $coupons = $couponController->getAllCoupons();
           </div>
         </div>
 
-
+<!-- Delete Order Modal -->
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteOrderModalLabel">Eliminar Orden</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar esta orden?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteOrder">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
       </div>
       <!-- [ Modal ]  -->
       <div class="modal fade" id="editOrdenModal" tabindex="-1" aria-labelledby="editOrdenModalLabel" aria-hidden="true">
@@ -551,6 +574,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     populateProductCombobox();
     fetchCoupons();
+});
+
+//eliminacion de ordenes
+document.addEventListener("DOMContentLoaded", function() {
+    let orderIdToDelete;
+
+    document.getElementById('deleteOrderModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; 
+        orderIdToDelete = button.getAttribute('data-order-id'); 
+    });
+
+    document.getElementById('confirmDeleteOrder').addEventListener('click', function () {
+        const confirmButton = this;
+        confirmButton.disabled = true; 
+
+        setTimeout(() => {
+            location.reload();
+        }, 100); 
+
+        fetch('./api-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=delete_order&order_id=${orderIdToDelete}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
 });
 </script>
 
