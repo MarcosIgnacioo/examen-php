@@ -185,6 +185,81 @@ $product = $productController->getProductBySlug($slug);
               </div>
             </div>
           </div>
+          <div class="card">
+            <div class="card-header pb-0">
+              <ul class="nav nav-tabs profile-tabs mb-0" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    id="ecomtab-tab-1"
+                    data-bs-toggle="tab"
+                    href="#ecomtab-1"
+                    role="tab"
+                    aria-controls="ecomtab-1"
+                    aria-selected="true">Features
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    id="ecomtab-tab-2"
+                    data-bs-toggle="tab"
+                    href="#ecomtab-2"
+                    role="tab"
+                    aria-controls="ecomtab-2"
+                    aria-selected="true">Specifications
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane show active" id="ecomtab-1" role="tabpanel" aria-labelledby="ecomtab-tab-1">
+                  <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                      <tbody>
+                        <tr>
+                          <?= $product->description ?>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="ecomtab-2" role="tabpanel" aria-labelledby="ecomtab-tab-2">
+                  <div class="row gy-3">
+                    <div class="col-md-6">
+                      <h5>Product Category</h5>
+                      <hr class="mb-3 mt-1" />
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <tbody>
+                            <?php foreach ($product->categories as $category) : ?>
+                              <td class="py-1"><?= $category->name ?></td>
+                            <?php endforeach ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md-6">
+                      <h5>Product Tags</h5>
+                      <hr class="mb-3 mt-1" />
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <tbody>
+                            <?php foreach ($product->tags as $tag) : ?>
+                              <td class="py-1"><?= $tag->name ?></td>
+                            <?php endforeach ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- [ sample-page ] end -->
       </div>
