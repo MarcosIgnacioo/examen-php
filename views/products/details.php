@@ -8,8 +8,19 @@ $link = $_SERVER['REQUEST_URI'];
 $link_array = explode('/', $link);
 $slug = end($link_array);
 $product = $productController->getProductBySlug($slug);
+$products = $productController->get();
 $presentations = $presentationController->getPresentationsByProduct($product->id);
-echo '<h1>asdf</h1>';
+$presentationsFields = [
+  "description" => "Descripción", // ya
+  "code" => "Código", // ya
+  "weight_in_grams" => "Peso En Gramos", // ya
+  "status" => "Estado", //yajk
+  "stock" => "Existencia", //ya
+  "stock_min" => "Existencia Mínima", //aya
+  "stock_max" => "Existencia Máxima", //ya
+  "product_id" => "Id Producto", //ya
+  "amount" => "Cantidad", // ya
+];
 ?>
 <!doctype html>
 <html lang="en">
@@ -247,18 +258,24 @@ echo '<h1>asdf</h1>';
                           <th>Acciones</th>
                         </tr>
                       </thead>
+                      <!--
+                      presentations para ver todas las presentaciones y editarlas pero por mientras asi
+                      -->
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Presentación 1</td>
-                          <td>50</td>
-                          <td>$10.00</td>
-                          <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                              data-bs-target="#editPresentationModal">Editar</button>
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                          </td>
-                        </tr>
+                        <?php if (isset($presentations) && sizeof($presentations)): ?>
+                          <?php foreach ($presentations as $presentation) : ?>
+                            <tr>
+                              <td><?= $presentation->id ?></td>
+                              <td><?= $presentation->description ?></td>
+                              <td><?= $presentation->stock ?></td>
+                              <td><?= $presentation->current_price->amount ?></td>
+                              <td><button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                  data-bs-target="#editPresentationModal">Editar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                              </td>
+                            </tr>
+                          <?php endforeach ?>
+                        <?php endif; ?>
                       </tbody>
                     </table>
                   </div>
@@ -309,21 +326,58 @@ echo '<h1>asdf</h1>';
                       data-bs-target="#presentacionModal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form>
-                      <div class="mb-3">
-                        <label for="presentationName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="presentationName" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="presentationStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="presentationStock" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="presentationPrice" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="presentationPrice" step="0.01" required>
-                      </div>
-                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                  <form method="POST" action="<?=BASE_PATH?>api-presentations" enctype="multipart/form-data">
+                      <input type="text" hidden name="action" value="create_presentation">
+                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                      <div class="col-sm-12">
+                        <div class="mb-3">
+                          <label class="form-label">Producto</label>
+                          <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Descripción</label>
+                          <textarea class="form-control" name="description" placeholder=""></textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Estatus</label>
+                          <select class="form-control" name="status">
+                            <option value="active">Activa</option>
+                            <option value="inactive">Inactiva</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label ">Stock</label>
+                          <input class="form-control number" name="stock" placeholder="1">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Stock minimo</label>
+                          <input class="form-control number" name="stock_min" placeholder="1">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Stock máximo</label>
+                          <input class="form-control number" name="stock_max" placeholder="1">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Peso (en gramos)</label>
+                          <input class="form-control" name="weight_in_grams">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Código</label>
+                          <input class="form-control" name="code">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Precio</label>
+                          <input class="form-control number" name="amount">
+                        </div>
+                        <div class="mb-3">
+                            <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click para subir imagen</label>
+                            <input type="file" name="cover" id="flupld" class="d-none" />
+                        </div>
+                    <div class="mb-3">
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#presentacionModal">Guardar</button>
+                        </div>
+                      
                     </form>
                   </div>
                 </div>
@@ -409,6 +463,44 @@ echo '<h1>asdf</h1>';
   include "../layouts/scripts.php";
 
   ?>
+<script>
+    function setInputFilter(textbox, inputFilter, errMsg) {
+      ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
+        textbox.addEventListener(event, function(e) {
+          if (inputFilter(this.value)) {
+            // Accepted value.
+            if (["keydown", "mousedown", "focusout"].indexOf(e.type) >= 0) {
+              this.classList.remove("input-error");
+              this.setCustomValidity("");
+            }
+
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+          } else if (this.hasOwnProperty("oldValue")) {
+            // Rejected value: restore the previous one.
+            this.classList.add("input-error");
+            this.setCustomValidity(errMsg);
+            this.reportValidity();
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+          } else {
+            // Rejected value: nothing to restore.
+            this.value = "";
+          }
+        });
+      });
+    }
+    const classes = ['.number']
+    const phone_inputs = classes.flatMap((className) => Array.from(document.querySelectorAll(className)));
+    console.log(phone_inputs);
+
+    phone_inputs.forEach((phone) => {
+      setInputFilter(phone, function(value) {
+        return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp.
+      }, "Solo digitos");
+    })
+  </script>
 
 
   <!-- [Page Specific JS] start -->

@@ -1,3 +1,12 @@
+<?php if (isset($products) && sizeof($products)) ?>
+<select class="form-control">
+  <?php foreach ($products as $product) : ?>
+    <option value="<?= $product->id ?>">
+      <?= $product->name ?>
+    </option>
+  <?php endforeach ?>
+</select>
+<?endif?>
 <div class="mb-3">
   <label class="form-label">Categorias</label>
   <div id="category_container mt-2">
@@ -49,9 +58,9 @@
           </div>
     </div>
   <?php endif; ?>
-<div id="more-tags">
-</div>
-<button onclick='addTag()' type="button" class="btn btn-secondary mt-4">Agregar etiqueta</button>
+  <div id="more-tags">
+  </div>
+  <button onclick='addTag()' type="button" class="btn btn-secondary mt-4">Agregar etiqueta</button>
   </div>
 </div>
 <div class="mb-0 mt-4">
