@@ -5,6 +5,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 switch ($_POST["action"]) {
+
+  case 'list_categories':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getAllCategories());
+    break;
+    
+  case 'category_details':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getCategoryById($_POST["category_id"]));
+    break;
+    
   case 'add_category':
     $catalogController = new CatalogController();
     $res = $catalogController->createCategory($_POST);
@@ -25,6 +36,16 @@ switch ($_POST["action"]) {
     echo json_encode($res);
     break;
 
+  case 'list_brands':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getAllBrands());
+    break;
+
+  case 'brand_details':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getBrandById($_POST["brand_id"]));
+    break;
+
   case 'add_brand':
     $catalogController = new CatalogController();
     $res = $catalogController->createBrand($_POST);
@@ -43,6 +64,17 @@ switch ($_POST["action"]) {
     $catalogController = new CatalogController();
     $res = $catalogController->deleteBrand($_POST["brand_id"]);
     echo json_encode($res);
+    break;
+
+
+  case 'list_tags':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getTags());
+    break;
+
+  case 'tag_details':
+    $catalogController = new CatalogController();
+    echo json_encode($catalogController->getTagById($_POST["tag_id"]));
     break;
 
   case 'add_tag':
