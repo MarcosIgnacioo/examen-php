@@ -12,14 +12,14 @@ switch ($_POST["action"]) {
   case 'create_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->createPresentation($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $presentationController-> getReferer());
     exit();
     break;
 
   case 'update_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->updatePresentation($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $presentationController-> getReferer());
     exit();
     break;
 
@@ -45,10 +45,33 @@ switch ($_POST["action"]) {
 
 class PresentationController
 {
+
+  function getReferer() {
+    return $_SERVER['HTTP_REFERER'] ?? './products';
+  }
+
   private $apiBase = 'https://crud.jonathansoto.mx/api/presentations';
 
   function createPresentation($presentation) {
-    
+    $uploadDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+    $uploadFile = $uploadDir . basename($_FILES['cover']['name']);
+    if (move_uploaded_file($_FILES['cover']['tmp_name'], $uploadFile)) {
+        $presentation['cover'] = new CURLFILE(realpath($uploadFile));
+
+        if (isset($presentation['categories']) && is_array($presentation['categories'])) {
+            foreach ($presentation['categories'] as $index => $category) {
+                $presentation["categories[$index]"] = $category;
+            }
+            unset($presentation['categories']);
+        }
+
+        if (isset($presentation['tags']) && is_array($presentation['tags'])) {
+            foreach ($presentation['tags'] as $index => $tag) {
+                $presentation["tags[$index]"] = $tag;
+            }
+            unset($presentation['tags']);
+        }
+    }
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -69,7 +92,10 @@ class PresentationController
     $response = curl_exec($curl);
     curl_close($curl);
 
-    
+    if (file_exists($uploadFile)) {
+        unlink($uploadFile);
+    }
+
     return json_decode($response)->data;
   }
 
