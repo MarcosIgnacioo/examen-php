@@ -607,7 +607,7 @@ $addressFields = [
                   </div>
                 </div>
                 <div class="text-end btn-page">
-                  <div class="btn btn-danger">Cancelar</div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary">Agregar</button>
                 </div>
               </form>
