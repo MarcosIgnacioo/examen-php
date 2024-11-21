@@ -118,7 +118,7 @@ include_once "../../app/config.php";
                                 <thead>
                                     <tr>
                                         <th>Codigo del Cupon</th>
-                                        <th>Cantidad</th>
+                                        <th>Porcentaje</th>
                                         <th>Fecha de Expiracion</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -214,9 +214,9 @@ include_once "../../app/config.php";
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form method="POST" action="./api-coupon" enctype="multipart/form-data" id="editCouponForm">
-                            <input type="hidden" name="action" value="update_coupon">
-                            <input type="hidden" name="coupon_id" id="edit-coupon-id">
+                            <form method="POST" action="api-coupon" enctype="multipart/form-data" id="editCouponForm">
+                                <input type="hidden" name="action" value="update_coupon">
+                                <input type="hidden" name="coupon_id" id="edit-coupon-id">
 
                                 <div class="mb-3">
                                     <label for="edit-name" class="form-label">Nombre del cupón:</label>

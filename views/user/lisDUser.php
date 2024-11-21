@@ -91,7 +91,7 @@ include_once "../../app/config.php";
                                     </table>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal fade modal-animate" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -103,11 +103,17 @@ include_once "../../app/config.php";
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <a href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</a>
+                                                <form action="./api-user" method="POST">
+                                                    <input type="hidden" name="action" value="delete_user">
+                                                    <input type="hidden" name="id" id="delete-user-id">
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    <input type="hidden" name="global_token" value="<?= $_SESSION['global_token']; ?>">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Modal -->
                             </div>
                         </div>
@@ -162,8 +168,14 @@ include_once "../../app/config.php";
                             <td>${user.email}</td>
                             <td>${user.phone_number}</td>
                             <td>
-                                <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="elimiar">Eliminar</a>
-                               <a href='user/details/${user.id}' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            <button 
+                                class="btn btn-danger btn-sm" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#deleteModal" 
+                                data-user-id="${user.id}">
+                                Eliminar
+                            </button>
+                                       <a href='user/details/${user.id}' class='btn btn-sm col-sm-8'>Ver mas</a>
                             </td>
                         `;
                         userTableBody.appendChild(row);
@@ -171,6 +183,14 @@ include_once "../../app/config.php";
                 })
                 .catch(error => console.error("Error fetching user list:", error));
             }
+            
+            document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget; // Button that triggered the modal
+    const userId = button.getAttribute('data-user-id'); // Extract info from data-user-id
+    const modal = this;
+    modal.querySelector('#delete-user-id').value = userId; // Populate the hidden input with user ID
+});
+
     </script>
 </body>
 <!-- [Body] end -->

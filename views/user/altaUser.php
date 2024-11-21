@@ -56,45 +56,52 @@ include_once "../../app/config.php";
 
             <!-- [ Main Content ] start -->
             <div class="row">
-                <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Registrar Usuario</h5>
-
+                            <h5>Register User</h5>
                         </div>
                         <div class="card-body">
-                            <form action="" method="POST">
+                            <form action="../../api-user" method="POST">
+                                <input type="hidden" name="action" value="create_user">
+
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre">
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="email">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <label for="email">Correo electronico</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="phone_number">Numero telefonico</label>
+                                    <input type="tel" class="form-control" id="phone_number" name="phone_number" pattern="[0-9]{10}" maxlength="10" required>
+                                    <small class="form-text text-muted">introduzca un numero telefonico de 10 digitos</small>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control" id="password" name="password" minlength="6" required>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="confirmpassword">Confirmar contraseña</label>
-                                    <input type="password" class="form-control" id="confirmpassword" name="password">
+                                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" minlength="6" required>
                                 </div>
-                                
-                                <div>
-                                    <a href='lisDUser.php' class="btn btn-danger">Cancelar</a>
 
-                                    <a href='lisDUser.php' class="btn btn-primary">Registrar</a>
+                                <div>
+                                <input type="hidden" name="global_token" value="<?php echo $_SESSION['global_token']; ?>">
+
+                                    <a href='lisDUser.php' class="btn btn-danger">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
-                <!-- [ sample-page ] end -->
             </div>
-            <!-- [ Main Content ] end -->
         </div>
     </div>
     <!-- [ Main Content ] end -->
