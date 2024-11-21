@@ -79,17 +79,18 @@
                        </div>
                        <div class="flex-grow-1 mx-3">
                          <h5 class="mb-0">PolloPajas</h5>
-                         <a class="link-primary" href="https://www.instagram.com/pollopajas/">@pollopajas</a>
                        </div>
                      </div>
                    </li>
           </li>
-            <li class="list-group-item">
-              <a href="index.php" class="dropdown-item">
-                 <span class="d-flex align-items-center">
+          <li class="list-group-item">
+            <form method="POST" action="./api-auth">
+              <input type="hidden" name="action" value="logout">
+              <input type="hidden" name="global_token" value="<?= $_SESSION['global_token'] ?>">
+              <button type="submit" class="dropdown-item">
+                <span class="d-flex align-items-center">
                   <i class="ph-duotone ph-power"></i>
-                     <span >Logout</span>
-                  </span>
+                  <span>Logout</span>
                </a>
             </li>
        </ul>

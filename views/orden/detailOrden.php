@@ -1,4 +1,7 @@
 <?php
+// Centralize session start
+session_start();
+
 include_once "../../app/config.php";
 include_once("../../app/clientController.php");
 include_once("../../app/productController.php");
@@ -109,49 +112,48 @@ $coupons = $couponController->getAllCoupons();
                   </thead>
                   <tbody>
                   <?php
-                    include_once "../../app/orderController.php"; 
-                    include_once "../../app/config.php";
-                    
-                    $orderController = new OrderController();
-                    $orders = $orderController->getAllOrders(); 
+ include_once "../../app/orderController.php"; 
+ include_once "../../app/config.php";
+ 
+ $orderController = new OrderController();
+ $orders = $orderController->getAllOrders(); 
 
-                    if (!empty($orders)) {
-                        foreach ($orders as $order) {
-                            echo "<tr>
-                                <td>{$order->id}</td>
-                                <td>{$order->folio}</td>
-                                <td>{$order->client->name}</td>
-                                <td>$" . number_format($order->total, 2) . "</td>
-                                <td>
-                                    <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editOrdenModal'>Editar</button>
-                                    </button>
-                                    <button class='btn btn-danger btn-sm'>Eliminar</button>
-                                    <button 
-                                        class='btn btn-secondary btn-sm view-order-details' 
-                                        data-bs-toggle='modal' 
-                                        data-bs-target='#detailOrdenModal'
-                                        data-order-id='{$order->id}'
-                                        data-folio='{$order->folio}'
-                                        data-total='{$order->total}'
-                                        data-client-name='" . htmlspecialchars($order->client->name, ENT_QUOTES) . "'
-                                        data-client-email='" . htmlspecialchars($order->client->email, ENT_QUOTES) . "'
-                                        data-address-street='" . htmlspecialchars($order->address->street_and_use_number, ENT_QUOTES) . "'
-                                        data-address-city='" . htmlspecialchars($order->address->city, ENT_QUOTES) . "'
-                                        data-address-province='" . htmlspecialchars($order->address->province, ENT_QUOTES) . "'
-                                        data-address-postal='" . htmlspecialchars($order->address->postal_code, ENT_QUOTES) . "'
-                                        data-coupon-code='" . ($order->coupon ? htmlspecialchars($order->coupon->code, ENT_QUOTES) : '') . "'
-                                        data-coupon-discount='" . ($order->coupon ? htmlspecialchars($order->coupon->percentage_discount, ENT_QUOTES) : '') . "'
-                                        data-presentations='" . htmlspecialchars(json_encode($order->presentations), ENT_QUOTES, 'UTF-8') . "'                >
-                                        Ver Más
-                                    </button>
-                                </td>
-                            </tr>";
-                        }
-                    } else {
-                        echo "<tr>
-                                <td colspan='5'>No orders found.</td>
-                            </tr>";
-                    }
+ if (!empty($orders)) {
+     foreach ($orders as $order) {
+         echo "<tr>
+             <td>{$order->id}</td>
+             <td>{$order->folio}</td>
+             <td>" . (!empty($order->client) ? htmlspecialchars($order->client->name, ENT_QUOTES) : 'No Client') . "</td>
+             <td>$" . number_format($order->total, 2) . "</td>
+             <td>
+                 <button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editOrdenModal'>Editar</button>
+                 <button class='btn btn-danger btn-sm'>Eliminar</button>
+                 <button 
+                     class='btn btn-secondary btn-sm view-order-details' 
+                     data-bs-toggle='modal' 
+                     data-bs-target='#detailOrdenModal'
+                     data-order-id='{$order->id}'
+                     data-folio='{$order->folio}'
+                     data-total='{$order->total}'
+                     data-client-name='" . (!empty($order->client) ? htmlspecialchars($order->client->name, ENT_QUOTES) : '') . "'
+                     data-client-email='" . (!empty($order->client) ? htmlspecialchars($order->client->email, ENT_QUOTES) : '') . "'
+                     data-address-street='" . (!empty($order->address) ? htmlspecialchars($order->address->street_and_use_number, ENT_QUOTES) : '') . "'
+                     data-address-city='" . (!empty($order->address) ? htmlspecialchars($order->address->city, ENT_QUOTES) : '') . "'
+                     data-address-province='" . (!empty($order->address) ? htmlspecialchars($order->address->province, ENT_QUOTES) : '') . "'
+                     data-address-postal='" . (!empty($order->address) ? htmlspecialchars($order->address->postal_code, ENT_QUOTES) : '') . "'
+                     data-coupon-code='" . (!empty($order->coupon) ? htmlspecialchars($order->coupon->code, ENT_QUOTES) : '') . "'
+                     data-coupon-discount='" . (!empty($order->coupon) ? htmlspecialchars($order->coupon->percentage_discount, ENT_QUOTES) : '') . "'
+                     data-presentations='" . (!empty($order->presentations) ? htmlspecialchars(json_encode($order->presentations), ENT_QUOTES, 'UTF-8') : '') . "'>
+                     Ver Más
+                 </button>
+             </td>
+         </tr>";
+     }
+ } else {
+     echo "<tr>
+             <td colspan='5'>No orders found.</td>
+         </tr>";
+ }
                   ?>
                   </tbody>
                 </table>
