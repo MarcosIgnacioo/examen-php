@@ -91,37 +91,15 @@ $presentationsFields = [
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <span class="badge bg-success f-14">In stock</span>
                   <h5 class="my-3"><?= $product->name ?></h5>
-                  <div class="star f-18 mb-3">
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star-half-alt text-warning"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <span class="text-sm text-muted">(4.0)</span>
-                  </div>
-                  <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">About this item</h5>
+                  <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">Sobre este producto</h5>
                   <ul>
                     <li class="mb-2">
                       <?= $product->features ?>
                     </li>
 
                   </ul>
-
                   <h3 class="mb-4">$<?= $product->presentations[0]->price[0]->amount ?></h3>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="d-grid">
-                        <button type="button" class="btn btn-primary">Buy Now</button>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="d-grid">
-                        <button type="button" class="btn btn-outline-secondary">Add to cart</button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

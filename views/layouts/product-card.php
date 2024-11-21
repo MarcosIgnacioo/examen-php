@@ -17,10 +17,6 @@
       </a>
       <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
         <h4 class="mb-0 text-truncate"><b>$<?= $product->presentations[0]->price[0]->amount ?></b></h4>
-        <div class="d-inline-flex align-items-center">
-          <i class="ph-duotone ph-star text-warning me-1"></i>
-          4.5 <small class="text-muted">/ 5</small>
-        </div>
       </div>
       <div class="d-flex">
         <div class="flex-shrink-0">
@@ -34,8 +30,8 @@
         </div>
         <div class="flex-grow-1 ms-3">
           <div class="d-grid">
-            <button class="btn btn-danger" onclick="deleteProduct(this)" data-id=<?= $product->id ?> data-product=<?= json_encode($product) ?>>Delete</button>
-            <a class="btn btn-warning" href="<?= BASE_PATH ?>products/edit/<?= $product->slug ?>">Edit</a>
+            <button class="btn btn-outline-danger" onclick="deleteProduct(this)" data-id=<?= $product->id ?> data-product=<?= json_encode($product) ?>>Borrar</button>
+            <a class="btn btn-outline-warning" href="<?= BASE_PATH ?>products/edit/<?= $product->slug ?>">Editar</a>
           </div>
         </div>
       </div>
@@ -87,15 +83,15 @@
         <li class="list-group-item px-0">
           <div class="d-inline-flex align-items-center justify-content-between w-100">
             <p class="mb-0 text-muted me-1">Categorias</p>
-                            <?php foreach ($product->categories as $category) : ?>
-            <h6 class="mb-0"><?= $category->name ?></h6>
-                            <?php endforeach ?>
+            <?php foreach ($product->categories as $category) : ?>
+              <span class="mb-0"><?= $category->name ?></span>
+            <?php endforeach ?>
           </div>
         </li>
         <li class="list-group-item px-0">
           <div class="d-inline-flex align-items-center justify-content-between w-100">
             <p class="mb-0 text-muted me-1">Marca</p>
-            <h6 class="mb-0"><?=$product->brand->name?></h6>
+            <span class="mb-0"><?= $product->brand->name ?></span>
           </div>
         </li>
       </ul>
