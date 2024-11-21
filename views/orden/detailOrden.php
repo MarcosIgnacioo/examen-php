@@ -1,18 +1,18 @@
 <?php
 // Centralize session start
-session_start();
+// session_start();
 
 include_once "../../app/config.php";
 include_once("../../app/clientController.php");
 include_once("../../app/productController.php");
 include_once("../../app/couponController.php");
-
+//
 $clientController = new ClientController();
 $clients = $clientController->getAllClients();
-
-$productController = new ProductController();
-$products = $productController->get();
-
+//
+// $productController = new ProductController();
+// $products = $productController->get();
+//
 $couponController = new CouponController();
 $coupons = $couponController->getAllCoupons();
 ?>

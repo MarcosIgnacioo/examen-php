@@ -9,16 +9,12 @@ switch ($_POST["action"]) {
   case 'add_product':
     $productController = new ProductController();
     $res = $productController->createProduct($_POST);
-    print_r($res);
-    print_r($_POST);
     header('Location: ' . getReferer());
     exit();
     break;
   case 'update_product':
     $productController = new ProductController();
     $res = $productController->updateProduct($_POST);
-    print_r($res);
-    print_r($_POST);
     header('Location: ' . getReferer());
     exit();
     break;
@@ -43,7 +39,7 @@ switch ($_POST["action"]) {
     $productController = new ProductController();
     echo json_encode($productController->getPresentationsByProduct($_POST['id']));
     break;
-  
+
 
   default:
     echo 'Invalid action';
@@ -112,19 +108,19 @@ class ProductController
 
       $product['cover'] = new CURLFILE(realpath($uploadFile));
 
-        if (isset($product['categories']) && is_array($product['categories'])) {
-            foreach ($product['categories'] as $index => $category) {
-                $product["categories[$index]"] = $category;
-            }
-            unset($product['categories']);
+      if (isset($product['categories']) && is_array($product['categories'])) {
+        foreach ($product['categories'] as $index => $category) {
+          $product["categories[$index]"] = $category;
         }
+        unset($product['categories']);
+      }
 
-        if (isset($product['tags']) && is_array($product['tags'])) {
-            foreach ($product['tags'] as $index => $tag) {
-                $product["tags[$index]"] = $tag;
-            }
-            unset($product['tags']);
+      if (isset($product['tags']) && is_array($product['tags'])) {
+        foreach ($product['tags'] as $index => $tag) {
+          $product["tags[$index]"] = $tag;
         }
+        unset($product['tags']);
+      }
 
 
       $curl = curl_init();
@@ -154,23 +150,24 @@ class ProductController
     }
   }
 
-function updateProduct($product) {
+  function updateProduct($product)
+  {
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_POSTFIELDS => http_build_query($product), 
-        CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Bearer ' . $_SESSION['api_token'],
-        ),
+      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'PUT',
+      CURLOPT_POSTFIELDS => http_build_query($product),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/x-www-form-urlencoded',
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
     ));
 
     $response = curl_exec($curl);
@@ -178,7 +175,7 @@ function updateProduct($product) {
     curl_close($curl);
 
     return json_decode($response)->data;
-}
+  }
 
   function deleteProduct($product)
   {
@@ -248,21 +245,21 @@ function updateProduct($product) {
   }
 
   function getPresentationsByProduct($id)
-{
+  {
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://crud.jonathansoto.mx/api/presentations/product/' . $id,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer ' . $_SESSION['api_token'],
-        ),
+      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/presentations/product/' . $id,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
     ));
 
     $response = curl_exec($curl);

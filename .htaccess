@@ -40,6 +40,7 @@ RewriteRule ^api-coupon?$ app/couponController.php
 RewriteRule ^api-level?$ app/LevelController.php
 RewriteRule ^api-order?$ app/orderController.php
 RewriteRule ^api-present?$ app/PresentationsController.php
+RewriteRule ^api-presentations?$ app/PresentationsController.php
 RewriteRule ^api-products?$ app/ProductController.php
 RewriteRule ^api-test?$ app/test.php
 RewriteRule ^api-user?$ app/userController.php

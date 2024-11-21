@@ -46,7 +46,7 @@ $clients = $clientController->getAllClients();
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-            
+
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Info De Clientes</h2>
@@ -70,7 +70,7 @@ $clients = $clientController->getAllClients();
             <div class="card-header ">
               <div class="card-body">
                 <h3>Lista del Cliente </h3>
-<!---
+                <!---
 <div class="row justify-content-between ali mb-3 g-3">
                   <div class="col-sm-auto">
                     <form class="form-search">
@@ -82,7 +82,7 @@ $clients = $clientController->getAllClients();
 
                 </div>
 -->
-                
+
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -128,7 +128,7 @@ $clients = $clientController->getAllClients();
                           </td>
                           <td>
                             <a class='btn btn-danger btn-sm col-sm-auto' data-bs-toggle="modal" data-bs-target="#deleteModal<?= $client->id ?>" onclick="elimiar">Eliminar</a>
-                            <a href='details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
+                            <a href='<?= BASE_PATH ?>customer/details/<?= $client->id ?>' class='btn btn-sm col-sm-8'>Ver mas</a>
                             <div class="modal fade modal-animate" id="deleteModal<?= $client->id ?>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">

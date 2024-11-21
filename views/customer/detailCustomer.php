@@ -73,7 +73,7 @@ $addressFields = [
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-            
+
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Info Del Cliente</h2>
@@ -113,8 +113,6 @@ $addressFields = [
                 <div class="card-body position-relative">
                   <div class="text-center mt-3">
                     <div class="chat-avtar d-inline-flex mx-auto">
-                      <img class="rounded-circle img-fluid wid-150 img-thumbnail" src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="User image">
-                      <i class="chat-badge bg-success me-2 mb-2"></i>
                     </div>
                     <h5 class="mb-0"><?= $client->name ?></h5>
                     <p class="text-muted text-sm"><a mailto="<?= $client->email ?>" type="email" class="link-primary"> <?= $client->email ?></a></p>
@@ -230,7 +228,7 @@ $addressFields = [
                   </div>
                 </div>
                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
-                  <form method="POST" action="api-client">
+                  <form method="POST" action="<?= BASE_PATH ?>api-address">
                     <input type="text" hidden name="action" value="update_client">
                     <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                     <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -258,7 +256,7 @@ $addressFields = [
                               <input name="phone_number" type="text" class="form-control" value="<?= $client->phone_number ?>">
                             </div>
                           </div>
-<div class="col-sm-6">
+                          <div class="col-sm-6">
                             <div class="mb-3">
                               <label class="form-label">Estado</label>
                               <input name="" type="text" class="form-control" value="<?= $address->province ?>">
@@ -364,7 +362,7 @@ $addressFields = [
                     <div class="card-header">
                       <h5>Cambiar Contraseña</h5>
                     </div>
-                    <form method="POST" action="api-client">
+                    <form method="POST" action="<?= BASE_PATH ?>api-client">
                       <input type="text" hidden name="action" value="update_client">
                       <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                       <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -375,10 +373,8 @@ $addressFields = [
                               <label class="col-form-label col-md-4 col-sm-12 text-md-end">Nueva Contraseña <span class="text-danger">*</span></label>
                               <div class="col-md-8 col-sm-12">
                                 <input name="password" type="password" class="form-control">
-
                                 <button type="submit" class="ms-auto btn btn-primary">Cambiar Contraseña</button>
                               </div>
-
                             </div>
                           </li>
                         </ul>
@@ -460,7 +456,7 @@ $addressFields = [
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form method="POST" action="api-client">
+                                        <form method="POST" action="<?= BASE_PATH ?>api-address">
                                           <div class="card">
                                             <div class="card-body">
                                               <!---MANDATORY SHIT--->
@@ -531,8 +527,8 @@ $addressFields = [
         <div class="modal fade modal-animate" id="direccionModal" tabindex="-1" aria-labelledby="direccionModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="POST" action="api-client">
-                <input type="text" hidden name="action" value="add_address">
+              <form method="POST" action="<?= BASE_PATH ?>api-address">
+                <input type="text" hidden name="action" value="create_address">
                 <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                 <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
                 <div class="modal-header">
@@ -549,7 +545,7 @@ $addressFields = [
                               <option value="1">Si</option>
                               <option value="0">No</option>
                             </select>
-                          <!--- cambiar esto a un == id quizas despues --->
+                            <!--- cambiar esto a un == id quizas despues --->
                           <?php elseif (!str_contains($key, "id")) : ?>
                             <input name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="asdf">
                           <?php endif; ?>

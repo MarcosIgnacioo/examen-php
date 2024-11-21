@@ -15,7 +15,7 @@
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="<?= BASE_PATH ?>views/products/index.php" class="b-brand text-primary">
+      <a href="<?= BASE_PATH ?>products" class="b-brand text-primary">
         <div class="d-flex align-items-center">
           <div class="flex-shrink-0">
             <img src="<?= BASE_PATH ?>/views/layouts/logo.jpeg" alt="user-image" class="wid-50 rounded-circle" />
@@ -33,7 +33,7 @@
           <i class="ph-duotone ph-chart-pie"></i>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/user/lisDUser.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>user" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-identification-card"></i>
             </span>
@@ -41,7 +41,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/customer/lisDCustomer.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>customer" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-address-book"></i>
             </span>
@@ -49,7 +49,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/products/index.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>products" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-shopping-bag"></i>
             </span>
@@ -57,7 +57,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/catalogo/detailCatalogo.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>catalogo" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-text-columns"></i>
             </span>
@@ -65,7 +65,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/cupones/detailCupon.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>cupones" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-ticket"></i>
             </span>
@@ -73,7 +73,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="<?= BASE_PATH ?>views/orden/detailOrden.php" class="pc-link">
+          <a href="<?= BASE_PATH ?>orden" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-shopping-cart"></i>
             </span>

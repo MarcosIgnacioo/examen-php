@@ -1,6 +1,12 @@
 <?php
 include_once "../../app/config.php";
+include_once "../../app/CatalogController.php";
+$catalogController = new CatalogController();
+$brands = $catalogController->getAllBrands();
+$categories = $catalogController->getAllCategories();
+$tags = $catalogController->getTags();
 ?>
+
 <!doctype html>
 <html lang="en">
 <!-- [Head] start -->
@@ -55,9 +61,9 @@ include_once "../../app/config.php";
                 </li>
               </ul>
 
-             
+
               <div class="tab-content mt-3" id="catalogTabsContent">
-                
+
                 <div class="tab-pane fade show active" id="categories" role="tabpanel" aria-labelledby="categories-tab">
                   <h3>CRUD de Categorías</h3>
                   <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Agregar Categoría</button>
@@ -71,16 +77,18 @@ include_once "../../app/config.php";
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Electrónica</td>
-                        <td>Productos electrónicos</td>
-                        <td>
-                          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
-                          <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal" >Detalles</button>
-                        </td>
-                      </tr>
+                      <?php foreach ($categories as $category) : ?>
+                        <tr>
+                          <td><?= $category->id ?></td>
+                          <td><?= $category->name ?></td>
+                          <td><?= $category->description ?></td>
+                          <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">Detalles</button>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
                     </tbody>
                   </table>
                 </div>
@@ -98,16 +106,18 @@ include_once "../../app/config.php";
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Samsung</td>
-                        <td>Corea del Sur</td>
-                        <td>
-                          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBrandModal" >Editar</button>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
-                          <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsBrandModal" >Detalles</button>
-                        </td>
-                      </tr>
+                      <?php foreach ($categories as $category) : ?>
+                        <tr>
+                          <td><?= $category->id ?></td>
+                          <td><?= $category->name ?></td>
+                          <td><?= $category->description ?></td>
+                          <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">Detalles</button>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
                     </tbody>
 
                   </table>
@@ -302,54 +312,54 @@ include_once "../../app/config.php";
                 </div>
               </div>
             </div>
-<!-- Modal Agregar Marca -->
-<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addBrandModalLabel">Agregar Marca</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="addBrandForm">
-          <div class="mb-3">
-            <label for="addBrandName" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="addBrandName" required>
-          </div>
-          <div class="mb-3">
-            <label for="addBrandOrigin" class="form-label">País de Origen</label>
-            <input type="text" class="form-control" id="addBrandOrigin" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal Agregar Tag -->
-<div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="addTagModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addTagModalLabel">Agregar Tag</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="addTagForm">
-          <div class="mb-3">
-            <label for="addTagName" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="addTagName" required>
-          </div>
-          <div class="mb-3">
-            <label for="addTagDescription" class="form-label">Descripción</label>
-            <textarea class="form-control" id="addTagDescription" rows="3" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+            <!-- Modal Agregar Marca -->
+            <div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addBrandModalLabel">Agregar Marca</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="addBrandForm">
+                      <div class="mb-3">
+                        <label for="addBrandName" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="addBrandName" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="addBrandOrigin" class="form-label">País de Origen</label>
+                        <input type="text" class="form-control" id="addBrandOrigin" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Agregar Tag -->
+            <div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="addTagModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addTagModalLabel">Agregar Tag</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="addTagForm">
+                      <div class="mb-3">
+                        <label for="addTagName" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="addTagName" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="addTagDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="addTagDescription" rows="3" required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
           </div>

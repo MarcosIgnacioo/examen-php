@@ -3,27 +3,26 @@ include_once "../../app/config.php";
 include_once("../../app/ProductController.php");
 include_once("../../app/PresentationsController.php");
 $productController = new ProductController();
-$presentationController = new PresentationController();
-$link = $_SERVER['REQUEST_URI'];
-$link_array = explode('/', $link);
-$slug = end($link_array);
-$product = $productController->getProductBySlug($slug);
-$products = $productController->get();
-$presentations = $presentationController->getPresentationDetails($product->id);
-print_r(sizeof($presentations));
-$presentationsFields = [
-  "description" => "Descripción", // ya
-  "code" => "Código", // ya
-  "weight_in_grams" => "Peso En Gramos", // ya
-  "status" => "Estado", //yajk
-  "stock" => "Existencia", //ya
-  "stock_min" => "Existencia Mínima", //aya
-  "stock_max" => "Existencia Máxima", //ya
-  "product_id" => "Id Producto", //ya
-  "amount" => "Cantidad", // ya
-];
+ $presentationController = new PresentationController();
+ $link = $_SERVER['REQUEST_URI'];
+ $link_array = explode('/', $link);
+ $slug = end($link_array);
+ $product = $productController->getProductBySlug($slug);
+ $products = $productController->get();
+ $presentations = $productController->getPresentationsByProduct($product->id);
+ print_r(sizeof($presentations));
+ $presentationsFields = [
+   "description" => "Descripción", // ya
+   "code" => "Código", // ya
+   "weight_in_grams" => "Peso En Gramos", // ya
+   "status" => "Estado", //yajk
+   "stock" => "Existencia", //ya
+   "stock_min" => "Existencia Mínima", //aya
+   "stock_max" => "Existencia Máxima", //ya
+   "product_id" => "Id Producto", //ya
+   "amount" => "Cantidad", // ya
+ ];
 
-// echo '<h1>asdf</h1>';
 ?>
 <!doctype html>
 <html lang="en">
@@ -204,8 +203,8 @@ $presentationsFields = [
             </div>
           </div>
           <div class="card">
-            
-            
+
+
             <div class="container mt-4">
               <a href="<?= BASE_PATH ?>views\products\lisDPresentacion.php" class="btn btn-sm float-end">Ver Lista </a>
               <h2>Gestión de Presentaciones y Órdenes</h2>
@@ -373,23 +372,25 @@ $presentationsFields = [
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="deletePresentationLabel">Editar Presentación</h5>
+                          <h5 class="modal-title" id="deletePresentationLabel">¿Está seguro que desea eliminar esta presentación?</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
-                            data-bs-target="#presentacionModal" aria-label="Close"></button>
+                            data-bs-target="#deletePresentationModal<?= $presentation->id ?>" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           <form method="POST" action="<?= BASE_PATH ?>api-presentations" enctype="multipart/form-data">
-                            <input type="text" hidden name="action" value="update_presentation">
+                            <input type="text" hidden name="action" value="delete_presentation">
                             <input type="text" name="global_token" value="<?= $_SESSION['global_token'] ?>" hidden>
-                            <input type="text" name="id" value="<?= $presentation->id ?>" hidden>
+                            <input type="text" name="presentation_id" value="<?= $presentation->id ?>" hidden>
                             <div class="col-sm-12">
-                              <div class="mb-3">
+                              <div class="mb-3" hidden>
                                 <label class="form-label">Producto</label>
                                 <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
                               </div>
-                              <div class="mb-3">
-                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                  data-bs-target="#presentacionModal">Guardar</button>
+                              <div class="mb-3 flex d-flex justify-content-around">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                  data-bs-target="#deletePresentationModal<?= $presentation->id ?>">Cancelar</button>
+                                <button type="submit" class="btn btn-danger" data-bs-toggle="modal"
+                                  data-bs-target="#deletePresentationModal<?= $presentation->id ?>">Borrar</button>
                               </div>
                           </form>
                         </div>
@@ -435,7 +436,7 @@ $presentationsFields = [
                   <td><?= $presentation->current_price->amount ?></td>
                   <td><button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                       data-bs-target="#editPresentationModal<?= $presentation->id ?>">Editar</button>
-                    <button class="btn btn-danger btn-sm" data-bs-target="#deletePresentationModal<?= $presentation->id ?>">Eliminar</button>
+                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePresentationModal<?= $presentation->id ?>">Eliminar</button>
                   </td>
                 </tr>
               <?php endforeach ?>
@@ -450,30 +451,21 @@ $presentationsFields = [
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>ID Orden</th>
-                      <th>Cliente</th>
-                      <th>Fecha</th>
+                      <th>Folio</th>
                       <th>Total</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
+                      <th>Email</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>101</td>
-                      <td>El pansho</td>
-                      <td>2024-11-20</td>
-                      <td>$150.00</td>
-                      <td>Completada</td>
-                      <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
-                    <tr>
-                      <td>102</td>
-                      <td>Yooo</td>
-                      <td>2024-11-19</td>
-                      <td>$250.00</td>
-                      <td>Pendiente</td>
-                      <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
-                    </tr>
+                    <?php if (isset($presentations) && sizeof($presentations)): ?>
+                      <?php foreach ($presentations as $presentation) : ?>
+                        <?php foreach ($presentation->orders as $order) : ?>
+                          <td><?= $order->folio ?></td>
+                          <td><?= $order->total ?></td>
+                          <td><?= $client->email ?></td>
+                        <?php endforeach ?>
+                      <?php endforeach ?>
+                    <?php endif; ?>
                   </tbody>
                 </table>
               </div>

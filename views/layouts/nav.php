@@ -82,17 +82,18 @@
                        </div>
                      </div>
                    </li>
-          </li>
-          <li class="list-group-item">
-            <form method="POST" action="./api-auth">
-              <input type="hidden" name="action" value="logout">
-              <input type="hidden" name="global_token" value="<?= $_SESSION['global_token'] ?>">
-              <button type="submit" class="dropdown-item">
-                <span class="d-flex align-items-center">
-                  <i class="ph-duotone ph-power"></i>
-                  <span>Logout</span>
-               </a>
-            </li>
+         </li>
+         <li class="list-group-item">
+           <form method="POST" action="./api-auth">
+             <input type="hidden" name="action" value="logout">
+             <input type="hidden" name="global_token" value="<?= $_SESSION['global_token'] ?>">
+             <button type="submit" class="dropdown-item">
+               <span class="d-flex align-items-center">
+                 <i class="ph-duotone ph-power"></i>
+                 <span>Logout</span>
+                 </a>
+           </form>
+         </li>
        </ul>
      </div>
    </div>
