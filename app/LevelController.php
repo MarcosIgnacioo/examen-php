@@ -3,9 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './levels';
-}
+
 
 switch ($_POST["action"]) {
   case 'create_level':

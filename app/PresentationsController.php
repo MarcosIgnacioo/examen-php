@@ -4,9 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './products';
-}
 
 switch ($_POST["action"]) {
   case 'create_presentation':

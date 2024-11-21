@@ -3,6 +3,11 @@ if (!isset($_SESSION)) {
   session_start();
 }
 
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './user';
+}
+
+
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
 if (!defined('BASE_PATH')) {

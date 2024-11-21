@@ -2,10 +2,6 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './';
-}
-
 
 switch ($_POST["action"]) {
   case 'create_client':

@@ -2,9 +2,6 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './customer';
-}
 
 
 switch ($_POST["action"]) {
