@@ -12,14 +12,14 @@ switch ($_POST["action"]) {
   case 'create_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->createPresentation($_POST);
-    header('Location: ' . $presentationController-> getReferer());
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->updatePresentation($_POST);
-    header('Location: ' . $presentationController-> getReferer());
+    header('Location: ' . getReferer());
     exit();
     break;
 
@@ -40,16 +40,13 @@ switch ($_POST["action"]) {
     break;
 
   default:
+    echo 'Invalid action';
+
     break;
 }
 
 class PresentationController
 {
-
-  function getReferer() {
-    return $_SERVER['HTTP_REFERER'] ?? './products';
-  }
-
   private $apiBase = 'https://crud.jonathansoto.mx/api/presentations';
 
   function createPresentation($presentation) {
@@ -99,7 +96,7 @@ class PresentationController
     return json_decode($response)->data;
   }
 
-  function updatePresentation($presentation) {
+  function updatePresentation($presentation){
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
