@@ -1,11 +1,15 @@
 <?php
 include_once "../../app/config.php";
 include_once("../../app/ProductController.php");
+include_once("../../app/PresentationsController.php");
 $productController = new ProductController();
+$presentationController = new PresentationController();
 $link = $_SERVER['REQUEST_URI'];
 $link_array = explode('/', $link);
 $slug = end($link_array);
 $product = $productController->getProductBySlug($slug);
+$presentations = $presentationController->getPresentationsByProduct($product->id);
+echo '<h1>asdf</h1>';
 ?>
 <!doctype html>
 <html lang="en">
@@ -214,18 +218,16 @@ $product = $productController->getProductBySlug($slug);
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Presentación 1</td>
-                          <td>50</td>
-                          <td>$10.00</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Presentación 2</td>
-                          <td>100</td>
-                          <td>$8.50</td>
-                        </tr>
+                        <?php if (isset($presentations) && sizeof($presentations)): ?>
+                          <?php foreach ($presentations as $presentation) : ?>
+                            <tr>
+                              <td><?= $presentation->id ?></td>
+                              <td><?= $presentation->description ?></td>
+                              <td><?= $presentation->stock ?></td>
+                              <td><?= $presentation->current_price->amount ?></td>
+                            </tr>
+                          <?php endforeach ?>
+                        <?php endif; ?>
                       </tbody>
                     </table>
                   </div>
