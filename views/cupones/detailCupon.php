@@ -44,7 +44,7 @@ include_once "../../app/config.php";
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Añadir Cupón</h5>
-                            <form method="POST" action="./api-coupon" enctype="multipart/form-data">
+                            <form method="POST" action="<?= BASE_PATH ?>api-coupon" enctype="multipart/form-data">
                                 <input type="hidden" name="action" value="create_coupon">
 
                                 <div class="mb-3">

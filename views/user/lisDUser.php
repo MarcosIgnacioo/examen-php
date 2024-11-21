@@ -103,7 +103,7 @@ include_once "../../app/config.php";
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <form action="./api-user" method="POST">
+                                                <form action="<?= BASE_PATH ?>api-user" method="POST">
                                                     <input type="hidden" name="action" value="delete_user">
                                                     <input type="hidden" name="id" id="delete-user-id">
                                                     <button type="submit" class="btn btn-danger">Eliminar</button>

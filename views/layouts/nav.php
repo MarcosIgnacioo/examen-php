@@ -78,13 +78,13 @@
                          <img src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="user-image" class="wid-50 rounded-circle" />
                        </div>
                        <div class="flex-grow-1 mx-3">
-                         <h5 class="mb-0">PolloPajas</h5>
+                         <h5 class="mb-0">Usuario</h5>
                        </div>
                      </div>
                    </li>
          </li>
          <li class="list-group-item">
-           <form method="POST" action="./api-auth">
+           <form method="POST" action="<?= BASE_PATH ?>/api-auth">
              <input type="hidden" name="action" value="logout">
              <input type="hidden" name="global_token" value="<?= $_SESSION['global_token'] ?>">
              <button type="submit" class="dropdown-item">

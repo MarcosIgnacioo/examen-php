@@ -62,7 +62,7 @@ include_once "../../app/config.php";
                             <h5>Register User</h5>
                         </div>
                         <div class="card-body">
-                            <form action="../../api-user" method="POST">
+                            <form action="<?= BASE_PATH ?>api-user" method="POST">
                                 <input type="hidden" name="action" value="create_user">
 
                                 <div class="form-group">
