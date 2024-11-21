@@ -48,25 +48,7 @@ class PresentationController
   private $apiBase = 'https://crud.jonathansoto.mx/api/presentations';
 
   function createPresentation($presentation) {
-    $uploadDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
-    $uploadFile = $uploadDir . basename($_FILES['cover']['name']);
-    if (move_uploaded_file($_FILES['cover']['tmp_name'], $uploadFile)) {
-        $presentation['cover'] = new CURLFILE(realpath($uploadFile));
-
-        if (isset($presentation['categories']) && is_array($presentation['categories'])) {
-            foreach ($presentation['categories'] as $index => $category) {
-                $presentation["categories[$index]"] = $category;
-            }
-            unset($presentation['categories']);
-        }
-
-        if (isset($presentation['tags']) && is_array($presentation['tags'])) {
-            foreach ($presentation['tags'] as $index => $tag) {
-                $presentation["tags[$index]"] = $tag;
-            }
-            unset($presentation['tags']);
-        }
-    }
+    
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -87,11 +69,7 @@ class PresentationController
     $response = curl_exec($curl);
     curl_close($curl);
 
-    // Limpia el archivo temporal
-    if (file_exists($uploadFile)) {
-        unlink($uploadFile);
-    }
-
+    
     return json_decode($response)->data;
   }
 
