@@ -115,7 +115,7 @@ $presentationsFields = [
                     href="#ecomtab-1"
                     role="tab"
                     aria-controls="ecomtab-1"
-                    aria-selected="true">Features
+                    aria-selected="true">Caracteristicas
                   </a>
                 </li>
                 <li class="nav-item">
@@ -126,7 +126,7 @@ $presentationsFields = [
                     href="#ecomtab-2"
                     role="tab"
                     aria-controls="ecomtab-2"
-                    aria-selected="true">Specifications
+                    aria-selected="true">Especificaciones
                   </a>
                 </li>
               </ul>
@@ -147,13 +147,13 @@ $presentationsFields = [
                 <div class="tab-pane" id="ecomtab-2" role="tabpanel" aria-labelledby="ecomtab-tab-2">
                   <div class="row gy-3">
                     <div class="col-md-6">
-                      <h5>Product Category</h5>
+                      <h5>Categorias</h5>
                       <hr class="mb-3 mt-1" />
                       <div class="table-responsive">
                         <table class="table mb-0">
                           <tbody>
                             <?php foreach ($product->categories as $category) : ?>
-                              <td class="py-1"><?= $category->name ?></td>
+                              <span class="py-1"><?= $category->name ?></span>
                             <?php endforeach ?>
                           </tbody>
                         </table>
@@ -162,13 +162,13 @@ $presentationsFields = [
                   </div>
                   <div class="row mt-4">
                     <div class="col-md-6">
-                      <h5>Product Tags</h5>
+                      <h5>Etiquetas</h5>
                       <hr class="mb-3 mt-1" />
                       <div class="table-responsive">
                         <table class="table mb-0">
                           <tbody>
                             <?php foreach ($product->tags as $tag) : ?>
-                              <td class="py-1"><?= $tag->name ?></td>
+                              <span class="py-1"><?= $tag->name ?></span>
                             <?php endforeach ?>
                           </tbody>
                         </table>
