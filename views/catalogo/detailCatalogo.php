@@ -65,7 +65,7 @@ $tags = $catalogController->getTags();
               <div class="tab-content mt-3" id="catalogTabsContent">
 
                 <div class="tab-pane fade show active" id="categories" role="tabpanel" aria-labelledby="categories-tab">
-                  <h3>CRUD de Categorías</h3>
+                  <h3>Categorías</h3>
                   <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Agregar Categoría</button>
                   <table class="table table-bordered table-hover">
                     <thead class="table-dark">
@@ -150,7 +150,7 @@ $tags = $catalogController->getTags();
                 </div>
 
                 <div class="tab-pane fade" id="brands" role="tabpanel" aria-labelledby="brands-tab">
-                  <h3>CRUD de Marcas</h3>
+                  <h3>Marcas</h3>
                   <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addBrandModal">Agregar Marca</button>
                   <table class="table table-bordered table-hover">
                     <thead class="table-dark">
@@ -233,7 +233,7 @@ $tags = $catalogController->getTags();
                 </div>
 
                 <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
-                  <h3>CRUD de Tags</h3>
+                  <h3>Tags</h3>
                   <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addTagModal">Agregar Tag</button>
                   <table class="table table-bordered table-hover">
                     <thead class="table-dark">
