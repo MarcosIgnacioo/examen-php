@@ -3,9 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './products';
-}
+
 
 switch ($_POST["action"]) {
   case 'add_product':

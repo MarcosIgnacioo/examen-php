@@ -3,9 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './orden';
-}
 
 
 switch ($_POST["action"]) {
