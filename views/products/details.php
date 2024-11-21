@@ -9,7 +9,8 @@ $link_array = explode('/', $link);
 $slug = end($link_array);
 $product = $productController->getProductBySlug($slug);
 $products = $productController->get();
-$presentations = $presentationController->getPresentationsByProduct($product->id);
+$presentations = $presentationController->getPresentationDetails($product->id);
+print_r(sizeof($presentations));
 $presentationsFields = [
   "description" => "Descripción", // ya
   "code" => "Código", // ya
@@ -21,6 +22,8 @@ $presentationsFields = [
   "product_id" => "Id Producto", //ya
   "amount" => "Cantidad", // ya
 ];
+
+// echo '<h1>asdf</h1>';
 ?>
 <!doctype html>
 <html lang="en">
@@ -231,6 +234,7 @@ $presentationsFields = [
                       <tbody>
                         <?php if (isset($presentations) && sizeof($presentations)): ?>
                           <?php foreach ($presentations as $presentation) : ?>
+
                             <tr>
                               <td><?= $presentation->id ?></td>
                               <td><?= $presentation->description ?></td>
@@ -264,192 +268,290 @@ $presentationsFields = [
                       <tbody>
                         <?php if (isset($presentations) && sizeof($presentations)): ?>
                           <?php foreach ($presentations as $presentation) : ?>
-                            <tr>
-                              <td><?= $presentation->id ?></td>
-                              <td><?= $presentation->description ?></td>
-                              <td><?= $presentation->stock ?></td>
-                              <td><?= $presentation->current_price->amount ?></td>
-                              <td><button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                  data-bs-target="#editPresentationModal">Editar</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                              </td>
-                            </tr>
-                          <?php endforeach ?>
-                        <?php endif; ?>
-                      </tbody>
-                    </table>
+                            <div class="modal fade" id="editPresentationModal<?= $presentation->id ?>" tabindex="-1" aria-labelledby="editPresentationLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editPresentationLabel">Editar Presentación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                      data-bs-target="#presentacionModal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST" action="<?= BASE_PATH ?>api-presentations" enctype="multipart/form-data">
+                                      <input type="text" hidden name="action" value="update_presentation">
+                                      <input type="text" name="global_token" value="<?= $_SESSION['global_token'] ?>" hidden>
+                                      <input type="text" name="id" value="<?= $presentation->id ?>" hidden>
+                                      <div class="col-sm-12">
+                                        <div class="mb-3">
+                                          <label class="form-label">Producto</label>
+                                          <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Descripción</label>
+                                          <textarea class="form-control" name="description" placeholder=""><?= $presentation->description ?></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Estatus</label>
+                                          <select class="form-control" name="status">
+                                            <option <?= $isSelected = ($presentation->status == "active") ? "selected" : "" ?> value="active">Activa</option>
+                                            <option <?= $isSelected = ($presentation->status == "inactive") ? "selected" : "" ?> value="inactive">Inactiva</option>
+                                          </select>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label ">Stock</label>
+                                          <input class="form-control number" name="stock" placeholder="1" value="<?= $presentation->stock ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Stock minimo</label>
+                                          <input class="form-control number" name="stock_min" placeholder="1" value="<?= $presentation->stock_min ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Stock máximo</label>
+                                          <input class="form-control number" name="stock_max" placeholder="1" value="<?= $presentation->stock_max ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Peso (en gramos)</label>
+                                          <input class="form-control" name="weight_in_grams" value="<?= $presentation->weight_in_grams ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Código</label>
+                                          <input class="form-control" name="code" value="<?= $presentation->code ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Precio</label>
+                                          <input class="form-control number" name="amount" value="<?= $presentation->current_price->amount ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click para subir imagen</label>
+                                          <input type="file" name="cover" id="flupld" class="d-none" />
+                                        </div>
+                                        <div class="mb-3">
+                                          <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#presentacionModal">Guardar</button>
+                                        </div>
+
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal de Detalles de Orden -->
+                            <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="orderDetailsModalLabel">Detalles de la Orden</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                      data-bs-target="#presentacionModal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <h6>ID de la Orden:</h6>
+                                    <p>101</p>
+                                    <h6>Cliente:</h6>
+                                    <p>EL marcosss</p>
+                                    <h6>Fecha:</h6>
+                                    <p>2024-11-20</p>
+                                    <h6>Total:</h6>
+                                    <p>$150.00</p>
+                                    <h6>Estado:</h6>
+                                    <p>Completada</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                      data-bs-target="#presentacionModal">Cerrar</button>
+                                    <div class="card-body"> </div>
+                                  </div>
+                                </div>
+                                <!-- [ sample-page ] end -->
+                              </div>
+                              <!-- [ Main Content ] end -->
+                            </div>
+                  </div>
+                  <div class="modal fade" id="deletePresentationModal<?= $presentation->id ?>" tabindex="-1" aria-labelledby="deletePresentationLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deletePresentationLabel">Editar Presentación</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#presentacionModal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="POST" action="<?= BASE_PATH ?>api-presentations" enctype="multipart/form-data">
+                            <input type="text" hidden name="action" value="update_presentation">
+                            <input type="text" name="global_token" value="<?= $_SESSION['global_token'] ?>" hidden>
+                            <input type="text" name="id" value="<?= $presentation->id ?>" hidden>
+                            <div class="col-sm-12">
+                              <div class="mb-3">
+                                <label class="form-label">Producto</label>
+                                <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
+                              </div>
+                              <div class="mb-3">
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                  data-bs-target="#presentacionModal">Guardar</button>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Modal de Detalles de Orden -->
+                  <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="orderDetailsModalLabel">Detalles de la Orden</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#presentacionModal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h6>ID de la Orden:</h6>
+                          <p>101</p>
+                          <h6>Cliente:</h6>
+                          <p>EL marcosss</p>
+                          <h6>Fecha:</h6>
+                          <p>2024-11-20</p>
+                          <h6>Total:</h6>
+                          <p>$150.00</p>
+                          <h6>Estado:</h6>
+                          <p>Completada</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#presentacionModal">Cerrar</button>
+                          <div class="card-body"> </div>
+                        </div>
+                      </div>
+                      <!-- [ sample-page ] end -->
+                    </div>
+                    <!-- [ Main Content ] end -->
                   </div>
                 </div>
-                <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                  <h3>Tabla de Órdenes</h3>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>ID Orden</th>
-                          <th>Cliente</th>
-                          <th>Fecha</th>
-                          <th>Total</th>
-                          <th>Estado</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>101</td>
-                          <td>El pansho</td>
-                          <td>2024-11-20</td>
-                          <td>$150.00</td>
-                          <td>Completada</td>
-                          <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
-                        <tr>
-                          <td>102</td>
-                          <td>Yooo</td>
-                          <td>2024-11-19</td>
-                          <td>$250.00</td>
-                          <td>Pendiente</td>
-                          <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <tr>
+                  <td><?= $presentation->id ?></td>
+                  <td><?= $presentation->description ?></td>
+                  <td><?= $presentation->stock ?></td>
+                  <td><?= $presentation->current_price->amount ?></td>
+                  <td><button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                      data-bs-target="#editPresentationModal<?= $presentation->id ?>">Editar</button>
+                    <button class="btn btn-danger btn-sm" data-bs-target="#deletePresentationModal<?= $presentation->id ?>">Eliminar</button>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+            <?php endif; ?>
+            </tbody>
+            </table>
               </div>
             </div>
-            <!-- Modal Agregar Presentación -->
-            <div class="modal fade" id="addPresentationModal" tabindex="-1" aria-labelledby="addPresentationLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="addPresentationLabel">Agregar Presentación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
-                      data-bs-target="#presentacionModal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                  <form method="POST" action="<?=BASE_PATH?>api-presentations" enctype="multipart/form-data">
-                      <input type="text" hidden name="action" value="create_presentation">
-                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
-                      <div class="col-sm-12">
-                        <div class="mb-3">
-                          <label class="form-label">Producto</label>
-                          <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Descripción</label>
-                          <textarea class="form-control" name="description" placeholder=""></textarea>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Estatus</label>
-                          <select class="form-control" name="status">
-                            <option value="active">Activa</option>
-                            <option value="inactive">Inactiva</option>
-                          </select>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label ">Stock</label>
-                          <input class="form-control number" name="stock" placeholder="1">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Stock minimo</label>
-                          <input class="form-control number" name="stock_min" placeholder="1">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Stock máximo</label>
-                          <input class="form-control number" name="stock_max" placeholder="1">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Peso (en gramos)</label>
-                          <input class="form-control" name="weight_in_grams">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Código</label>
-                          <input class="form-control" name="code">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Precio</label>
-                          <input class="form-control number" name="amount">
-                        </div>
-                        <div class="mb-3">
-                            <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click para subir imagen</label>
-                            <input type="file" name="cover" id="flupld" class="d-none" />
-                        </div>
-                    <div class="mb-3">
-                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#presentacionModal">Guardar</button>
-                        </div>
-                      
-                    </form>
-                  </div>
-                </div>
+            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+              <h3>Tabla de Órdenes</h3>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID Orden</th>
+                      <th>Cliente</th>
+                      <th>Fecha</th>
+                      <th>Total</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>101</td>
+                      <td>El pansho</td>
+                      <td>2024-11-20</td>
+                      <td>$150.00</td>
+                      <td>Completada</td>
+                      <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
+                    <tr>
+                      <td>102</td>
+                      <td>Yooo</td>
+                      <td>2024-11-19</td>
+                      <td>$250.00</td>
+                      <td>Pendiente</td>
+                      <td> <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">Ver Detalles</button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-            <!-- Modal Editar Presentación -->
-            <div class="modal fade" id="editPresentationModal" tabindex="-1" aria-labelledby="editPresentationLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editPresentationLabel">Editar Presentación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
-                      data-bs-target="#presentacionModal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mb-3">
-                        <label for="editPresentationName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editPresentationName" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="editPresentationStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="editPresentationStock" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="editPresentationPrice" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="editPresentationPrice" step="0.01" required>
-                      </div>
-                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#presentacionModal">Actualizar</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Modal de Detalles de Orden -->
-            <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="orderDetailsModalLabel">Detalles de la Orden</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
-                      data-bs-target="#presentacionModal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h6>ID de la Orden:</h6>
-                    <p>101</p>
-                    <h6>Cliente:</h6>
-                    <p>EL marcosss</p>
-                    <h6>Fecha:</h6>
-                    <p>2024-11-20</p>
-                    <h6>Total:</h6>
-                    <p>$150.00</p>
-                    <h6>Estado:</h6>
-                    <p>Completada</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                      data-bs-target="#presentacionModal">Cerrar</button>
-                    <div class="card-body"> </div>
-                  </div>
-                </div>
-                <!-- [ sample-page ] end -->
-              </div>
-              <!-- [ Main Content ] end -->
             </div>
           </div>
         </div>
-        <!-- [ sample-page ] end -->
+        <!-- Modal Agregar Presentación -->
+        <div class="modal fade" id="addPresentationModal" tabindex="-1" aria-labelledby="addPresentationLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addPresentationLabel">Agregar Presentación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                  data-bs-target="#presentacionModal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="<?= BASE_PATH ?>api-presentations" enctype="multipart/form-data">
+                  <input type="text" hidden name="action" value="create_presentation">
+                  <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Producto</label>
+                      <input type="text" class="form-control" name="product_id" value="<?= $product->id ?>" readonly>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Descripción</label>
+                      <textarea class="form-control" name="description" placeholder=""></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Estatus</label>
+                      <select class="form-control" name="status">
+                        <option value="active">Activa</option>
+                        <option value="inactive">Inactiva</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label ">Stock</label>
+                      <input class="form-control number" name="stock" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Stock minimo</label>
+                      <input class="form-control number" name="stock_min" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Stock máximo</label>
+                      <input class="form-control number" name="stock_max" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Peso (en gramos)</label>
+                      <input class="form-control" name="weight_in_grams">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Código</label>
+                      <input class="form-control" name="code">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Precio</label>
+                      <input class="form-control number" name="amount">
+                    </div>
+                    <div class="mb-3">
+                      <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click para subir imagen</label>
+                      <input type="file" name="cover" id="flupld" class="d-none" />
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#presentacionModal">Guardar</button>
+                    </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Editar Presentación -->
+
       </div>
-      <!-- [ Main Content ] end -->
+      <!-- [ sample-page ] end -->
     </div>
+    <!-- [ Main Content ] end -->
+  </div>
   </div>
 
   <?php
@@ -463,7 +565,7 @@ $presentationsFields = [
   include "../layouts/scripts.php";
 
   ?>
-<script>
+  <script>
     function setInputFilter(textbox, inputFilter, errMsg) {
       ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
         textbox.addEventListener(event, function(e) {
