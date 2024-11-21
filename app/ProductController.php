@@ -3,7 +3,9 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './products';
+}
 
 switch ($_POST["action"]) {
   case 'add_product':
@@ -11,7 +13,7 @@ switch ($_POST["action"]) {
     $res = $productController->createProduct($_POST);
     print_r($res);
     print_r($_POST);
-    // header('Location: ./products');
+    header('Location: ' . getReferer());
     exit();
     break;
   case 'update_product':
@@ -19,7 +21,7 @@ switch ($_POST["action"]) {
     $res = $productController->updateProduct($_POST);
     print_r($res);
     print_r($_POST);
-    // header('Location: ../products');
+    header('Location: ' . getReferer());
     exit();
     break;
   case 'delete_product':
