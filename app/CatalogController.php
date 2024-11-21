@@ -10,12 +10,12 @@ switch ($_POST["action"]) {
     $catalogController = new CatalogController();
     echo json_encode($catalogController->getAllCategories());
     break;
-    
+
   case 'category_details':
     $catalogController = new CatalogController();
     echo json_encode($catalogController->getCategoryById($_POST["category_id"]));
     break;
-    
+
   case 'add_category':
     $catalogController = new CatalogController();
     $res = $catalogController->createCategory($_POST);
@@ -34,6 +34,7 @@ switch ($_POST["action"]) {
     $catalogController = new CatalogController();
     $res = $catalogController->deleteCategory($_POST["category_id"]);
     echo json_encode($res);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     break;
 
   case 'list_brands':
@@ -64,6 +65,7 @@ switch ($_POST["action"]) {
     $catalogController = new CatalogController();
     $res = $catalogController->deleteBrand($_POST["brand_id"]);
     echo json_encode($res);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     break;
 
 
@@ -94,7 +96,8 @@ switch ($_POST["action"]) {
   case 'delete_tag':
     $catalogController = new CatalogController();
     $res = $catalogController->deleteTag($_POST["tag_id"]);
-    echo json_encode($res);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
     break;
 
   default:
@@ -108,49 +111,49 @@ class CatalogController
   private $apiBaseBrands = 'https://crud.jonathansoto.mx/api/brands';
   private $apiBaseTags = 'https://crud.jonathansoto.mx/api/tags';
 
-    function getAllCategories()
+  function getAllCategories()
   {
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $this->apiBaseCategories,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . $_SESSION['api_token'],
-          ),
-      ));
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseCategories,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response)->data;
-    }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
 
-      function getCategoryById($category_id)
+  function getCategoryById($category_id)
   {
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $this->apiBaseCategories . '/' . $categoryId,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . $_SESSION['api_token'],
-          ),
-      ));
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseCategories . '/' . $categoryId,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response)->data;
-    }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
 
   function createCategory($category)
   {
@@ -221,27 +224,27 @@ class CatalogController
     return json_decode($response)->data;
   }
 
-    function getAllBrands()
+  function getAllBrands()
   {
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $this->apiBaseBrands,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . $_SESSION['api_token'],
-          ),
-      ));
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseBrands,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response)->data;
-    }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
 
   function createBrand($brand)
   {
@@ -266,27 +269,27 @@ class CatalogController
     return json_decode($response)->data;
   }
 
-    function getBrandById($brand_id)
+  function getBrandById($brand_id)
   {
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $this->apiBaseBrands . '/' . $brand_id,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . $_SESSION['api_token'],
-          ),
-      ));
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand_id,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response)->data;
-    }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
 
   function updateBrand($brand)
   {
@@ -381,27 +384,27 @@ class CatalogController
     return json_decode($response)->data;
   }
 
-    function getTagById($tag_id)
+  function getTagById($tag_id)
   {
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $this->apiBaseTags . '/' . $tag_id,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . $_SESSION['api_token'],
-          ),
-      ));
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseTags . '/' . $tag_id,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return json_decode($response)->data;
-    }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
 
 
   function updateTag($tag)

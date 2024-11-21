@@ -83,9 +83,65 @@ $tags = $catalogController->getTags();
                           <td><?= $category->name ?></td>
                           <td><?= $category->description ?></td>
                           <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">Detalles</button>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal<?= $category->id ?>">Editar</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal<?= $category->id ?>">Eliminar</button>
+                            <div class="modal fade modal-animate" id="deleteCategoryModal<?= $category->id ?>" tabindex="-1" aria-labelledby="deleteTagLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteCategoryLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                    <input type="text" hidden name="action" value="delete_category">
+                                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                    <input name="category_id" hidden type="text" class="form-control" value="<?= $category->id ?>">
+                                    <div class="modal-body">
+                                      ¿Estás seguro de que deseas eliminar esta categoria?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                      <button type="submit" href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!--COMIENZO EDITAR CATEGORIA-->
+                            <div class="modal fade" id="editCategoryModal<?= $category->id ?>" tabindex="-1" aria-labelledby="editCategoryModal<?= $category->id ?>Label" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editCategoryModal<?= $category->id ?>Label">Editar Categoría</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                      <input type="text" hidden name="action" value="update_category">
+                                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                      <input type="text" name="id" value="<?= $category->id ?>" hidden>
+                                      <input type="text" name="category_id" value="<?= $category->category_id ?>" hidden>
+
+                                      <div class="mb-3">
+                                        <label for="addTagName" class="form-label">Nombre</label>
+                                        <input type="text" name="name" class="form-control" id="addTagName" required value="<?= $category->name ?>">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagDescription" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required><?= $category->description ?></textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagSlug" class="form-label">Slug</label>
+                                        <input type="text" name="slug" class="form-control" required value="<?= $category->slug ?>">
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--FIN EDITAR CATEGORIA-->
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -101,20 +157,73 @@ $tags = $catalogController->getTags();
                       <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>País de Origen</th>
+                        <th>Descripción</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach ($categories as $category) : ?>
+                      <?php foreach ($brands as $brand) : ?>
                         <tr>
-                          <td><?= $category->id ?></td>
-                          <td><?= $category->name ?></td>
-                          <td><?= $category->description ?></td>
+                          <td><?= $brand->id ?></td>
+                          <td><?= $brand->name ?></td>
+                          <td><?= $brand->description ?></td>
                           <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal">Editar</button>
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">Detalles</button>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBrandModal<?= $brand->id ?>">Editar</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteBrandModal<?= $brand->id ?>">Eliminar</button>
+                            <div class="modal fade modal-animate" id="deleteBrandModal<?= $brand->id ?>" tabindex="-1" aria-labelledby="deleteTagLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteBrandLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                    <input type="text" hidden name="action" value="delete_brand">
+                                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                    <input name="brand_id" hidden type="text" class="form-control" value="<?= $brand->id ?>">
+                                    <div class="modal-body">
+                                      ¿Estás seguro de que deseas eliminar esta marca?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                      <button type="submit" href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="modal fade" id="editBrandModal<?= $brand->id ?>" tabindex="-1" aria-labelledby="editBrandModal<?= $brand->id ?>Label" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editBrandModal<?= $brand->id ?>Label">Editar Marca</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                      <input type="text" hidden name="action" value="update_brand">
+                                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                      <input type="text" name="id" value="<?= $brand->id ?>" hidden>
+                                      <div class="mb-3">
+                                        <label for="addTagName" class="form-label">Nombre</label>
+                                        <input type="text" name="name" class="form-control" id="addTagName" required value="<?= $brand->name ?>">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagDescription" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required><?= $brand->description ?></textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagSlug" class="form-label">Slug</label>
+                                        <input type="text" name="slug" class="form-control" required value="<?= $brand->slug ?>">
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                           </td>
                         </tr>
                       <?php endforeach ?>
@@ -136,15 +245,71 @@ $tags = $catalogController->getTags();
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Ofertas</td>
-                        <td>Productos con descuento</td>
-                        <td>
-                          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTagModal" onclick="fillEditTag('1', 'Ofertas', 'Productos con descuento')">Editar</button>
-                          <button class="btn btn-danger btn-sm">Eliminar</button>
-                          <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsTagModal" onclick="showTagDetails('1', 'Ofertas', 'Productos con descuento')">Detalles</button>
-                        </td>
+                      <?php foreach ($tags as $tag) : ?>
+                        <tr>
+                          <td><?= $tag->id ?></td>
+                          <td><?= $tag->name ?></td>
+                          <td><?= $tag->description ?></td>
+                          <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editTagModal<?= $tag->id ?>">Editar</button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteTagModal<?= $tag->id ?>">Eliminar</button>
+
+                            <div class="modal fade modal-animate" id="deleteTagModal<?= $tag->id ?>" tabindex="-1" aria-labelledby="deleteTagLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteTagLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                    <input type="text" hidden name="action" value="delete_tag">
+                                    <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                    <input name="tag_id" hidden type="text" class="form-control" value="<?= $tag->id ?>">
+                                    <div class="modal-body">
+                                      ¿Estás seguro de que deseas eliminar esta etiqueta?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                      <button type="submit" href="#" id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="modal fade" id="editTagModal<?= $tag->id ?>" tabindex="-1" aria-labelledby="editTagModal<?= $tag->id ?>Label" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editTagModal<?= $tag->id ?>Label">Editar Etiqueta</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                                      <input type="text" hidden name="action" value="update_tag">
+                                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
+                                      <input type="text" name="id" value="<?= $tag->id ?>" hidden>
+                                      <div class="mb-3">
+                                        <label for="addTagName" class="form-label">Nombre</label>
+                                        <input type="text" name="name" class="form-control" id="addTagName" required value="<?= $tag->name ?>">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagDescription" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required><?= $tag->description ?></textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="addTagSlug" class="form-label">Slug</label>
+                                        <input type="text" name="slug" class="form-control" required value="<?= $tag->slug ?>">
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      <?php endforeach ?>
                       </tr>
                     </tbody>
                   </table>
@@ -162,14 +327,20 @@ $tags = $catalogController->getTags();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form>
+                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                      <input type="text" hidden name="action" value="add_category">
+                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                       <div class="mb-3">
-                        <label for="categoryName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="categoryName" required>
+                        <label for="addTagName" class="form-label">Nombre</label>
+                        <input type="text" name="name" class="form-control" id="addTagName" required>
                       </div>
                       <div class="mb-3">
-                        <label for="categoryDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="categoryDescription" rows="3" required></textarea>
+                        <label for="addTagDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="addTagSlug" class="form-label">Slug</label>
+                        <input type="text" name="slug" class="form-control" required>
                       </div>
                       <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
@@ -179,29 +350,7 @@ $tags = $catalogController->getTags();
             </div>
 
             <!-- Modal Editar Categoría -->
-            <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryModalLabel">Editar Categoría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mb-3">
-                        <label for="editCategoryName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editCategoryName" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="editCategoryDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="editCategoryDescription" rows="3" required></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
             <!-- Modal Detalles -->
             <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
@@ -321,14 +470,20 @@ $tags = $catalogController->getTags();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form id="addBrandForm">
+                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                      <input type="text" hidden name="action" value="add_brand">
+                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                       <div class="mb-3">
-                        <label for="addBrandName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="addBrandName" required>
+                        <label for="addTagName" class="form-label">Nombre</label>
+                        <input type="text" name="name" class="form-control" id="addTagName" required>
                       </div>
                       <div class="mb-3">
-                        <label for="addBrandOrigin" class="form-label">País de Origen</label>
-                        <input type="text" class="form-control" id="addBrandOrigin" required>
+                        <label for="addTagDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="addTagSlug" class="form-label">Slug</label>
+                        <input type="text" name="slug" class="form-control" required>
                       </div>
                       <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
@@ -345,14 +500,20 @@ $tags = $catalogController->getTags();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form id="addTagForm">
+                    <form method="POST" action="<?= BASE_PATH ?>api-catalog">
+                      <input type="text" hidden name="action" value="add_tag">
+                      <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                       <div class="mb-3">
                         <label for="addTagName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="addTagName" required>
+                        <input type="text" name="name" class="form-control" id="addTagName" required>
                       </div>
                       <div class="mb-3">
                         <label for="addTagDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="addTagDescription" rows="3" required></textarea>
+                        <textarea class="form-control" id="addTagDescription" rows="3" name="description" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="addTagSlug" class="form-label">Slug</label>
+                        <input type="text" name="slug" class="form-control" required>
                       </div>
                       <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>

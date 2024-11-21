@@ -19,7 +19,6 @@ $product = $productController->getProductBySlug($slug);
 $productCategories = $product->categories;
 $productTags = $product->tags;
 // print_r();
-echo '<h1>///</h1>';
 // print_r($product->tags);
 //
 ?>
@@ -99,8 +98,8 @@ echo '<h1>///</h1>';
                       <?php if (isset($productCategories) && sizeof($productCategories)): ?>
                         <?php foreach ($productCategories as $productCategory) : ?>
                           <div class="mb-3">
-                            <input type="text" class="form-control" id="slug_input" value="<?=$productCategory->name?>" readonly/> 
-                          </div> 
+                            <input type="text" class="form-control" id="slug_input" value="<?= $productCategory->name ?>" readonly />
+                          </div>
                         <?php endforeach ?>
                     </div>
                   <?php endif; ?>
@@ -117,7 +116,7 @@ echo '<h1>///</h1>';
                       <?php if (isset($productTags) && sizeof($productTags)): ?>
                         <?php foreach ($productTags as $productTag) : ?>
                           <div class="mb-3">
-                            <input type="text" class="form-control" id="slug_input" value="<?=$productTag->name?>" readonly/> 
+                            <input type="text" class="form-control" id="slug_input" value="<?= $productTag->name ?>" readonly />
                           </div>
                         <?php endforeach ?>
                     </div>
@@ -141,7 +140,7 @@ echo '<h1>///</h1>';
               </div>
 
               <div class="card-body btn-page">
-                <button type="submit" class="btn btn-primary mb-0">Save product</button>
+                <button type="submit" class="btn btn-primary mb-0">Guardar producto</button>
               </div>
           </div>
 

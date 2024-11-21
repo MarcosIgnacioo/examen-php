@@ -40,7 +40,7 @@ $categories = $categoryController->get();
 
             <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Add New Product</h2>
+                <h2 class="mb-0">Crea un nuevo producto</h2>
               </div>
             </div>
           </div>
@@ -55,21 +55,21 @@ $categories = $categoryController->get();
           <div class="col-xl-6">
             <div class="card">
               <div class="card-header">
-                <h5>Product description</h5>
+                <h5>Descripción del producto</h5>
               </div>
               <div class="card-body">
                 <input type="text" hidden name="action" value="add_product">
                 <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                 <div class="mb-3">
-                  <label class="form-label">Product Name</label>
-                  <input type="text" name="name" value="El camino de los reyes" class="form-control" placeholder="Enter Product Name" />
+                  <label class="form-label">Nombre</label>
+                  <input type="text" name="name" value="" class="form-control" placeholder="" />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Product Slug</label>
-                  <input type="text" name="slug" class="form-control" id="slug_input" value="el-camino-de-los-reyes" placeholder="Enter Product Name" />
+                  <label class="form-label">Slug</label>
+                  <input type="text" name="slug" class="form-control" id="slug_input" value="" placeholder="" />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Brand</label>
+                  <label class="form-label">Marca</label>
                   <select class="form-select" name="brand_id" id="brand_selector">
                     <?php if (isset($brands) && sizeof($brands)): ?>
                       <?php foreach ($brands as $brand) : ?>
@@ -128,22 +128,12 @@ $categories = $categoryController->get();
                 <?php endif; ?>
                 </div>
                 <div class="mb-0 mt-4">
-                  <label class="form-label">Product Description</label>
-                  <textarea class="form-control" name="description" placeholder="Enter Product Description">
-El camino de los reyes es el primer volumen de «El Archivo de las Tormentas», el resultado de más de una década de construcción y escritura de universos, convertido en una obra maestra de la fantasía contemporánea en diez volúmenes. Con ella, Brandon Sanderson se postula como el autor del género que más lectores está ganando en todo el mundo.
-</textarea>
+                  <label class="form-label">Descripción del producto</label>
+                  <textarea class="form-control" name="description" placeholder=""></textarea>
                 </div>
                 <div class="mb-0 mt-4">
-                  <label class="form-label">Product Features</label>
-                  <textarea class="form-control" name="features" placeholder="Enter Product Features">ASIN B014R3ODUI
-Editorial NOVA (27 agosto 2015)
-Idioma Español
-Tamaño del archivo 16342 KB
-Texto a voz Activado
-Lector de pantalla Respaldados
-Tipografía mejorada Activado
-Word Wise No activado
-Número de páginas 1517 páginas</textarea>
+                  <label class="form-label">Caracteristicas del producto</label>
+                  <textarea class="form-control" name="features" placeholder=""></textarea>
                 </div>
               </div>
             </div>
@@ -151,11 +141,10 @@ Número de páginas 1517 páginas</textarea>
           <div class="col-xl-6">
             <div class="card">
               <div class="card-header">
-                <h5>Product image</h5>
+                <h5>Imagen del producto</h5>
               </div>
               <div class="card-body">
                 <div class="mb-0">
-                  <p><span class="text-danger">*</span> Recommended resolution is 640*640 with file size</p>
                   <label class="btn btn-outline-secondary" for="flupld"><i class="ti ti-upload me-2"></i> Click to Upload</label>
                   <input type="file" name="cover" id="flupld" class="d-none" />
                 </div>
@@ -165,8 +154,8 @@ Número de páginas 1517 páginas</textarea>
           <div class="col-sm-12">
             <div class="card">
               <div class="card-body  btn-page flex d-flex">
-          <a href="<?=BASE_PATH?>products" type="submit" class="btn btn-secondary mb-0">Cancel</a>
-                <button type="submit" class="btn btn-primary mb-0 ms-auto">Save product</button>
+          <a href="<?=BASE_PATH?>products" type="submit" class="btn btn-secondary mb-0">Cancelar</a>
+                <button type="submit" class="btn btn-primary mb-0 ms-auto">Crear producto</button>
               </div>
             </div>
           </div>
@@ -216,9 +205,6 @@ Número de páginas 1517 páginas</textarea>
       e.target.parentElement.parentElement.remove();
     }
 
-    slug.value += '-' + parseInt(Math.random() * 10000);
-    category.selectedIndex = 21;
-    brand.selectedIndex = 40;
   </script>
 
   <?php

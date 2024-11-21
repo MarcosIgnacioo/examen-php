@@ -47,42 +47,7 @@
              </a>
            </div>
          </li>
-         <li class="pc-h-item">
-           <a class="pc-head-link pct-c-btn" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_pc_layout">
-             <i class="ph-duotone ph-gear-six"></i>
-           </a>
-         </li>
 
-
-         <li class="dropdown pc-h-item header-user-profile">
-           <a
-             class="pc-head-link dropdown-toggle arrow-none me-0"
-             data-bs-toggle="dropdown"
-             href="#"
-             role="button"
-             aria-haspopup="false"
-             data-bs-auto-close="outside"
-             aria-expanded="false">
-             <img src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="user-image" class="user-avtar" />
-           </a>
-           <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-             <div class="dropdown-header d-flex align-items-center justify-content-between">
-               <h5 class="m-0">Profile</h5>
-             </div>
-             <div class="dropdown-body">
-               <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)">
-                 <ul class="list-group list-group-flush w-100">
-                   <li class="list-group-item">
-                     <div class="d-flex align-items-center">
-                       <div class="flex-shrink-0">
-                         <img src="https://pbs.twimg.com/media/EROXX7PVUAIqPGR?format=jpg&name=small" alt="user-image" class="wid-50 rounded-circle" />
-                       </div>
-                       <div class="flex-grow-1 mx-3">
-                         <h5 class="mb-0">Usuario</h5>
-                       </div>
-                     </div>
-                   </li>
-         </li>
          <li class="list-group-item">
            <form method="POST" action="<?= BASE_PATH ?>/api-auth">
              <input type="hidden" name="action" value="logout">

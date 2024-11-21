@@ -3,25 +3,24 @@ include_once "../../app/config.php";
 include_once("../../app/ProductController.php");
 include_once("../../app/PresentationsController.php");
 $productController = new ProductController();
- $presentationController = new PresentationController();
- $link = $_SERVER['REQUEST_URI'];
- $link_array = explode('/', $link);
- $slug = end($link_array);
- $product = $productController->getProductBySlug($slug);
- $products = $productController->get();
- $presentations = $productController->getPresentationsByProduct($product->id);
- print_r(sizeof($presentations));
- $presentationsFields = [
-   "description" => "Descripción", // ya
-   "code" => "Código", // ya
-   "weight_in_grams" => "Peso En Gramos", // ya
-   "status" => "Estado", //yajk
-   "stock" => "Existencia", //ya
-   "stock_min" => "Existencia Mínima", //aya
-   "stock_max" => "Existencia Máxima", //ya
-   "product_id" => "Id Producto", //ya
-   "amount" => "Cantidad", // ya
- ];
+$presentationController = new PresentationController();
+$link = $_SERVER['REQUEST_URI'];
+$link_array = explode('/', $link);
+$slug = end($link_array);
+$product = $productController->getProductBySlug($slug);
+$products = $productController->get();
+$presentations = $productController->getPresentationsByProduct($product->id);
+$presentationsFields = [
+  "description" => "Descripción", // ya
+  "code" => "Código", // ya
+  "weight_in_grams" => "Peso En Gramos", // ya
+  "status" => "Estado", //yajk
+  "stock" => "Existencia", //ya
+  "stock_min" => "Existencia Mínima", //aya
+  "stock_max" => "Existencia Máxima", //ya
+  "product_id" => "Id Producto", //ya
+  "amount" => "Cantidad", // ya
+];
 
 ?>
 <!doctype html>
