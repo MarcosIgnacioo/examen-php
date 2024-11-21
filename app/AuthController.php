@@ -27,6 +27,8 @@ switch ($_POST["action"]) {
     exit();
 
   default:
+    echo 'Invalid action';
+
     break;
 }
 

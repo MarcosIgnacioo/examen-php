@@ -48,6 +48,8 @@ switch ($_POST["action"]) {
   
 
   default:
+    echo 'Invalid action';
+
     break;
 }
 
