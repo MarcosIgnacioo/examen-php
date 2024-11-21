@@ -9,14 +9,14 @@ switch ($_POST["action"]) {
   case 'create_order':
     $orderController = new OrderController();
     $res = $orderController->createOrder($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_order':
     $orderController = new OrderController();
     $res = $orderController->updateOrder($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

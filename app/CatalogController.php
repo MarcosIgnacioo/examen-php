@@ -19,14 +19,14 @@ switch ($_POST["action"]) {
   case 'add_category':
     $catalogController = new CatalogController();
     $res = $catalogController->createCategory($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_category':
     $catalogController = new CatalogController();
     $res = $catalogController->updateCategory($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
@@ -49,14 +49,14 @@ switch ($_POST["action"]) {
   case 'add_brand':
     $catalogController = new CatalogController();
     $res = $catalogController->createBrand($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_brand':
     $catalogController = new CatalogController();
     $res = $catalogController->updateBrand($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
@@ -80,14 +80,14 @@ switch ($_POST["action"]) {
   case 'add_tag':
     $catalogController = new CatalogController();
     $res = $catalogController->createTag($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_tag':
     $catalogController = new CatalogController();
     $res = $catalogController->updateTag($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

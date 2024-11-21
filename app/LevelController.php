@@ -9,14 +9,14 @@ switch ($_POST["action"]) {
   case 'create_level':
     $levelController = new LevelController();
     $res = $levelController->createLevel($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_level':
     $levelController = new LevelController();
     $res = $levelController->updateLevel($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

@@ -8,21 +8,21 @@ switch ($_POST["action"]) {
   case 'create_user':
     $userController = new UserController();
     $res = $userController->createUser($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'delete_user':
     $userController = new UserController();
     $res = $userController->deleteUser($_POST["id"]);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_user':
     $userController = new UserController();
     $res = $userController->updateUser($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

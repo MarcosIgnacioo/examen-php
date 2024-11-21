@@ -7,21 +7,21 @@ switch ($_POST["action"]) {
   case 'create_client':
     $clientController = new ClientController();
     $res = $clientController->createClient($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'delete_client':
     $clientController = new ClientController();
     $res = $clientController->deleteClient($_POST["id"]);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_client':
     $clientController = new ClientController();
     $res = $clientController->updateClient($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

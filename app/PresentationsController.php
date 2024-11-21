@@ -9,14 +9,14 @@ switch ($_POST["action"]) {
   case 'create_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->createPresentation($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->updatePresentation($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

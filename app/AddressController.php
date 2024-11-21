@@ -8,14 +8,14 @@ switch ($_POST["action"]) {
   case 'create_address':
     $addressController = new AddressController();
     $res = $addressController->createAddress($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 
   case 'update_address':
     $addressController = new AddressController();
     $res = $addressController->updateAddress($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
 

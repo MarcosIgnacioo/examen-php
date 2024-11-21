@@ -9,13 +9,13 @@ switch ($_POST["action"]) {
   case 'add_product':
     $productController = new ProductController();
     $res = $productController->createProduct($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
   case 'update_product':
     $productController = new ProductController();
     $res = $productController->updateProduct($_POST);
-    header('Location: ' . getReferer());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
     break;
   case 'delete_product':
