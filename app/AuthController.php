@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if (
   !$_POST || !$_POST["action"] || !$_POST["global_token"]
   || ($_SESSION["global_token"] != $_POST['global_token'])
@@ -13,17 +15,22 @@ switch ($_POST["action"]) {
     $authController = new Auth();
     $res = $authController->login($_POST["email"], $_POST["password"]);
     if ($res->code != 2) {
-      // print_r($res);
       header('Location: ' . 'login', true);
       return 'error';
     }
 
     $_SESSION["api_token"] = $res->data->token;
+    $_SESSION["user_name"] = $res->data->name; 
+    $_SESSION["user_email"] = $res->data->email;
 
     header('Location: products');
     exit();
 
-    break;
+  case 'logout':
+    session_unset();
+    session_destroy();
+    header('Location: /');
+    exit();
 
   default:
     break;

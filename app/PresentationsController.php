@@ -1,6 +1,7 @@
 <?php
-session_start();
-
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if (
   !$_POST || !$_POST["action"] || !$_POST["global_token"]
   || ($_SESSION["global_token"] != $_POST['global_token'])
@@ -9,18 +10,22 @@ if (
   return;
 }
 
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './products';
+}
+
 switch ($_POST["action"]) {
   case 'create_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->createPresentation($_POST);
-    header('Location: ./products');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_presentation':
     $presentationController = new PresentationController();
     $res = $presentationController->updatePresentation($_POST);
-    header('Location: ./products');
+    header('Location: ' . getReferer());
     exit();
     break;
 
@@ -74,7 +79,7 @@ class PresentationController
   function updatePresentation($presentation) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $presentation['presentation_id'],
+      CURLOPT_URL => $this->apiBase,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
