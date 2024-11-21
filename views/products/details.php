@@ -44,10 +44,10 @@ $product = $productController->getProductBySlug($slug);
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-            
+
             <div class="col-md-12">
               <div class="page-header-title">
-              <h2 class="mb-0"><?=$product->name?></h2>
+                <h2 class="mb-0"><?= $product->name ?></h2>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ $product = $productController->getProductBySlug($slug);
                     <div id="carouselExampleCaptions" class="carousel slide ecomm-prod-slider" data-bs-ride="carousel">
                       <div class="carousel-inner bg-light rounded position-relative">
                         <div class="carousel-item active">
-                        <img src=<?=$product->cover?> class="d-block w-100" alt="Product images" />
+                          <img src=<?= $product->cover ?> class="d-block w-100" alt="Product images" />
                         </div>
                       </div>
                     </div>
@@ -76,7 +76,7 @@ $product = $productController->getProductBySlug($slug);
                 </div>
                 <div class="col-md-6">
                   <span class="badge bg-success f-14">In stock</span>
-                  <h5 class="my-3"><?=$product->name?></h5>
+                  <h5 class="my-3"><?= $product->name ?></h5>
                   <div class="star f-18 mb-3">
                     <i class="fas fa-star text-warning"></i>
                     <i class="fas fa-star text-warning"></i>
@@ -87,10 +87,10 @@ $product = $productController->getProductBySlug($slug);
                   </div>
                   <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">About this item</h5>
                   <ul>
-                  <li class="mb-2">
-<?= $product->features ?>
-</li>
-                          
+                    <li class="mb-2">
+                      <?= $product->features ?>
+                    </li>
+
                   </ul>
 
                   <h3 class="mb-4">$<?= $product->presentations[0]->price[0]->amount ?></h3>
@@ -144,7 +144,7 @@ $product = $productController->getProductBySlug($slug);
                     <table class="table table-borderless mb-0">
                       <tbody>
                         <tr>
-<?=$product->description?>
+                          <?= $product->description ?>
                         </tr>
                       </tbody>
                     </table>

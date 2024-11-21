@@ -47,7 +47,7 @@ $brands = $brandController->get();
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
-           
+
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Products</h2>
@@ -146,6 +146,14 @@ $brands = $brandController->get();
           </div>
         </li>
       </ul>
+
+      <div class="card product-card shadow-none border-0">
+
+        <!-- Botón para abrir el Modal -->
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#presentacionModal">Presentaciones</button>
+
+      </div>
+
     </div>
   </div>
 
