@@ -12,6 +12,7 @@ RewriteRule ^products/?$ views/products/index.php
 RewriteRule ^products/create/?$ views/products/create.php
 RewriteRule ^products/edit/([^/]+)/?$ views/products/edit.php
 RewriteRule ^products/([^/]+)/?$ views/products/details.php
+RewriteRule ^products/([^/]+)/?$ views/products/lisDPresentacion.php
 
 
 RewriteRule ^user/create/?$ views/user/altaUser.php
@@ -36,7 +37,9 @@ RewriteRule ^api-category?$ app/CategoryController.php
 RewriteRule ^api-client?$ app/clientController.php
 RewriteRule ^api-config?$ app/config.php
 RewriteRule ^api-coupon?$ app/couponController.php
+RewriteRule ^api-level?$ app/LevelController.php
 RewriteRule ^api-order?$ app/orderController.php
+RewriteRule ^api-present?$ app/PresentationsController.php
 RewriteRule ^api-products?$ app/ProductController.php
 RewriteRule ^api-test?$ app/test.php
 RewriteRule ^api-user?$ app/userController.php

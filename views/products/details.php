@@ -204,8 +204,10 @@ $presentationsFields = [
             </div>
           </div>
           <div class="card">
-
+            
+            
             <div class="container mt-4">
+              <a href="<?= BASE_PATH ?>views\products\lisDPresentacion.php" class="btn btn-sm float-end">Ver Lista </a>
               <h2>Gestión de Presentaciones y Órdenes</h2>
               <ul class="nav nav-tabs" id="tabs" role="tablist">
                 <li class="nav-item" role="presentation">
