@@ -104,7 +104,7 @@ $addressFields = [
 
             <div class="row justify-content-between ali mb-3 g-3">
 
-              <a href='lisDCustomer.php' class='btn-primary col-sm-auto'>Regresar</a>
+              <a href='<?= BASE_PATH ?>customer' class='btn-primary col-sm-auto'>Regresar</a>
 
 
             </div>
@@ -228,7 +228,7 @@ $addressFields = [
                   </div>
                 </div>
                 <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
-                  <form method="POST" action="<?= BASE_PATH ?>api-address">
+                  <form method="POST" action="<?= BASE_PATH ?>api-client">
                     <input type="text" hidden name="action" value="update_client">
                     <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                     <input name="id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -256,39 +256,6 @@ $addressFields = [
                               <input name="phone_number" type="text" class="form-control" value="<?= $client->phone_number ?>">
                             </div>
                           </div>
-                          <div class="col-sm-6">
-                            <div class="mb-3">
-                              <label class="form-label">Estado</label>
-                              <input name="" type="text" class="form-control" value="<?= $address->province ?>">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <h5>Direccion Principal</h5>
-                      </div>
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <div class="mb-3">
-                              <label class="form-label">Codigo Postal</label>
-                              <input type="text" class="form-control" value="<?= $address->postal_code ?>">
-                            </div>
-                          </div>
-                          <div class="col-sm-12">
-                            <div class="mb-0">
-                              <label class="form-label">Cuidad</label>
-                              <input class="form-control" value="<?= $address->city ?>"></input>
-                            </div>
-                          </div>
-                          <div class="col-sm-12">
-                            <div class="mb-0">
-                              <label class="form-label">Calle</label>
-                              <input class="form-control" value="<?= $address->street_and_use_number ?>"></input>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -296,7 +263,6 @@ $addressFields = [
                       <div class="btn btn-outline-secondary">Cancelar</div>
                       <button type="submit" class="btn btn-primary">Acualizar Perfil</button>
                     </div>
-
                   </form>
                 </div>
 
@@ -431,7 +397,7 @@ $addressFields = [
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
-                                        <form method="POST" action="api-literlamente no existe">
+                                        <form method="POST" action="<?= BASE_PATH ?>api-address">
                                           <input type="text" hidden name="action" value="delete_address">
                                           <input type="text" name="global_token" value=<?= $_SESSION['global_token'] ?> hidden>
                                           <input name="client_id" hidden type="text" class="form-control" value="<?= $client->id ?>">
@@ -463,22 +429,76 @@ $addressFields = [
                                               <!---MANDATORY SHIT REMEMBER TO CHANGE THE ACTION NAME AND THE ID AND THE NAME OF THE ID FIELD JUST IN CASE EVERY TIME YOU COPYPASTE--->
                                               <div class="row">
                                                 <div class="col-sm-12">
-                                                  <?php foreach ($address as $key => $value) : ?>
-                                                    <div class="mb-6">
-                                                      <label <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> class="form-label"><?= $addressFields[$key] ?></label>
-                                                      <?php if (str_contains($key, "is_")) : ?>
-                                                        <select class="form-control" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
-                                                          <option <?= $isSelected = ($value == "1") ? "selected" : "" ?> value="1">Si</option>
-                                                          <option <?= $isSelected = ($value == "0") ? "selected" : "" ?> value="0">No</option>
-                                                        </select>
-                                                      <?php else : ?>
-                                                        <input <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="<?= $value ?>">
-                                                      <?php endif; ?>
-                                                    </div>
-                                                  <?php endforeach; ?>
+                                                  <!-- ID (oculto) -->
+                                                  <div class="mb-6">
+                                                    <input name="id" type="text" class="form-control id" value="<?= $address->id ?>" hidden>
+                                                  </div>
+
+                                                  <!-- Nombre -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Nombre</label>
+                                                    <input name="first_name" type="text" class="form-control first_name" value="<?= $address->first_name ?>">
+                                                  </div>
+
+                                                  <!-- Apellido -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Apellido</label>
+                                                    <input name="last_name" type="text" class="form-control last_name" value="<?= $address->last_name ?>">
+                                                  </div>
+
+                                                  <!-- Calle y número -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Calle y número</label>
+                                                    <input name="street_and_use_number" type="text" class="form-control street_and_use_number" value="<?= $address->street_and_use_number ?>">
+                                                  </div>
+
+                                                  <!-- Apartamento -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Apartamento</label>
+                                                    <input name="apartment" type="text" class="form-control apartment" value="<?= $address->apartment ?>">
+                                                  </div>
+
+                                                  <!-- Código Postal -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Código Postal</label>
+                                                    <input name="postal_code" type="text" class="form-control postal_code" value="<?= $address->postal_code ?>">
+                                                  </div>
+
+                                                  <!-- Ciudad -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Ciudad</label>
+                                                    <input name="city" type="text" class="form-control city" value="<?= $address->city ?>">
+                                                  </div>
+
+                                                  <!-- Provincia -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Provincia</label>
+                                                    <input name="province" type="text" class="form-control province" value="<?= $address->province ?>">
+                                                  </div>
+
+                                                  <!-- Número de teléfono -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">Número de teléfono</label>
+                                                    <input name="phone_number" type="text" class="form-control phone_number" value="<?= $address->phone_number ?>">
+                                                  </div>
+
+                                                  <!-- ¿Es dirección de facturación? (Selector) -->
+                                                  <div class="mb-6">
+                                                    <label class="form-label">¿Es dirección de facturación?</label>
+                                                    <select class="form-control" id="is_billing_address" name="is_billing_address">
+                                                      <option value="1" <?= $address->is_billing_address == "1" ? "selected" : "" ?>>Sí</option>
+                                                      <option value="0" <?= $address->is_billing_address == "0" ? "selected" : "" ?>>No</option>
+                                                    </select>
+                                                  </div>
+
+                                                  <!-- ID del cliente (oculto) -->
+                                                  <div class="mb-6" style="display:none;">
+                                                    <label class="form-label">ID del cliente</label>
+                                                    <input name="client_id" type="text" class="form-control client_id" value="<?= $address->client_id ?>">
+                                                  </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                </div>
+
+
                                               </div>
                                             </div>
                                           </div>
@@ -495,7 +515,6 @@ $addressFields = [
                             </div>
                           </li>
                         <?php endforeach ?>
-                        <?endif?>
                       </ul>
                     </div>
                   </div>
@@ -534,21 +553,55 @@ $addressFields = [
                 <div class="modal-body">
                   <div class="row">
                     <div class="col-sm-12">
-                      <?php foreach ($addressFields as $key => $value) : ?>
-                        <div class="mb-6">
-                          <label <?= $isHidden = (str_contains($key, "id")) ? "hidden" : "" ?> class="form-label"><?= $value ?></label>
-                          <?php if (str_contains($key, "is_")) : ?>
-                            <select class="form-control" id="<?= $key ?>" name="<?= $key ?>" value="<?= $value ?>">
-                              <option value="1">Si</option>
-                              <option value="0">No</option>
-                            </select>
-                            <!--- cambiar esto a un == id quizas despues --->
-                          <?php elseif (!str_contains($key, "id")) : ?>
-                            <input name="<?= $key ?>" type="text" class="form-control <?= $key ?>" value="asdf">
-                          <?php endif; ?>
-                        </div>
-                      <?php endforeach; ?>
+                      <div class="mb-6">
+                        <label class="form-label">Nombre</label>
+                        <input name="first_name" type="text" class="form-control first_name" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Apellido</label>
+                        <input name="last_name" type="text" class="form-control last_name" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Calle y número</label>
+                        <input name="street_and_use_number" type="text" class="form-control street_and_use_number" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Apartamento</label>
+                        <input name="apartment" type="text" class="form-control apartment" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Código Postal</label>
+                        <input name="postal_code" type="text" class="form-control postal_code" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Ciudad</label>
+                        <input name="city" type="text" class="form-control city" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Provincia</label>
+                        <input name="province" type="text" class="form-control province" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">Número de teléfono</label>
+                        <input name="phone_number" type="text" class="form-control phone_number" value="">
+                      </div>
+
+                      <div class="mb-6">
+                        <label class="form-label">¿Es dirección de facturación?</label>
+                        <select class="form-control" id="is_billing_address" name="is_billing_address">
+                          <option value="1">Sí</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
                     </div>
+
                     <div class="col-sm-6">
                     </div>
                   </div>

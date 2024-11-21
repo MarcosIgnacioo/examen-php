@@ -22,6 +22,7 @@ switch ($_POST["action"]) {
   case 'delete_address':
     $addressController = new AddressController();
     $res = $addressController->deleteAddress($_POST["address_id"]);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     echo json_encode($res);
     break;
 
@@ -36,7 +37,7 @@ switch ($_POST["action"]) {
     break;
 
   default:
-  echo 'Invalid action';
+    echo 'Invalid action';
     break;
 }
 
@@ -44,7 +45,8 @@ class AddressController
 {
   private $apiBase = 'https://crud.jonathansoto.mx/api/addresses';
 
-  function createAddress($address) {
+  function createAddress($address)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -67,7 +69,8 @@ class AddressController
     return json_decode($response)->data;
   }
 
-  function updateAddress($address) {
+  function updateAddress($address)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -91,7 +94,8 @@ class AddressController
     return json_decode($response)->data;
   }
 
-  function deleteAddress($address_id) {
+  function deleteAddress($address_id)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase . '/' . $address_id,
@@ -113,7 +117,8 @@ class AddressController
     return json_decode($response)->data;
   }
 
-  function getAllAddresses() {
+  function getAllAddresses()
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -135,7 +140,8 @@ class AddressController
     return json_decode($response)->data;
   }
 
-  function getAddressDetails($address_id) {
+  function getAddressDetails($address_id)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase . '/' . $address_id,
@@ -157,4 +163,3 @@ class AddressController
     return json_decode($response)->data;
   }
 }
-?>

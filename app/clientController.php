@@ -66,7 +66,7 @@ class ClientController
     $response = curl_exec($curl);
     curl_close($curl);
     return json_decode($response)->data;
-}
+  }
 
   function deleteClient($id)
   {
@@ -88,7 +88,7 @@ class ClientController
     $response = curl_exec($curl);
     curl_close($curl);
     return json_decode($response)->data;
-}
+  }
 
   function updateClient($client)
   {
@@ -112,7 +112,7 @@ class ClientController
     $response = curl_exec($curl);
     curl_close($curl);
     return json_decode($response)->data;
-}
+  }
 
   function getAllClients()
   {
@@ -140,7 +140,7 @@ class ClientController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBase . '/' . $id ,
+      CURLOPT_URL => $this->apiBase . '/' . $id,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -157,7 +157,4 @@ class ClientController
     curl_close($curl);
     return json_decode($response)->data;
   }
-
-  
-
 }
