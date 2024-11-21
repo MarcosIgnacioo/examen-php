@@ -97,7 +97,6 @@ $clients = $clientController->getAllClients();
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if (isset($clients) && sizeof($clients)) ?>
                       <?php foreach ($clients as $client) : ?>
                         <tr>
                           <td>
@@ -154,7 +153,6 @@ $clients = $clientController->getAllClients();
                           </td>
                         </tr>
                       <?php endforeach ?>
-                      <?endif?>
                     </tbody>
 
                   </table>
