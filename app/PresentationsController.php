@@ -24,6 +24,7 @@ switch ($_POST["action"]) {
     $presentationController = new PresentationController();
     $res = $presentationController->deletePresentation($_POST["presentation_id"]);
     echo json_encode($res);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     break;
 
   case 'list_presentations':
@@ -45,54 +46,56 @@ class PresentationController
 {
   private $apiBase = 'https://crud.jonathansoto.mx/api/presentations';
 
-  function createPresentation($presentation) {
+  function createPresentation($presentation)
+  {
     $uploadDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
     $uploadFile = $uploadDir . basename($_FILES['cover']['name']);
     if (move_uploaded_file($_FILES['cover']['tmp_name'], $uploadFile)) {
-        $presentation['cover'] = new CURLFILE(realpath($uploadFile));
+      $presentation['cover'] = new CURLFILE(realpath($uploadFile));
 
-        if (isset($presentation['categories']) && is_array($presentation['categories'])) {
-            foreach ($presentation['categories'] as $index => $category) {
-                $presentation["categories[$index]"] = $category;
-            }
-            unset($presentation['categories']);
+      if (isset($presentation['categories']) && is_array($presentation['categories'])) {
+        foreach ($presentation['categories'] as $index => $category) {
+          $presentation["categories[$index]"] = $category;
         }
+        unset($presentation['categories']);
+      }
 
-        if (isset($presentation['tags']) && is_array($presentation['tags'])) {
-            foreach ($presentation['tags'] as $index => $tag) {
-                $presentation["tags[$index]"] = $tag;
-            }
-            unset($presentation['tags']);
+      if (isset($presentation['tags']) && is_array($presentation['tags'])) {
+        foreach ($presentation['tags'] as $index => $tag) {
+          $presentation["tags[$index]"] = $tag;
         }
+        unset($presentation['tags']);
+      }
     }
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->apiBase,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => $presentation,
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer ' . $_SESSION['api_token'],
-        ),
+      CURLOPT_URL => $this->apiBase,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => $presentation,
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
     ));
 
     $response = curl_exec($curl);
     curl_close($curl);
 
     if (file_exists($uploadFile)) {
-        unlink($uploadFile);
+      unlink($uploadFile);
     }
 
     return json_decode($response)->data;
   }
 
-  function updatePresentation($presentation){
+  function updatePresentation($presentation)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -116,7 +119,8 @@ class PresentationController
     return json_decode($response)->data;
   }
 
-  function deletePresentation($presentation_id) {
+  function deletePresentation($presentation_id)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase . '/' . $presentation_id,
@@ -138,7 +142,8 @@ class PresentationController
     return json_decode($response)->data;
   }
 
-  function getAllPresentations() {
+  function getAllPresentations()
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase,
@@ -160,7 +165,8 @@ class PresentationController
     return json_decode($response)->data;
   }
 
-  function getPresentationDetails($presentation_id) {
+  function getPresentationDetails($presentation_id)
+  {
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => $this->apiBase . '/' . $presentation_id,
@@ -182,4 +188,3 @@ class PresentationController
     return json_decode($response)->data;
   }
 }
-?>
