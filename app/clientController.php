@@ -2,27 +2,30 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './';
+}
 
 
 switch ($_POST["action"]) {
   case 'create_client':
     $clientController = new ClientController();
     $res = $clientController->createClient($_POST);
-    header('Location: ./');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'delete_client':
     $clientController = new ClientController();
     $res = $clientController->deleteClient($_POST["id"]);
-    header('Location: ./');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_client':
     $clientController = new ClientController();
     $res = $clientController->updateClient($_POST);
-    header('Location: ./');
+    header('Location: ' . getReferer());
     exit();
     break;
 

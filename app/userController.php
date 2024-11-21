@@ -3,27 +3,30 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './user';
+}
 
 
 switch ($_POST["action"]) {
   case 'create_user':
     $userController = new UserController();
     $res = $userController->createUser($_POST);
-    header('Location: ./users');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'delete_user':
     $userController = new UserController();
     $res = $userController->deleteUser($_POST["id"]);
-    header('Location: ./users');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_user':
     $userController = new UserController();
     $res = $userController->updateUser($_POST);
-    header('Location: ./users');
+    header('Location: ' . getReferer());
     exit();
     break;
 

@@ -2,20 +2,23 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './customer';
+}
 
 
 switch ($_POST["action"]) {
   case 'create_address':
     $addressController = new AddressController();
     $res = $addressController->createAddress($_POST);
-    header('Location: ./customer');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_address':
     $addressController = new AddressController();
     $res = $addressController->updateAddress($_POST);
-    header('Location: ./customer');
+    header('Location: ' . getReferer());
     exit();
     break;
 

@@ -3,20 +3,23 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './orden';
+}
 
 
 switch ($_POST["action"]) {
   case 'create_order':
     $orderController = new OrderController();
     $res = $orderController->createOrder($_POST);
-    header('Location: ./orden');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_order':
     $orderController = new OrderController();
     $res = $orderController->updateOrder($_POST);
-    header('Location: ./orden');
+    header('Location: ' . getReferer());
     exit();
     break;
 

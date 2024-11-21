@@ -3,20 +3,22 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './levels';
+}
 
 switch ($_POST["action"]) {
   case 'create_level':
     $levelController = new LevelController();
     $res = $levelController->createLevel($_POST);
-    header('Location: ./levels');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_level':
     $levelController = new LevelController();
     $res = $levelController->updateLevel($_POST);
-    header('Location: ./levels');
+    header('Location: ' . getReferer());
     exit();
     break;
 

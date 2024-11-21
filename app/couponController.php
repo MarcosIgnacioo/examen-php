@@ -3,18 +3,23 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
+function getReferer() {
+  return $_SERVER['HTTP_REFERER'] ?? './cupones';
+}
+
+
 switch ($_POST["action"]) {
   case 'create_coupon':
     $couponController = new CouponController();
     $res = $couponController->createCoupon($_POST);
-    header('Location: ./cupones');
+    header('Location: ' . getReferer());
     exit();
     break;
 
   case 'update_coupon':
     $couponController = new CouponController();
     $res = $couponController->updateCoupon($_POST);
-    header('Location: ./cupones');
+    header('Location: ' . getReferer());
     exit();
     break;
 
