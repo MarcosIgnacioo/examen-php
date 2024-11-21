@@ -105,7 +105,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseCategories . '/' . $category['category_id'],
+      CURLOPT_URL => $this->apiBaseCategories,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -174,7 +174,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand['brand_id'],
+      CURLOPT_URL => $this->apiBaseBrands,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -267,7 +267,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseTags . '/' . $tag['tag_id'],
+      CURLOPT_URL => $this->apiBaseTags,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
