@@ -321,7 +321,6 @@ $addressFields = [
                             </tr>
                           </thead>
                           <tbody>
-                            <?php if (isset($orders) && sizeof($orders)) ?>
                             <?php foreach ($orders as $order) : ?>
                               <tr>
                                 <td><?= $order->id ?></td>
@@ -350,7 +349,6 @@ $addressFields = [
                                 <td><?= $order->total ?></td>
                               </tr>
                             <?php endforeach ?>
-                            <?endif?>
                           </tbody>
                         </table>
                       </div>
@@ -395,7 +393,6 @@ $addressFields = [
                     </div>
                     <div class="card-body">
                       <ul class="list-group list-group-flush">
-                        <?php if (isset($addresses) && sizeof($addresses)) ?>
                         <?php foreach ($addresses as $address) : ?>
                           <li class="list-group-item px-0 pt-0">
                             <div class="row">

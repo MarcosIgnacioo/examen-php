@@ -51,7 +51,7 @@ $brands = $brandController->get();
             <div class="col-md-12">
               <div class="page-header-title">
                 <h2 class="mb-0">Products</h2>
-                <a class="btn btn-primary" href="<?=BASE_PATH?>products/create">Agregar producto</a>
+                <a class="btn btn-primary" href="<?= BASE_PATH ?>products/create">Agregar producto</a>
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ $brands = $brandController->get();
             body: body.toString(),
             redirect: "follow"
           };
-          fetch(`http://localhost/products_php/api-products`, requestOptions)
+          fetch(`https://examen-ebc97cbf4820.herokuapp.com/api-products`, requestOptions)
             .then(response => response.text())
             .then(res => console.log(res))
             .catch(error => console.log('error', error));
