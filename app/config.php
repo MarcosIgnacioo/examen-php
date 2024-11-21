@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 
 function getReferer() {
-  return $_SERVER['HTTP_REFERER'] ?? './user';
+  return $_SERVER['HTTP_REFERER'] ?? './';
 }
 
 
