@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 if (
   !$_POST || !$_POST["action"] || !$_POST["global_token"]

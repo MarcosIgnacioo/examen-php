@@ -1,13 +1,14 @@
 <?php
-session_start();
-
-if (
-  !$_POST || !$_POST["action"] || !$_POST["global_token"]
-  || ($_SESSION["global_token"] != $_POST['global_token'])
-) {
-  echo 'There is no action';
-  return;
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
 }
+// if (
+//   !$_POST || !$_POST["action"] || !$_POST["global_token"]
+//   || ($_SESSION["global_token"] != $_POST['global_token'])
+// ) {
+//   echo 'There is no action';
+//   return;
+// }
 
 switch ($_POST["action"]) {
   case 'add_category':
@@ -84,7 +85,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseCategories, 
+      CURLOPT_URL => $this->apiBaseCategories,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -131,7 +132,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseCategories . '/' . $category_id, 
+      CURLOPT_URL => $this->apiBaseCategories . '/' . $category_id,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -153,7 +154,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseBrands, 
+      CURLOPT_URL => $this->apiBaseBrands,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -176,7 +177,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand['brand_id'], 
+      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand['brand_id'],
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -200,7 +201,7 @@ class CatalogController
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand_id, 
+      CURLOPT_URL => $this->apiBaseBrands . '/' . $brand_id,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -217,6 +218,30 @@ class CatalogController
     curl_close($curl);
     return json_decode($response)->data;
   }
+
+  function getTags()
+  {
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->apiBaseTags,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . $_SESSION['api_token'],
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response)->data;
+  }
+
 
   function createTag($tag)
   {
@@ -287,5 +312,3 @@ class CatalogController
     return json_decode($response)->data;
   }
 }
-
-
